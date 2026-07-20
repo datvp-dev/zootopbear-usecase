@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Use Case — Seller</title>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="content">
+    <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết. Các mục "Cần chốt" đang chờ khách xác nhận.</div>
+    <div class="canvas" id="canvas">
+      <div class="page-title">Use case của Seller</div>
+      <div class="page-sub">Người dùng chính của hệ thống · 8 use case</div>
+    </div>
+  </main>
+</div>
+
+<div class="detail-overlay" id="detailOverlay"><div class="detail-card" id="detailCard"></div></div>
+
+<script src="sidebar.js"></script>
+<script src="shared.js"></script>
+<script>
+renderSidebar('seller.html');
+renderUseCases({
+  actorName: 'Seller',
+  actorRole: 'Tự đăng ký, xem catalog theo tier, nạp tiền, tạo đơn và theo dõi',
+  theme: 't-teal',
+  useCases: [
+    {
+      code: 'UC-SEL-01', title: 'Đăng ký tài khoản', sub: 'Chờ admin duyệt',
+      detail: `
+        <h3>Precondition</h3>
+        <ul>
+          <li>Seller truy cập trang đăng ký từ landing page.</li>
+          <li>Email / số điện thoại chưa tồn tại trong hệ thống.</li>
+        </ul>
+        <h3>Luồng chính</h3>
+        <ol>
+          <li>Seller điền form: họ tên, email, SĐT, mật khẩu, thông tin shop và sản lượng dự kiến.</li>
+          <li>Hệ thống validate: định dạng email/SĐT, độ mạnh mật khẩu, email chưa trùng.</li>
+          <li>Tạo tài khoản trạng thái <b>Chờ duyệt</b>, gửi email xác nhận cho seller.</li>
+          <li>Tài khoản vào hàng chờ duyệt của admin.</li>
+          <li>Admin xem hồ sơ, chọn <b>Duyệt</b> và gán tier (1/2/3), có thể gán nhân viên phụ trách.</li>
+          <li>Tài khoản chuyển <b>Active</b>, seller nhận email và đăng nhập được.</li>
+        </ol>
+        <h3>Luồng ngoại lệ</h3>
+        <table>
+          <tr><th>Điều kiện</th><th>Xử lý</th></tr>
+          <tr><td>Admin từ chối</td><td>Chuyển Rejected, gửi email kèm lý do; seller có thể đăng ký lại.</td></tr>
+          <tr><td>Email đã tồn tại</td><td>Báo lỗi trên form, gợi ý đăng nhập / quên mật khẩu.</td></tr>
+          <tr><td>Đăng nhập khi chưa duyệt</td><td>Chỉ thấy màn "đang chờ duyệt", không vào được catalog.</td></tr>
+        </table>
+        <h3>Business rules</h3>
+        <ul>
+          <li>Tier mặc định là Tier 1 nếu admin không chọn (tránh seller Active không có bảng giá).</li>
+          <li>Mọi thao tác duyệt/từ chối/khóa đều ghi audit log.</li>
+        </ul>`
+    },
+    { code: 'UC-SEL-02', title: 'Xem catalog sản phẩm', sub: 'Giá tự động theo tier' },
+    { code: 'UC-SEL-03', title: 'Tải template thiết kế', sub: 'Mockup và template', flag: 'should' },
+    { code: 'UC-SEL-04', title: 'Nạp tiền vào ví', sub: 'QR, upload chứng từ' },
+    { code: 'UC-SEL-05', title: 'Tạo đơn hàng', sub: 'Import CSV hoặc API' },
+    { code: 'UC-SEL-06', title: 'Xem breakdown giá đơn', sub: 'Base, ship, add item fee' },
+    { code: 'UC-SEL-07', title: 'Theo dõi đơn và tracking', sub: 'Dashboard, filter, 17TRACK' },
+    { code: 'UC-SEL-08', title: 'Hủy đơn', sub: 'Hoàn tiền về ví', flag: 'open' },
+  ]
+});
+</script>
+</body>
+</html>

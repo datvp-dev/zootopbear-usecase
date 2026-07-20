@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Use Case — Vận hành</title>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="content">
+    <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết. Cần chốt: Vận hành xem toàn bộ đơn hay giới hạn theo seller phụ trách.</div>
+    <div class="canvas" id="canvas">
+      <div class="page-title">Use case của Vận hành</div>
+      <div class="page-sub">Theo dõi đơn gửi xưởng, xử lý sự cố · 3 use case</div>
+    </div>
+  </main>
+</div>
+
+<div class="detail-overlay" id="detailOverlay"><div class="detail-card" id="detailCard"></div></div>
+
+<script src="sidebar.js"></script>
+<script src="shared.js"></script>
+<script>
+renderSidebar('vanhanh.html');
+renderUseCases({
+  actorName: 'Vận hành',
+  actorRole: 'Theo dõi đơn gửi xưởng và xử lý sự cố sản xuất',
+  theme: 't-coral',
+  useCases: [
+    { code: 'UC-OPS-01', title: 'Theo dõi đơn gửi xưởng', sub: 'Nhật ký gửi, trạng thái' },
+    { code: 'UC-OPS-02', title: 'Xử lý đơn Hold, lỗi', sub: 'Vấn đề design, retry gửi' },
+    { code: 'UC-OPS-03', title: 'Theo dõi tracking thiếu', sub: 'Đơn shipped chưa có mã', flag: 'should' },
+  ]
+});
+</script>
+</body>
+</html>

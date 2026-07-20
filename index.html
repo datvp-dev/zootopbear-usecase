@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Use Case Overview — Zootop Bear</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .overview { padding: 40px 48px 60px; max-width: 900px; }
+  .overview .lead { font-size: 15px; color: var(--muted); margin-bottom: 8px; }
+  .overview h2.big { font-size: 26px; font-weight: 600; margin-bottom: 12px; }
+  .intro-note {
+    background: rgba(29,158,117,0.08); border: 1px solid rgba(29,158,117,0.25);
+    border-radius: 12px; padding: 16px 20px; font-size: 14px; color: var(--teal-sub); margin-bottom: 32px;
+  }
+  .role-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+  .role-card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px 24px; text-decoration: none; color: var(--ink); display: block;
+    border-left: 4px solid var(--c); transition: transform 0.12s, border-color 0.12s;
+  }
+  .role-card:hover { transform: translateY(-2px); border-color: var(--c); }
+  .role-card .rc-name { font-size: 18px; font-weight: 600; }
+  .role-card .rc-count { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .role-card .rc-desc { font-size: 13px; color: var(--muted); margin-top: 12px; line-height: 1.5; }
+  .flags-legend { display: flex; gap: 18px; margin-top: 28px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+  .flags-legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .chip { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; }
+  .confirm {
+    margin-top: 36px; padding: 22px 26px; border: 1px dashed var(--line);
+    border-radius: 14px; background: var(--panel);
+  }
+  .confirm h3 { font-size: 15px; margin-bottom: 12px; }
+  .confirm label { display: block; margin: 9px 0; color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="content">
+    <div class="overview">
+      <div class="lead">Zootop Bear · Phase 1 · Go-live 12/2026</div>
+      <h2 class="big">Use Case Overview</h2>
+      <div class="intro-note">
+        Tài liệu liệt kê toàn bộ use case theo từng vai trò để khách hàng xác nhận đúng/đủ phạm vi
+        trước khi đi vào đặc tả chi tiết. Chọn một vai trò để xem sơ đồ và bấm vào từng use case xem giải thích.
+      </div>
+
+      <div class="role-grid">
+        <a class="role-card" href="seller.html" style="--c:var(--teal)">
+          <div class="rc-name">Seller</div>
+          <div class="rc-count">8 use case</div>
+          <div class="rc-desc">Người dùng chính. Đăng ký, xem catalog theo tier, nạp tiền, tạo đơn, theo dõi.</div>
+        </a>
+        <a class="role-card" href="admin.html" style="--c:var(--purple)">
+          <div class="rc-name">Admin</div>
+          <div class="rc-count">8 use case</div>
+          <div class="rc-desc">Toàn quyền: seller, catalog, giá, xưởng, đơn, ví. Kế thừa chức năng Kế toán.</div>
+        </a>
+        <a class="role-card" href="ketoan.html" style="--c:var(--amber)">
+          <div class="rc-name">Kế toán</div>
+          <div class="rc-count">4 use case</div>
+          <div class="rc-desc">Duyệt nạp tiền, điều chỉnh ví, xem ledger, đối soát top-up.</div>
+        </a>
+        <a class="role-card" href="vanhanh.html" style="--c:var(--coral)">
+          <div class="rc-name">Vận hành</div>
+          <div class="rc-count">3 use case</div>
+          <div class="rc-desc">Theo dõi đơn gửi xưởng, xử lý đơn Hold/lỗi, rà tracking thiếu.</div>
+        </a>
+        <a class="role-card" href="cskh.html" style="--c:var(--pink)">
+          <div class="rc-name">CSKH</div>
+          <div class="rc-count">2 use case</div>
+          <div class="rc-desc">Xem đơn seller phụ trách, ghi chú hỗ trợ trên đơn.</div>
+        </a>
+      </div>
+
+      <div class="flags-legend">
+        <b style="color:var(--ink)">Chú thích nhãn:</b>
+        <span><span class="chip flag-open">Cần chốt</span> phụ thuộc quyết định khách</span>
+        <span><span class="chip flag-should">Should</span> nên có, không bắt buộc go-live</span>
+        <span>Không nhãn = Must have (bắt buộc)</span>
+      </div>
+
+      <div class="confirm">
+        <h3>Điểm cần khách hàng chốt</h3>
+        <label>☐ Hủy đơn &amp; credit đặc biệt (UC-SEL-08, UC-ADM-07): trạng thái nào được hủy, ai duyệt hoàn tiền, cơ chế "credit giả".</label>
+        <label>☐ Phân quyền Vận hành: xem toàn bộ đơn hay giới hạn theo seller phụ trách?</label>
+        <label>☐ Admin Dashboard (UC-ADM-08): các cột/thông tin cụ thể cần hiển thị.</label>
+        <label>☐ Xác nhận danh sách use case này đúng và đủ cho Phase 1.</label>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="sidebar.js"></script>
+<script>renderSidebar('index.html');</script>
+</body>
+</html>
