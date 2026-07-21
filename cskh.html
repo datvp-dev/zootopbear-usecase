@@ -13,7 +13,7 @@
     <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết.</div>
     <div class="canvas" id="canvas">
       <div class="page-title">Use case của CSKH</div>
-      <div class="page-sub">Hỗ trợ seller được phân công phụ trách · 3 use case</div>
+      <div class="page-sub">Hỗ trợ seller được phân công phụ trách · 4 use case</div>
     </div>
   </main>
 </div>
@@ -31,7 +31,8 @@ renderUseCases({
   useCases: [
     { code: 'UC-SUP-01', title: 'Xem seller và đơn phụ trách', sub: 'Chỉ seller được gán, xem status/tracking' },
     { code: 'UC-SUP-02', title: 'Ghi chú hỗ trợ trên đơn', sub: 'Lịch sử trao đổi và hướng xử lý' },
-    { code: 'UC-SUP-03', title: 'Chuyển xử lý đơn lỗi', sub: 'Escalate cho vận hành/admin', flag: 'should' },
+    { code: 'UC-SUP-03', title: 'Tiếp nhận ticket của seller', sub: 'Vấn đề cần sửa hoặc hỗ trợ đơn hàng' },
+    { code: 'UC-SUP-04', title: 'Chuyển xử lý đơn lỗi', sub: 'Escalate cho vận hành/admin hoặc xưởng' },
   ]
 });
 </script>

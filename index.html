@@ -50,13 +50,13 @@
       <div class="role-grid">
         <a class="role-card" href="seller.html" style="--c:var(--teal)">
           <div class="rc-name">Seller</div>
-          <div class="rc-count">10 use case</div>
-          <div class="rc-desc">Người dùng chính. Đăng ký, xem catalog, nạp tiền, nhập đơn, upload thiết kế, theo dõi tracking.</div>
+          <div class="rc-count">11 use case</div>
+          <div class="rc-desc">Người dùng chính. Đăng ký, catalog, nạp tiền, nhập đơn, tracking, hủy đơn, tạo ticket hỗ trợ.</div>
         </a>
         <a class="role-card" href="admin.html" style="--c:var(--purple)">
           <div class="rc-name">Admin</div>
-          <div class="rc-count">10 use case</div>
-          <div class="rc-desc">Full quyền: seller, catalog, giá, 5 nền tảng fulfillment/xưởng, đơn, ví, top-up/refund, audit.</div>
+          <div class="rc-count">11 use case</div>
+          <div class="rc-desc">Full quyền: seller, catalog, giá, 5 nền tảng fulfillment/xưởng, đơn, ví, ticket, audit.</div>
         </a>
         <a class="role-card" href="ketoan.html" style="--c:var(--amber)">
           <div class="rc-name">Kế toán</div>
@@ -65,13 +65,13 @@
         </a>
         <a class="role-card" href="vanhanh.html" style="--c:var(--coral)">
           <div class="rc-name">Vận hành</div>
-          <div class="rc-count">5 use case</div>
-          <div class="rc-desc">Theo dõi đơn gửi nền tảng/xưởng, log kết nối, xử lý Hold/lỗi, retry, rà tracking thiếu.</div>
+          <div class="rc-count">6 use case</div>
+          <div class="rc-desc">Theo dõi đơn gửi nền tảng/xưởng, log kết nối, xử lý Hold/lỗi, retry, tracking, ticket.</div>
         </a>
         <a class="role-card" href="cskh.html" style="--c:var(--pink)">
           <div class="rc-name">CSKH</div>
-          <div class="rc-count">3 use case</div>
-          <div class="rc-desc">Xem seller/đơn/tracking được phân công, ghi chú hỗ trợ và chuyển xử lý đơn lỗi.</div>
+          <div class="rc-count">4 use case</div>
+          <div class="rc-desc">Xem seller/đơn/tracking được phân công, ghi chú, tiếp nhận và chuyển xử lý ticket.</div>
         </a>
       </div>
 
@@ -84,7 +84,8 @@
 
       <div class="confirm">
         <h3>Điểm cần khách hàng chốt</h3>
-        <label>☐ Hủy đơn &amp; credit đặc biệt (UC-SEL-10, UC-ADM-09): trạng thái nào được hủy, ai duyệt hoàn tiền, cơ chế "credit giả".</label>
+        <label>☐ Hủy đơn: seller tự hủy trong 30 phút sau khi lên đơn; sau 30 phút cần liên hệ support để hỗ trợ hủy.</label>
+        <label>☐ Ticket hỗ trợ đơn hàng: seller tạo ticket, hệ thống chuyển vấn đề/sửa đơn qua API tới nền tảng/xưởng tương ứng.</label>
         <label>☐ Mapping template fulfill sang order nội bộ và API từng nền tảng: nguồn dữ liệu từng cột, SKU/Variant, shipping, label, design/mockup.</label>
         <label>☐ Tách 2 lớp giá: giá seller trả cho Zootop Bear và giá/cost tạo đơn trên FlashShip/SimplePrint/PrintBelle/ART ADD/Snap Ecom.</label>
         <label>☐ Phân quyền nội bộ: Admin full quyền; cần chốt Kế toán, Vận hành, CSKH xem/làm gì và có giới hạn theo seller phụ trách không.</label>
