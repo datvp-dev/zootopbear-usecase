@@ -13,8 +13,32 @@
     <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết. Seller chỉ thao tác trên Zootop Bear; hệ thống sẽ tính giá, map dữ liệu và bắn đơn sang nền tảng/xưởng phù hợp.</div>
     <div class="canvas" id="canvas">
       <div class="page-title">Use case của Seller</div>
-      <div class="page-sub">Người dùng chính của hệ thống · 10 use case</div>
+      <div class="page-sub">Người dùng chính của hệ thống · 11 use case</div>
     </div>
+    <section class="manual-flow-panel" aria-label="Confirm luồng hoạt động thủ công">
+      <div class="panel-head">
+        <div class="panel-title">Confirm luồng hoạt động thủ công khi seller tạo đơn</div>
+        <div class="panel-sub">Dựa trên file fulfill thủ công, US Factory Catalog và file tracking PrintBelle để mô tả cách Zootop Bear đang vận hành hiện tại.</div>
+      </div>
+      <table class="manual-flow-table">
+        <thead>
+          <tr>
+            <th>Luồng cần xem</th>
+            <th>Dữ liệu đã đối chiếu</th>
+            <th>Mục tiêu confirm</th>
+            <th>Mở</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="click-row" onclick="window.location.href='seller-manual-flow.html'">
+            <td><b>Seller gửi đơn → Zootop Bear xử lý Excel → đơn sang nền tảng/xưởng</b></td>
+            <td>File fulfill thủ công, catalog, tracking PrintBelle</td>
+            <td><span class="status-chip">Cần chốt</span> mapping order, SKU/Variant, supplier, cost, tracking</td>
+            <td><a class="flow-link" href="seller-manual-flow.html">Xem luồng</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </main>
 </div>
 
@@ -67,7 +91,8 @@ renderUseCases({
     { code: 'UC-SEL-07', title: 'Upload/link file thiết kế', sub: 'Design front, mockup, product note' },
     { code: 'UC-SEL-08', title: 'Xem breakdown và thanh toán đơn', sub: 'Giá Zootop Bear, ví, trạng thái Pending/Confirm' },
     { code: 'UC-SEL-09', title: 'Theo dõi đơn và tracking', sub: 'Status, carrier, link, 17TRACK' },
-    { code: 'UC-SEL-10', title: 'Hủy đơn và nhận hoàn tiền', sub: 'Theo trạng thái được phép hủy', flag: 'open' },
+    { code: 'UC-SEL-10', title: 'Hủy đơn và nhận hoàn tiền', sub: 'Tự hủy trong 30 phút, sau đó liên hệ support' },
+    { code: 'UC-SEL-11', title: 'Tạo ticket hỗ trợ đơn hàng', sub: 'Yêu cầu sửa/vấn đề đơn gửi tới xưởng' },
   ]
 });
 </script>

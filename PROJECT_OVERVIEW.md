@@ -12,6 +12,7 @@ He thong Zootop Bear dong vai tro lop trung gian/orchestration layer:
 4. Zootop Bear call API cua nen tang phu hop de tao don.
 5. Nen tang fulfillment cap nhat trang thai/tracking ve Zootop Bear qua API/webhook.
 6. Seller chi xem trang thai, tracking, chi phi va lich su tren he thong Zootop Bear.
+7. Neu don hang co van de hoac can sua, seller tao ticket tren Zootop Bear; ticket duoc chuyen/bo sung qua API toi nen tang/xuong tuong ung neu nen tang ho tro.
 
 Doi noi bo Zootop Bear dung he thong de quan ly seller, catalog, bang gia, vi tien, don hang, nha cung cap/xuong, mapping du lieu, ket noi API va doi soat.
 
@@ -39,6 +40,7 @@ Muc tieu phase 1 la chot dung va du pham vi chuc nang theo tung role truoc, sau 
 - Tao don/nhap don: import CSV/API, nhap thong tin nguoi nhan, san pham, so luong, link/file thiet ke, tinh gia.
 - Thanh toan don: kiem tra so du, tru tien khi xac nhan, xu ly don pending khi thieu tien.
 - Huy don/hoan tien: huy truoc san xuat, hoan tien khi supplier fail/tu choi, ghi lich su.
+- Ticket ho tro don hang: seller tao ticket, CSKH/Van hanh/Admin theo doi va day van de/sua don sang nen tang/xuong tuong ung.
 - Gui don sang supplier qua API, nhan trang thai tu supplier, retry loi, nhat ky ket noi.
 - Tracking: luu tracking number/carrier/link, ket noi 17TRACK/webhook, hien thi cho seller.
 - Thong bao Telegram cho tao don/nhap file va luu lich su thong bao.
@@ -56,11 +58,11 @@ Muc tieu phase 1 la chot dung va du pham vi chuc nang theo tung role truoc, sau 
 
 | Role | Trach nhiem chinh |
 | --- | --- |
-| Seller | Dang ky, xem catalog, tai template, nap tien, tao/nhap don, xem gia, theo doi don va tracking, huy don trong dieu kien cho phep. |
-| Admin | Full quyen voi he thong: quan ly seller, tai khoan noi bo, catalog, bang gia, supplier/xuong, don, vi tien, top-up/refund, credit dac biet, dashboard va audit log. |
+| Seller | Dang ky, xem catalog, tai template, nap tien, tao/nhap don, xem gia, theo doi don va tracking, huy don trong 30 phut, tao ticket ho tro don hang. |
+| Admin | Full quyen voi he thong: quan ly seller, tai khoan noi bo, catalog, bang gia, supplier/xuong, don, vi tien, top-up/refund, credit dac biet, ticket, dashboard va audit log. |
 | Ke toan | Duyet/tu choi nap tien, dieu chinh vi, xem ledger, export billing/top-up history. |
-| Van hanh | Theo doi don gui supplier/xuong, xu ly don hold/loi, retry, theo doi tracking thieu. |
-| CSKH | Xem don cua seller duoc phan cong, ghi chu/ho tro xu ly van de tren don. |
+| Van hanh | Theo doi don gui supplier/xuong, xu ly don hold/loi, retry, theo doi tracking thieu va ticket gui xuong. |
+| CSKH | Xem don cua seller duoc phan cong, ghi chu, tiep nhan ticket va ho tro xu ly van de tren don. |
 
 ## 5. Module nghiep vu loi
 
@@ -167,6 +169,18 @@ Rule routing theo san pham. Supplier/platform khong can thay thong tin seller th
 
 Seller can xem tracking number, carrier, tracking link, trang thai van chuyen va ngay giao du kien.
 
+### Ticket ho tro don hang
+
+Khach da yeu cau them chuc nang tao ticket tuong tu Simple Hub. Luong tong quat:
+
+1. Seller mo don hang va tao ticket khi co van de can sua/ho tro.
+2. Seller nhap noi dung van de, loai yeu cau, ghi chu, file/link bo sung neu co.
+3. He thong xac dinh don dang thuoc nen tang/xuong nao.
+4. He thong luu ticket noi bo va day ticket/van de qua API toi nen tang/xuong tuong ung neu API ho tro.
+5. CSKH/Van hanh/Admin theo doi ticket va cap nhat trang thai xu ly cho seller.
+
+Can lam ro them voi tung nen tang: co API tao ticket/issue/message khong, field bat buoc la gi, co webhook phan hoi ticket khong, va neu nen tang khong co API ticket thi fallback thao tac thu cong nhu the nao.
+
 ## 6. Timeline ke hoach
 
 | Giai doan | Thoi gian | Noi dung chinh | Gio |
@@ -184,6 +198,8 @@ Tong ke hoach: 98 task, 750 gio, khong cong buffer rieng.
 
 - API docs, sandbox/tai khoan test va contact ky thuat cua 5 supplier/nen tang can co truoc 31/07/2026.
 - Can chot ro trang thai nao duoc huy, cach hoan tien, ai duoc dieu chinh vi va cach xu ly supplier fail/tu choi don.
+- Rule huy don da duoc khach tra loi o muc role: seller tu huy trong 30 phut sau khi len don; sau 30 phut can lien he support ho tro huy.
+- Can chot chi tiet ticket: loai ticket, field bat buoc, file dinh kem/link, trang thai ticket va kha nang day API ticket sang tung nen tang/xuong.
 - Can chot cong thuc gia cuoi cung, dac biet don nhieu san pham va phan biet label ship/ship by seller.
 - Can chot data mapping tu template fulfill vao order noi bo va tu order noi bo sang API tung nen tang supplier.
 - Can chot cach tach gia seller va gia/cost tren nen tang fulfillment.
@@ -197,10 +213,10 @@ Tong ke hoach: 98 task, 750 gio, khong cong buffer rieng.
 Bo HTML hien tai gom 5 trang role va 1 trang tong quan:
 
 - `index.html`: tong quan role va cac diem can chot.
-- `seller.html`: 8 use case Seller, moi UC-SEL-01 co chi tiet luong.
-- `admin.html`: 8 use case Admin.
-- `ketoan.html`: 4 use case Ke toan.
-- `vanhanh.html`: 3 use case Van hanh.
-- `cskh.html`: 2 use case CSKH.
+- `seller.html`: 11 use case Seller, moi UC-SEL-01 co chi tiet luong.
+- `admin.html`: 11 use case Admin.
+- `ketoan.html`: 5 use case Ke toan.
+- `vanhanh.html`: 6 use case Van hanh.
+- `cskh.html`: 4 use case CSKH.
 
 Bo use case hien tai dung huong cho muc tieu chot role/function truoc, nhung can bo sung/chinh lai mot so diem de khop voi QA va ke hoach chi tiet, dac biet: 5 nen tang supplier/fulfillment, Telegram, import CSV validation/batch, product detail/template, wallet ledger, order state machine, cancellation/refund va phan quyen noi bo.

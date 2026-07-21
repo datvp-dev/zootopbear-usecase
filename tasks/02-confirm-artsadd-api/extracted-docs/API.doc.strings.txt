@@ -1,0 +1,33 @@
+KSOProductBuildVer
+API Path POST https://fulfillment.artsadd.com/api/order/create Name
+order
+products
+AppKey
+StoreID
+Timestamp
+Sign
+Order Info [order] Name
+You defined order.
+The order create time
+shipping_name optional
+Shipping channel name Default: Standard
+The order’s total charge Default:0.00
+The order remark
+address1 required
+The street address
+address2 optional
+customer required
+The order item id
+shipping_price optional
+The shipping charge Default: 0.00
+product_price optional
+The product price Default: 0.00
+product_sku required
+Your product sku
+Product [products] Name
+product_sku required
+Your product sku
+The product size
+The product name
+supplier_sku required
+System product sku

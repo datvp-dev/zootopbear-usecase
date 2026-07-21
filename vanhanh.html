@@ -13,7 +13,7 @@
     <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết. Cần chốt: Vận hành xem toàn bộ đơn hay giới hạn theo seller phụ trách.</div>
     <div class="canvas" id="canvas">
       <div class="page-title">Use case của Vận hành</div>
-      <div class="page-sub">Theo dõi đơn gửi nền tảng/xưởng, xử lý sự cố · 5 use case</div>
+      <div class="page-sub">Theo dõi đơn gửi nền tảng/xưởng, xử lý sự cố · 6 use case</div>
     </div>
   </main>
 </div>
@@ -34,6 +34,7 @@ renderUseCases({
     { code: 'UC-OPS-03', title: 'Xử lý đơn Hold', sub: 'Thiếu/sai design, dữ liệu đơn có vấn đề' },
     { code: 'UC-OPS-04', title: 'Retry đơn gửi lỗi', sub: 'API/webhook error, log request/response' },
     { code: 'UC-OPS-05', title: 'Theo dõi tracking thiếu', sub: 'Đơn shipped chưa có mã hoặc webhook chậm' },
+    { code: 'UC-OPS-06', title: 'Theo dõi ticket gửi xưởng', sub: 'Vấn đề/sửa đơn được đẩy tới nền tảng tương ứng' },
   ]
 });
 </script>

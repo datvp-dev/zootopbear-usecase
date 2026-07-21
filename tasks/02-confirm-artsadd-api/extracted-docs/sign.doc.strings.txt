@@ -1,0 +1,3 @@
+KSOProductBuildVer
+Example Assume the AppKey value is 1190312985193100; the AppSecret value is a6c2eb1a71a5f92dcacadc495b76db00; and the StoreID value is c932958ddb6cc8beb5eefbb1a0b31900 The parameters used for generating the signature are AppKey, StoreID, and Timestamp (the current Unix timestamp). For example:
+Concatenate all parameters in the format {key}{=}{value}{&}, and remove the trailing & from the final string. The complete string is as follows: AppKey=1190312985193100&StoreID=c932958ddb6cc8beb5eefbb1a0b31900&Timestamp=1761288047 Encrypt the string using the HMAC-SHA256 algorithm; The resulting ciphertext (signature) is as follows: a5641055d7eda499dc9d2e3548fc355c Then add AppKey, StoreID, Timestamp, and Sign to the request JSON, and send the request.
