@@ -10,10 +10,10 @@
 <div class="app">
   <aside class="sidebar" id="sidebar"></aside>
   <main class="content">
-    <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết. Các mục "Cần chốt" đang chờ khách xác nhận.</div>
+    <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết. Seller chỉ thao tác trên Zootop Bear; hệ thống sẽ tính giá, map dữ liệu và bắn đơn sang nền tảng/xưởng phù hợp.</div>
     <div class="canvas" id="canvas">
       <div class="page-title">Use case của Seller</div>
-      <div class="page-sub">Người dùng chính của hệ thống · 8 use case</div>
+      <div class="page-sub">Người dùng chính của hệ thống · 10 use case</div>
     </div>
   </main>
 </div>
@@ -26,7 +26,7 @@
 renderSidebar('seller.html');
 renderUseCases({
   actorName: 'Seller',
-  actorRole: 'Tự đăng ký, xem catalog theo tier, nạp tiền, tạo đơn và theo dõi',
+  actorRole: 'Tự đăng ký, xem catalog, nạp tiền, nhập đơn, upload thiết kế và theo dõi',
   theme: 't-teal',
   useCases: [
     {
@@ -59,13 +59,15 @@ renderUseCases({
           <li>Mọi thao tác duyệt/từ chối/khóa đều ghi audit log.</li>
         </ul>`
     },
-    { code: 'UC-SEL-02', title: 'Xem catalog sản phẩm', sub: 'Giá tự động theo tier' },
-    { code: 'UC-SEL-03', title: 'Tải template thiết kế', sub: 'Mockup và template', flag: 'should' },
-    { code: 'UC-SEL-04', title: 'Nạp tiền vào ví', sub: 'QR, upload chứng từ' },
-    { code: 'UC-SEL-05', title: 'Tạo đơn hàng', sub: 'Import CSV hoặc API' },
-    { code: 'UC-SEL-06', title: 'Xem breakdown giá đơn', sub: 'Base, ship, add item fee' },
-    { code: 'UC-SEL-07', title: 'Theo dõi đơn và tracking', sub: 'Dashboard, filter, 17TRACK' },
-    { code: 'UC-SEL-08', title: 'Hủy đơn', sub: 'Hoàn tiền về ví', flag: 'open' },
+    { code: 'UC-SEL-02', title: 'Xem catalog và chi tiết sản phẩm', sub: 'SKU, variant, template, giá theo tier' },
+    { code: 'UC-SEL-03', title: 'Tải mockup/template thiết kế', sub: 'File mẫu sản phẩm, hướng dẫn artwork', flag: 'should' },
+    { code: 'UC-SEL-04', title: 'Tạo yêu cầu top-up và xem ví', sub: 'Số dư, chứng từ, lịch sử giao dịch' },
+    { code: 'UC-SEL-05', title: 'Tạo đơn lẻ hoặc qua API', sub: 'Thông tin người nhận, sản phẩm, shipping' },
+    { code: 'UC-SEL-06', title: 'Import file đơn theo template', sub: 'CSV/Excel, validate từng dòng, batch result' },
+    { code: 'UC-SEL-07', title: 'Upload/link file thiết kế', sub: 'Design front, mockup, product note' },
+    { code: 'UC-SEL-08', title: 'Xem breakdown và thanh toán đơn', sub: 'Giá Zootop Bear, ví, trạng thái Pending/Confirm' },
+    { code: 'UC-SEL-09', title: 'Theo dõi đơn và tracking', sub: 'Status, carrier, link, 17TRACK' },
+    { code: 'UC-SEL-10', title: 'Hủy đơn và nhận hoàn tiền', sub: 'Theo trạng thái được phép hủy', flag: 'open' },
   ]
 });
 </script>

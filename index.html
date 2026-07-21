@@ -39,38 +39,39 @@
   <aside class="sidebar" id="sidebar"></aside>
   <main class="content">
     <div class="overview">
-      <div class="lead">Zootop Bear · Phase 1 · Go-live 12/2026</div>
+      <div class="lead">Zootop Bear · Phase 1 · Seller portal + fulfillment orchestration · Go-live 12/2026</div>
       <h2 class="big">Use Case Overview</h2>
       <div class="intro-note">
         Tài liệu liệt kê toàn bộ use case theo từng vai trò để khách hàng xác nhận đúng/đủ phạm vi
-        trước khi đi vào đặc tả chi tiết. Chọn một vai trò để xem sơ đồ và bấm vào từng use case xem giải thích.
+        trước khi đi vào đặc tả chi tiết. Seller thao tác trên hệ thống Zootop Bear; hệ thống tính giá riêng,
+        map dữ liệu và bắn đơn sang 5 nền tảng fulfillment/xưởng phía sau.
       </div>
 
       <div class="role-grid">
         <a class="role-card" href="seller.html" style="--c:var(--teal)">
           <div class="rc-name">Seller</div>
-          <div class="rc-count">8 use case</div>
-          <div class="rc-desc">Người dùng chính. Đăng ký, xem catalog theo tier, nạp tiền, tạo đơn, theo dõi.</div>
+          <div class="rc-count">10 use case</div>
+          <div class="rc-desc">Người dùng chính. Đăng ký, xem catalog, nạp tiền, nhập đơn, upload thiết kế, theo dõi tracking.</div>
         </a>
         <a class="role-card" href="admin.html" style="--c:var(--purple)">
           <div class="rc-name">Admin</div>
-          <div class="rc-count">8 use case</div>
-          <div class="rc-desc">Toàn quyền: seller, catalog, giá, xưởng, đơn, ví. Kế thừa chức năng Kế toán.</div>
+          <div class="rc-count">10 use case</div>
+          <div class="rc-desc">Full quyền: seller, catalog, giá, 5 nền tảng fulfillment/xưởng, đơn, ví, top-up/refund, audit.</div>
         </a>
         <a class="role-card" href="ketoan.html" style="--c:var(--amber)">
           <div class="rc-name">Kế toán</div>
-          <div class="rc-count">4 use case</div>
-          <div class="rc-desc">Duyệt nạp tiền, điều chỉnh ví, xem ledger, đối soát top-up.</div>
+          <div class="rc-count">5 use case</div>
+          <div class="rc-desc">Duyệt nạp tiền, điều chỉnh ví, ledger, billing history, refund khi hủy/fail đơn.</div>
         </a>
         <a class="role-card" href="vanhanh.html" style="--c:var(--coral)">
           <div class="rc-name">Vận hành</div>
-          <div class="rc-count">3 use case</div>
-          <div class="rc-desc">Theo dõi đơn gửi xưởng, xử lý đơn Hold/lỗi, rà tracking thiếu.</div>
+          <div class="rc-count">5 use case</div>
+          <div class="rc-desc">Theo dõi đơn gửi nền tảng/xưởng, log kết nối, xử lý Hold/lỗi, retry, rà tracking thiếu.</div>
         </a>
         <a class="role-card" href="cskh.html" style="--c:var(--pink)">
           <div class="rc-name">CSKH</div>
-          <div class="rc-count">2 use case</div>
-          <div class="rc-desc">Xem đơn seller phụ trách, ghi chú hỗ trợ trên đơn.</div>
+          <div class="rc-count">3 use case</div>
+          <div class="rc-desc">Xem seller/đơn/tracking được phân công, ghi chú hỗ trợ và chuyển xử lý đơn lỗi.</div>
         </a>
       </div>
 
@@ -83,9 +84,11 @@
 
       <div class="confirm">
         <h3>Điểm cần khách hàng chốt</h3>
-        <label>☐ Hủy đơn &amp; credit đặc biệt (UC-SEL-08, UC-ADM-07): trạng thái nào được hủy, ai duyệt hoàn tiền, cơ chế "credit giả".</label>
-        <label>☐ Phân quyền Vận hành: xem toàn bộ đơn hay giới hạn theo seller phụ trách?</label>
-        <label>☐ Admin Dashboard (UC-ADM-08): các cột/thông tin cụ thể cần hiển thị.</label>
+        <label>☐ Hủy đơn &amp; credit đặc biệt (UC-SEL-10, UC-ADM-09): trạng thái nào được hủy, ai duyệt hoàn tiền, cơ chế "credit giả".</label>
+        <label>☐ Mapping template fulfill sang order nội bộ và API từng nền tảng: nguồn dữ liệu từng cột, SKU/Variant, shipping, label, design/mockup.</label>
+        <label>☐ Tách 2 lớp giá: giá seller trả cho Zootop Bear và giá/cost tạo đơn trên FlashShip/SimplePrint/PrintBelle/ART ADD/Snap Ecom.</label>
+        <label>☐ Phân quyền nội bộ: Admin full quyền; cần chốt Kế toán, Vận hành, CSKH xem/làm gì và có giới hạn theo seller phụ trách không.</label>
+        <label>☐ Admin/Seller Dashboard: các cột, bộ lọc, trạng thái đơn và tracking cần hiển thị.</label>
         <label>☐ Xác nhận danh sách use case này đúng và đủ cho Phase 1.</label>
       </div>
     </div>
