@@ -13,7 +13,7 @@
     <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết.</div>
     <div class="canvas" id="canvas">
       <div class="page-title">Use case của Kế toán</div>
-      <div class="page-sub">Quản lý dòng tiền, duyệt nạp tiền, đối soát · 4 use case</div>
+      <div class="page-sub">Quản lý dòng tiền, duyệt nạp tiền, đối soát · 5 use case</div>
     </div>
   </main>
 </div>
@@ -29,10 +29,11 @@ renderUseCases({
   actorRole: 'Duyệt nạp tiền, điều chỉnh ví, đối soát tài chính',
   theme: 't-amber',
   useCases: [
-    { code: 'UC-ACC-01', title: 'Duyệt / từ chối nạp tiền', sub: 'Đối chiếu chứng từ chuyển khoản' },
-    { code: 'UC-ACC-02', title: 'Điều chỉnh ví thủ công', sub: 'Cộng trừ kèm lý do' },
-    { code: 'UC-ACC-03', title: 'Xem sổ giao dịch ví', sub: 'Nạp, trừ, hoàn, điều chỉnh' },
-    { code: 'UC-ACC-04', title: 'Export billing history', sub: 'Đối soát top-up', flag: 'should' },
+    { code: 'UC-ACC-01', title: 'Duyệt / từ chối top-up', sub: 'Đối chiếu chứng từ, cộng ví sau duyệt' },
+    { code: 'UC-ACC-02', title: 'Điều chỉnh ví thủ công', sub: 'Cộng/trừ, lý do, số dư trước sau' },
+    { code: 'UC-ACC-03', title: 'Xem sổ giao dịch ví', sub: 'Top-up, trừ đơn, hoàn, điều chỉnh' },
+    { code: 'UC-ACC-04', title: 'Export billing history', sub: 'Đối soát top-up và giao dịch ví' },
+    { code: 'UC-ACC-05', title: 'Xử lý refund đơn', sub: 'Hủy đơn, supplier fail/từ chối', flag: 'open' },
   ]
 });
 </script>

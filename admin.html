@@ -10,10 +10,10 @@
 <div class="app">
   <aside class="sidebar" id="sidebar"></aside>
   <main class="content">
-    <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết. Admin kế thừa toàn bộ chức năng của Kế toán.</div>
+    <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết. Admin là role full quyền, được phép thao tác mọi phần trong hệ thống.</div>
     <div class="canvas" id="canvas">
       <div class="page-title">Use case của Admin</div>
-      <div class="page-sub">Toàn quyền vận hành hệ thống · 8 use case</div>
+      <div class="page-sub">Toàn quyền vận hành hệ thống · 10 use case</div>
     </div>
   </main>
 </div>
@@ -26,17 +26,19 @@
 renderSidebar('admin.html');
 renderUseCases({
   actorName: 'Admin',
-  actorRole: 'Quản lý seller, catalog, giá, xưởng, đơn, ví',
+  actorRole: 'Full quyền: seller, catalog, giá, nền tảng/xưởng, đơn, ví',
   theme: 't-purple',
   useCases: [
-    { code: 'UC-ADM-01', title: 'Duyệt seller, gán tier', sub: 'Duyệt, khóa, phân cấp' },
-    { code: 'UC-ADM-02', title: 'Quản lý tài khoản nội bộ', sub: 'Phân quyền, gán nhân viên' },
-    { code: 'UC-ADM-03', title: 'Quản lý catalog', sub: 'Sản phẩm, variant, mapping xưởng' },
-    { code: 'UC-ADM-04', title: 'Cấu hình bảng giá', sub: 'Base cost, ship, label fee' },
-    { code: 'UC-ADM-05', title: 'Quản lý xưởng, kết nối API', sub: 'Bật tắt, routing sản phẩm' },
-    { code: 'UC-ADM-06', title: 'Xử lý đơn Hold, retry lỗi', sub: 'Nhật ký gửi đơn' },
-    { code: 'UC-ADM-07', title: 'Cấp credit đặc biệt', sub: 'Seller được đẩy đơn trước', flag: 'open' },
-    { code: 'UC-ADM-08', title: 'Dashboard tổng, audit log', sub: 'Toàn bộ đơn, lịch sử thao tác' },
+    { code: 'UC-ADM-01', title: 'Duyệt seller, gán tier', sub: 'Duyệt, khóa, gán nhân viên phụ trách' },
+    { code: 'UC-ADM-02', title: 'Quản lý tài khoản nội bộ', sub: 'Full quyền Admin, phân quyền role khác' },
+    { code: 'UC-ADM-03', title: 'Quản lý catalog sản phẩm', sub: 'SKU, variant, ảnh, template, print area' },
+    { code: 'UC-ADM-04', title: 'Cấu hình bảng giá Zootop Bear', sub: 'Tier, ship, label fee, add item fee' },
+    { code: 'UC-ADM-05', title: 'Quản lý nền tảng/xưởng fulfillment', sub: 'FlashShip, SimplePrint, PrintBelle, ART ADD, Snap Ecom' },
+    { code: 'UC-ADM-06', title: 'Mapping sản phẩm sang nền tảng', sub: 'SKU/variant nội bộ và SKU/variant xưởng', flag: 'open' },
+    { code: 'UC-ADM-07', title: 'Theo dõi đơn và dashboard tổng', sub: 'Seller, status, payment, platform, tracking' },
+    { code: 'UC-ADM-08', title: 'Xử lý đơn Hold, retry lỗi', sub: 'Log gửi đơn, webhook/API error' },
+    { code: 'UC-ADM-09', title: 'Quản lý ví, refund, credit đặc biệt', sub: 'Top-up, hoàn tiền, seller được đẩy đơn trước', flag: 'open' },
+    { code: 'UC-ADM-10', title: 'Xem audit log', sub: 'Giá, ví, đơn, tracking, thao tác người dùng' },
   ]
 });
 </script>

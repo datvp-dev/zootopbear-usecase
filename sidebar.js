@@ -1,10 +1,10 @@
 function renderSidebar(activePage) {
   const items = [
-    { page: 'seller.html',  name: 'Seller',   color: 'var(--teal)',   count: 8 },
-    { page: 'admin.html',   name: 'Admin',    color: 'var(--purple)', count: 8 },
-    { page: 'ketoan.html',  name: 'Kế toán',  color: 'var(--amber)',  count: 4 },
-    { page: 'vanhanh.html', name: 'Vận hành', color: 'var(--coral)',  count: 3 },
-    { page: 'cskh.html',    name: 'CSKH',     color: 'var(--pink)',   count: 2 },
+    { page: 'seller.html',  name: 'Seller',   color: 'var(--teal)',   count: 10 },
+    { page: 'admin.html',   name: 'Admin',    color: 'var(--purple)', count: 10 },
+    { page: 'ketoan.html',  name: 'Kế toán',  color: 'var(--amber)',  count: 5 },
+    { page: 'vanhanh.html', name: 'Vận hành', color: 'var(--coral)',  count: 5 },
+    { page: 'cskh.html',    name: 'CSKH',     color: 'var(--pink)',   count: 3 },
   ];
 
   const nav = items.map(it => `
