@@ -8,7 +8,7 @@ Lam ro cach Zootop Bear ket noi voi ART ADD de tao don, map du lieu don, nhan tr
 
 - Da tao task de ghi nhan thong tin.
 - Da doc folder demo `fulfillment.artsadd.com-php-demo`.
-- Da tao review tam thoi tai `tasks/confirm-artsadd-api/API_REVIEW.md`.
+- Da tao review tam thoi tai `tasks/02-confirm-artsadd-api/API_REVIEW.md`.
 - Dang can confirm them signing, webhook/tracking, status mapping, supplier SKU va API docs chuan cua ART ADD.
 
 ## Noi dung can confirm
@@ -27,6 +27,6 @@ Lam ro cach Zootop Bear ket noi voi ART ADD de tao don, map du lieu don, nhan tr
 - `doc/QA khách hàng v1.xlsx`
 - `doc/Template fulfill Home decor xưởng US.xlsx`
 - `PROJECT_OVERVIEW.md`
-- `tasks/review-usecase/USECASE_REVIEW.md`
-- `tasks/confirm-artsadd-api/API_REVIEW.md`
-- `tasks/confirm-artsadd-api/extracted-docs/`
+- `tasks/01-review-usecase/USECASE_REVIEW.md`
+- `tasks/02-confirm-artsadd-api/API_REVIEW.md`
+- `tasks/02-confirm-artsadd-api/extracted-docs/`

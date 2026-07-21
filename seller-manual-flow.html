@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luồng seller tạo đơn — Zootop Bear</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .flow-page { padding: 40px 48px 64px; max-width: 1180px; }
+  .flow-page .back { color: var(--teal-sub); text-decoration: none; font-size: 13px; }
+  .flow-page .title { margin-top: 12px; font-size: 26px; font-weight: 650; }
+  .flow-page .lead { margin: 8px 0 28px; color: var(--muted); font-size: 14px; max-width: 820px; }
+  .visual-flow {
+    display: grid; grid-template-columns: 1fr 42px 1fr 42px 1fr; gap: 12px; align-items: stretch;
+    margin: 0 0 28px;
+  }
+  .visual-node {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px; min-height: 126px; position: relative; overflow: hidden;
+  }
+  .visual-node::before {
+    content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--node-color);
+  }
+  .visual-node .node-kicker {
+    color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .visual-node h2 { font-size: 17px; margin: 6px 0 8px; }
+  .visual-node p { color: var(--muted); font-size: 13px; }
+  .visual-node .node-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .visual-node .node-tags span {
+    color: var(--ink); background: rgba(255,255,255,0.055); border: 1px solid var(--line);
+    border-radius: 999px; padding: 3px 8px; font-size: 11px;
+  }
+  .flow-arrow {
+    display: flex; align-items: center; justify-content: center; color: var(--muted);
+    font-size: 28px; font-weight: 300;
+  }
+  .feedback-box {
+    margin: 0 0 28px; background: rgba(239,159,39,0.1); border: 1px solid rgba(239,159,39,0.3);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .feedback-box h2 { color: var(--amber-sub); font-size: 16px; margin-bottom: 8px; }
+  .feedback-box p { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+  .feedback-box ol { margin-left: 18px; color: var(--ink); font-size: 13px; }
+  .feedback-box li { margin-bottom: 6px; }
+  .lane-grid { display: grid; grid-template-columns: repeat(4, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .lane { border: 1px solid var(--line); background: var(--panel); border-radius: 10px; overflow: hidden; }
+  .lane h2 {
+    font-size: 13px; padding: 12px 14px; background: rgba(255,255,255,0.04);
+    border-bottom: 1px solid var(--line);
+  }
+  .lane ul { list-style: none; padding: 12px 14px 14px; }
+  .lane li { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+  .flow-steps { display: grid; gap: 12px; }
+  .step {
+    display: grid; grid-template-columns: 56px 190px 1fr 220px; gap: 14px; align-items: stretch;
+    border: 1px solid var(--line); background: var(--panel); border-radius: 10px; overflow: hidden;
+  }
+  .step-no {
+    display: flex; align-items: center; justify-content: center; background: rgba(29,158,117,0.16);
+    color: var(--teal-sub); font-weight: 700;
+  }
+  .step-role { padding: 14px 0; font-weight: 650; color: var(--ink); }
+  .step-main { padding: 14px 0; }
+  .step-main h3 { font-size: 15px; margin-bottom: 4px; }
+  .step-main p { color: var(--muted); font-size: 13px; }
+  .step-data {
+    padding: 14px; background: rgba(255,255,255,0.025); border-left: 1px solid var(--line);
+    color: var(--muted); font-size: 12px;
+  }
+  .note-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+  .note-card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
+  .note-card h3 { font-size: 15px; margin-bottom: 10px; color: var(--teal-sub); }
+  .note-card ul { margin-left: 18px; color: var(--muted); font-size: 13px; }
+  .note-card li { margin-bottom: 7px; }
+  code { color: var(--amber-sub); }
+  @media (max-width: 900px) {
+    .flow-page { padding: 28px 22px 44px; }
+    .visual-flow { grid-template-columns: 1fr; }
+    .flow-arrow { transform: rotate(90deg); min-height: 24px; }
+    .lane-grid, .note-grid { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 44px 1fr; }
+    .step-role, .step-main, .step-data { padding: 12px; }
+    .step-data { grid-column: 2; border-left: 0; border-top: 1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="content">
+    <div class="flow-page">
+      <a class="back" href="seller.html">← Quay lại Seller use case</a>
+      <div class="title">Luồng thủ công hiện tại: từ đơn seller đến nền tảng/xưởng</div>
+      <div class="lead">
+        Màn này vẽ lại cách Zootop Bear đang xử lý trước khi có web tự động, dựa trên file fulfill thủ công,
+        catalog US Factory và file tracking PrintBelle. Đây là bản để khách nhìn luồng, chưa phải đặc tả cuối.
+      </div>
+
+      <div class="visual-flow" aria-label="Sơ đồ luồng tổng quan">
+        <section class="visual-node" style="--node-color: var(--teal)">
+          <div class="node-kicker">Bước 1</div>
+          <h2>Seller gửi đơn</h2>
+          <p>Seller gửi order list kèm thông tin người nhận, sản phẩm, số lượng, design/mockup và label nếu có.</p>
+          <div class="node-tags"><span>Order ID</span><span>SKU/Variant</span><span>Design</span></div>
+        </section>
+        <div class="flow-arrow">→</div>
+        <section class="visual-node" style="--node-color: var(--amber)">
+          <div class="node-kicker">Bước 2-5</div>
+          <h2>Zootop xử lý thủ công</h2>
+          <p>Nhân viên đưa đơn vào Excel, lookup catalog, tính tiền, kiểm tra lỗi và tìm supplier/xưởng.</p>
+          <div class="node-tags"><span>Catalog</span><span>Total Cost</span><span>415/922</span></div>
+        </section>
+        <div class="flow-arrow">→</div>
+        <section class="visual-node" style="--node-color: var(--purple)">
+          <div class="node-kicker">Bước 6</div>
+          <h2>Đơn sang nền tảng/xưởng</h2>
+          <p>Supplier nhận đơn và sinh mã riêng như OrderNo, SystemSku. Đây là dữ liệu web mới cần lưu lại.</p>
+          <div class="node-tags"><span>OrderNo</span><span>SystemSku</span><span>Supplier</span></div>
+        </section>
+      </div>
+
+      <div class="visual-flow" aria-label="Sơ đồ tracking và xử lý lỗi">
+        <section class="visual-node" style="--node-color: var(--coral)">
+          <div class="node-kicker">Bước 7</div>
+          <h2>Tracking trả về</h2>
+          <p>PrintBelle export TrackNo, carrier và raw status như notfound, InfoReceived để Zootop đối chiếu.</p>
+          <div class="node-tags"><span>TrackNo</span><span>USPS</span><span>17TRACK?</span></div>
+        </section>
+        <div class="flow-arrow">→</div>
+        <section class="visual-node" style="--node-color: var(--pink)">
+          <div class="node-kicker">Ngoại lệ</div>
+          <h2>Issue / Hold / Refund</h2>
+          <p>Những đơn lỗi link, sai design, resend hoặc refund hiện đang nằm ở sheet riêng và cần thành luồng web.</p>
+          <div class="node-tags"><span>Issue</span><span>Hold</span><span>Refund</span></div>
+        </section>
+        <div class="flow-arrow">→</div>
+        <section class="visual-node" style="--node-color: #6b6a63">
+          <div class="node-kicker">Mục tiêu web</div>
+          <h2>Seller xem trạng thái dễ hiểu</h2>
+          <p>Seller không thấy mã 415/922 hay notfound thô; seller thấy trạng thái đã được Zootop map lại.</p>
+          <div class="node-tags"><span>Đang xử lý</span><span>Đã có tracking</span><span>Cần hỗ trợ</span></div>
+        </section>
+      </div>
+
+      <section class="feedback-box">
+        <h2>Nhờ khách feedback trên sơ đồ này</h2>
+        <p>Sơ đồ đang mô tả theo cách chúng tôi hiểu từ các file Excel hiện tại. Nhờ khách xác nhận hoặc sửa giúp 4 điểm sau:</p>
+        <ol>
+          <li>Luồng từ seller gửi đơn đến lúc Zootop đưa sang xưởng có đúng thực tế không?</li>
+          <li>Mã supplier như <code>415</code>, <code>922</code> đang tương ứng nền tảng/xưởng nào?</li>
+          <li>OrderNo/SystemSku của PrintBelle có cần lưu trong hệ thống mới để đối soát không?</li>
+          <li>Status tracking như <code>notfound</code>, <code>InfoReceived</code> nên hiển thị cho seller thành trạng thái nào?</li>
+        </ol>
+      </section>
+
+      <div class="lane-grid">
+        <section class="lane">
+          <h2>Seller</h2>
+          <ul>
+            <li>Gửi order/list đơn</li>
+            <li>Cung cấp người nhận, SKU/Variant, quantity</li>
+            <li>Gửi link design/mockup/label nếu có</li>
+          </ul>
+        </section>
+        <section class="lane">
+          <h2>Zootop Bear hiện tại</h2>
+          <ul>
+            <li>Copy/import vào Excel theo nhóm sản phẩm</li>
+            <li>Tính cost bằng công thức Excel</li>
+            <li>Lookup supplier bằng Variant ID/SKU</li>
+          </ul>
+        </section>
+        <section class="lane">
+          <h2>Nền tảng/xưởng</h2>
+          <ul>
+            <li>Nhận order từ file/API/portal</li>
+            <li>Sinh mã đơn supplier</li>
+            <li>Sinh System SKU và tracking</li>
+          </ul>
+        </section>
+        <section class="lane">
+          <h2>Theo dõi</h2>
+          <ul>
+            <li>Export/cập nhật tracking</li>
+            <li>Đối chiếu bằng OrderId/SKU</li>
+            <li>Ghi issue, resend, refund nếu lỗi</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="flow-steps">
+        <div class="step">
+          <div class="step-no">01</div>
+          <div class="step-role">Seller</div>
+          <div class="step-main">
+            <h3>Gửi danh sách đơn</h3>
+            <p>Seller gửi đơn theo file hoặc dữ liệu từ shop. Mỗi dòng có thông tin người nhận, sản phẩm, số lượng, thiết kế và mockup.</p>
+          </div>
+          <div class="step-data">Dữ liệu thấy trong file: <code>Order ID</code>, <code>Customer</code>, <code>Address</code>, <code>SKU</code>, <code>Variant ID</code>, <code>Design</code>, <code>Mockup</code>.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-no">02</div>
+          <div class="step-role">Zootop Bear</div>
+          <div class="step-main">
+            <h3>Đưa đơn vào đúng sheet/category</h3>
+            <p>Đơn được phân vào các sheet như Home Decor, Mug, Accessories/Home Living, Gildan/Apparel để dùng đúng rule tính giá.</p>
+          </div>
+          <div class="step-data">Các sheet đang có: <code>Home Decor 2026</code>, <code>MUG US</code>, <code>Accessories Home&Living</code>, <code>GILDAN+ Apparel US</code>.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-no">03</div>
+          <div class="step-role">Zootop Bear</div>
+          <div class="step-main">
+            <h3>Lookup sản phẩm và supplier</h3>
+            <p>Excel dùng ProductCode/SKU/Variant ID để tìm giá và tìm xưởng. Với PrintBelle, ProductCode/SellersItemSku match được 30/30 với file công ty.</p>
+          </div>
+          <div class="step-data">Mapping chính: <code>Variant ID → VARIANT_SUPPLIER_MAP → Supplier</code>. Supplier có mã như <code>415</code>, <code>922</code>, hoặc tên như PrintBelle.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-no">04</div>
+          <div class="step-role">Zootop Bear</div>
+          <div class="step-main">
+            <h3>Tính tiền theo rule Excel</h3>
+            <p>Order nhiều dòng được gom theo Order ID. Shipping/add-item thường chỉ tính một lần trên order, các dòng sau chủ yếu tính base cost.</p>
+          </div>
+          <div class="step-data"><code>total = base cost * quantity + shipping fee + add item fee * (total quantity - 1)</code>. Nếu có label thì dùng <code>label fee</code>.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-no">05</div>
+          <div class="step-role">Zootop Bear</div>
+          <div class="step-main">
+            <h3>Kiểm tra lỗi trước khi gửi xưởng</h3>
+            <p>Các lỗi như link design hỏng, front/back lệch, SKU không match hoặc thiếu thông tin được đưa vào sheet lỗi để xử lý thủ công.</p>
+          </div>
+          <div class="step-data">Sheet đang có: <code>Issue</code>, <code>Import lên có vấn đề</code>. Đây là tiền thân của Hold/Ticket trong web.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-no">06</div>
+          <div class="step-role">Nền tảng/xưởng</div>
+          <div class="step-main">
+            <h3>Đơn được tạo trên supplier</h3>
+            <p>Khi sang PrintBelle, hệ thống bên đó có mã riêng như OrderNo và SystemSku. Hai mã này không giống Order ID/SKU của Zootop.</p>
+          </div>
+          <div class="step-data">PrintBelle trả/hiển thị: <code>OrderNo=PBKDP...</code>, <code>OrderId</code>, <code>SystemSku=KDP...</code>.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-no">07</div>
+          <div class="step-role">Tracking</div>
+          <div class="step-main">
+            <h3>Lấy tracking từ supplier</h3>
+            <p>File PrintBelle có TrackNo, carrier và status. Tracking có thể được export rồi đối chiếu ngược về file công ty.</p>
+          </div>
+          <div class="step-data">Carrier thấy được: <code>USPS</code>, <code>Amazon Shipping</code>, <code>GOFO</code>. Status: <code>notfound</code>, <code>InfoReceived</code>.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-no">08</div>
+          <div class="step-role">Zootop Bear tương lai</div>
+          <div class="step-main">
+            <h3>Web cần lưu mapping đầy đủ</h3>
+            <p>Để tự động hóa, Zootop phải lưu cả mã order của seller, mã order nội bộ Zootop, mã order supplier, SKU gửi đi, SKU supplier và tracking.</p>
+          </div>
+          <div class="step-data"><code>seller_order_id</code>, <code>zootop_order_id</code>, <code>supplier_order_no</code>, <code>supplier_system_sku</code>, <code>tracking_no</code>.</div>
+        </div>
+      </div>
+
+      <div class="note-grid">
+        <section class="note-card">
+          <h3>Điểm đã khá chắc</h3>
+          <ul>
+            <li>Seller không nên thấy mã supplier như 415/922.</li>
+            <li>ProductCode/SellersItemSku là cầu nối mạnh với PrintBelle.</li>
+            <li>OrderNo của PrintBelle cần lưu riêng, không thay thế Order ID của seller.</li>
+            <li>Tracking/status supplier cần map lại sang trạng thái dễ hiểu cho seller.</li>
+          </ul>
+        </section>
+        <section class="note-card">
+          <h3>Điểm cần confirm</h3>
+          <ul>
+            <li>415/922 tương ứng xưởng/nền tảng nào.</li>
+            <li>Khi nhiều sản phẩm trong một order, shipping/add-item lấy theo rule nào.</li>
+            <li>PrintBelle có API lấy tracking/export logistics không.</li>
+            <li>Order lỗi sẽ cho seller sửa trước hay đưa nội bộ xử lý.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="sidebar.js"></script>
+<script>renderSidebar('seller.html');</script>
+</body>
+</html>

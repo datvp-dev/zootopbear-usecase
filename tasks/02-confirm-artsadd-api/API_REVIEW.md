@@ -4,7 +4,7 @@ Ngay review: 21/07/2026
 
 ## 1. File da doc
 
-Thu muc: `tasks/confirm-artsadd-api/fulfillment.artsadd.com-php-demo`
+Thu muc: `tasks/02-confirm-artsadd-api/fulfillment.artsadd.com-php-demo`
 
 - `ApiHelper.php`
 - `demo.php`
@@ -12,7 +12,7 @@ Thu muc: `tasks/confirm-artsadd-api/fulfillment.artsadd.com-php-demo`
 - `sign.doc`
 - `document.doc`
 
-Ghi chu: cac file `.doc` la dinh dang Word cu. May hien tai khong mo duoc Word COM trong sandbox, nen toi da trich text tho sang `tasks/confirm-artsadd-api/extracted-docs`. Phan API chinh van doc duoc tu `API.doc` va code demo.
+Ghi chu: cac file `.doc` la dinh dang Word cu. May hien tai khong mo duoc Word COM trong sandbox, nen toi da trich text tho sang `tasks/02-confirm-artsadd-api/extracted-docs`. Phan API chinh van doc duoc tu `API.doc` va code demo.
 
 ## 2. Hieu nhanh ve API ART ADD
 
