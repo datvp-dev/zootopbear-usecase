@@ -10,39 +10,27 @@
   .flow-page .back { color: var(--teal-sub); text-decoration: none; font-size: 13px; }
   .flow-page .title { margin-top: 12px; font-size: 26px; font-weight: 650; }
   .flow-page .lead { margin: 8px 0 28px; color: var(--muted); font-size: 14px; max-width: 820px; }
-  .visual-flow {
-    display: grid; grid-template-columns: 1fr 42px 1fr 42px 1fr; gap: 12px; align-items: stretch;
-    margin: 0 0 28px;
+  .object-flow { display: grid; grid-template-columns: repeat(4, minmax(190px, 1fr)); gap: 14px; margin: 0 0 28px; }
+  .object-card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px; min-height: 188px; display: flex; flex-direction: column; gap: 10px;
   }
-  .visual-node {
-    background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
-    padding: 16px; min-height: 126px; position: relative; overflow: hidden;
+  .object-visual {
+    height: 72px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
   }
-  .visual-node::before {
-    content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--node-color);
+  .object-visual::before {
+    content: ""; width: 54px; height: 42px; border: 2px solid var(--object-color);
+    border-radius: 6px; background: rgba(255,255,255,0.04); box-shadow: 0 0 0 7px rgba(255,255,255,0.02);
   }
-  .visual-node .node-kicker {
-    color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+  .object-visual::after {
+    content: attr(data-label); position: absolute; color: var(--ink); font-size: 11px; font-weight: 700;
+    padding: 3px 6px; border-radius: 5px; background: rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.08);
   }
-  .visual-node h2 { font-size: 17px; margin: 6px 0 8px; }
-  .visual-node p { color: var(--muted); font-size: 13px; }
-  .visual-node .node-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-  .visual-node .node-tags span {
-    color: var(--ink); background: rgba(255,255,255,0.055); border: 1px solid var(--line);
-    border-radius: 999px; padding: 3px 8px; font-size: 11px;
-  }
-  .flow-arrow {
-    display: flex; align-items: center; justify-content: center; color: var(--muted);
-    font-size: 28px; font-weight: 300;
-  }
-  .feedback-box {
-    margin: 0 0 28px; background: rgba(239,159,39,0.1); border: 1px solid rgba(239,159,39,0.3);
-    border-radius: 12px; padding: 16px 18px;
-  }
-  .feedback-box h2 { color: var(--amber-sub); font-size: 16px; margin-bottom: 8px; }
-  .feedback-box p { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
-  .feedback-box ol { margin-left: 18px; color: var(--ink); font-size: 13px; }
-  .feedback-box li { margin-bottom: 6px; }
+  .object-step { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .object-card h2 { font-size: 15px; margin: -2px 0 0; }
+  .object-card p { color: var(--muted); font-size: 12.5px; line-height: 1.45; }
   .lane-grid { display: grid; grid-template-columns: repeat(4, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
   .lane { border: 1px solid var(--line); background: var(--panel); border-radius: 10px; overflow: hidden; }
   .lane h2 {
@@ -76,8 +64,7 @@
   code { color: var(--amber-sub); }
   @media (max-width: 900px) {
     .flow-page { padding: 28px 22px 44px; }
-    .visual-flow { grid-template-columns: 1fr; }
-    .flow-arrow { transform: rotate(90deg); min-height: 24px; }
+    .object-flow { grid-template-columns: 1fr; }
     .lane-grid, .note-grid { grid-template-columns: 1fr; }
     .step { grid-template-columns: 44px 1fr; }
     .step-role, .step-main, .step-data { padding: 12px; }
@@ -93,98 +80,123 @@
       <a class="back" href="seller.html">← Quay lại Seller use case</a>
       <div class="title">Luồng thủ công hiện tại: từ đơn seller đến nền tảng/xưởng</div>
       <div class="lead">
-        Màn này vẽ lại cách Zootop Bear đang xử lý trước khi có web tự động, dựa trên file fulfill thủ công,
-        catalog US Factory và file tracking PrintBelle. Đây là bản để khách nhìn luồng, chưa phải đặc tả cuối.
+        Màn này vẽ lại cách Zootop Bear đang xử lý trước khi có web tự động, dựa trên file đơn thủ công,
+        bảng sản phẩm US Factory và file mã vận đơn PrintBelle. Mục tiêu là mô tả dễ hiểu: seller gửi đơn, Zootop kiểm tra và tính tiền, sau đó đưa đơn sang xưởng sản xuất/giao hàng.
       </div>
 
-      <div class="visual-flow" aria-label="Sơ đồ luồng tổng quan">
-        <section class="visual-node" style="--node-color: var(--teal)">
-          <div class="node-kicker">Bước 1</div>
-          <h2>Seller gửi đơn</h2>
-          <p>Seller gửi order list kèm thông tin người nhận, sản phẩm, số lượng, design/mockup và label nếu có.</p>
-          <div class="node-tags"><span>Order ID</span><span>SKU/Variant</span><span>Design</span></div>
+      <div class="object-flow" aria-label="Sơ đồ từng bước bằng hình tượng trưng">
+        <section class="object-card" style="--object-color: var(--teal)">
+          <div class="object-visual" data-label="ĐƠN"></div>
+          <div class="object-step">Bước 1</div>
+          <h2>Seller gửi file đơn</h2>
+          <p>Seller gom các đơn cần sản xuất vào một file/list và gửi cho Zootop.</p>
         </section>
-        <div class="flow-arrow">→</div>
-        <section class="visual-node" style="--node-color: var(--amber)">
-          <div class="node-kicker">Bước 2-5</div>
-          <h2>Zootop xử lý thủ công</h2>
-          <p>Nhân viên đưa đơn vào Excel, lookup catalog, tính tiền, kiểm tra lỗi và tìm supplier/xưởng.</p>
-          <div class="node-tags"><span>Catalog</span><span>Total Cost</span><span>415/922</span></div>
+        <section class="object-card" style="--object-color: var(--teal)">
+          <div class="object-visual" data-label="ĐỊA CHỈ"></div>
+          <div class="object-step">Bước 2</div>
+          <h2>Điền người nhận</h2>
+          <p>Trong đơn có tên người nhận, số điện thoại, địa chỉ, thành phố, bang và mã zip.</p>
         </section>
-        <div class="flow-arrow">→</div>
-        <section class="visual-node" style="--node-color: var(--purple)">
-          <div class="node-kicker">Bước 6</div>
-          <h2>Đơn sang nền tảng/xưởng</h2>
-          <p>Supplier nhận đơn và sinh mã riêng như OrderNo, SystemSku. Đây là dữ liệu web mới cần lưu lại.</p>
-          <div class="node-tags"><span>OrderNo</span><span>SystemSku</span><span>Supplier</span></div>
+        <section class="object-card" style="--object-color: var(--teal)">
+          <div class="object-visual" data-label="MẪU IN"></div>
+          <div class="object-step">Bước 3</div>
+          <h2>Điền sản phẩm</h2>
+          <p>Seller điền mã hàng, số lượng, link thiết kế, ảnh mô phỏng sản phẩm và ghi chú nếu có.</p>
+        </section>
+        <section class="object-card" style="--object-color: var(--amber)">
+          <div class="object-visual" data-label="SHEET"></div>
+          <div class="object-step">Bước 4</div>
+          <h2>Phân nhóm sản phẩm</h2>
+          <p>Zootop đưa đơn vào đúng nhóm như Home Decor, Mug, Accessories hoặc Apparel.</p>
+        </section>
+        <section class="object-card" style="--object-color: var(--amber)">
+          <div class="object-visual" data-label="KIỂM TRA"></div>
+          <div class="object-step">Bước 5</div>
+          <h2>Kiểm tra dữ liệu</h2>
+          <p>Nhân viên kiểm tra thiếu địa chỉ, sai mã hàng, link thiết kế lỗi hoặc thiếu ảnh mô phỏng.</p>
+        </section>
+        <section class="object-card" style="--object-color: var(--amber)">
+          <div class="object-visual" data-label="BẢNG GIÁ"></div>
+          <div class="object-step">Bước 6</div>
+          <h2>Tra bảng giá</h2>
+          <p>Zootop dùng mã hàng để tra giá sản phẩm, phí ship, phí label và thời gian sản xuất.</p>
+        </section>
+        <section class="object-card" style="--object-color: var(--amber)">
+          <div class="object-visual" data-label="TỔNG"></div>
+          <div class="object-step">Bước 7</div>
+          <h2>Tính tổng tiền</h2>
+          <p>Các dòng cùng mã đơn được gom lại để tính tổng tiền của cả đơn.</p>
+        </section>
+        <section class="object-card" style="--object-color: var(--purple)">
+          <div class="object-visual" data-label="XƯỞNG"></div>
+          <div class="object-step">Bước 8</div>
+          <h2>Tìm xưởng</h2>
+          <p>Từ mã hàng, Zootop xác định đơn này sẽ đi sang xưởng/nền tảng nào để sản xuất.</p>
+        </section>
+        <section class="object-card" style="--object-color: var(--purple)">
+          <div class="object-visual" data-label="GỬI"></div>
+          <div class="object-step">Bước 9</div>
+          <h2>Đưa đơn sang xưởng</h2>
+          <p>Nhân viên tạo đơn trên trang web của xưởng, tải file lên hoặc dùng kết nối tự động tùy từng xưởng.</p>
+        </section>
+        <section class="object-card" style="--object-color: var(--purple)">
+          <div class="object-visual" data-label="MÃ XƯỞNG"></div>
+          <div class="object-step">Bước 10</div>
+          <h2>Xưởng tạo mã riêng</h2>
+          <p>Xưởng tạo mã đơn và mã hàng riêng để Zootop tra cứu khi cần hỗ trợ hoặc đối soát.</p>
+        </section>
+        <section class="object-card" style="--object-color: var(--coral)">
+          <div class="object-visual" data-label="VẬN ĐƠN"></div>
+          <div class="object-step">Bước 11</div>
+          <h2>Nhận mã vận đơn</h2>
+          <p>Sau khi xưởng ship hàng, Zootop nhận mã vận đơn, hãng vận chuyển và trạng thái giao hàng.</p>
+        </section>
+        <section class="object-card" style="--object-color: var(--coral)">
+          <div class="object-visual" data-label="CẬP NHẬT"></div>
+          <div class="object-step">Bước 12</div>
+          <h2>Cập nhật theo dõi</h2>
+          <p>Mã vận đơn được gắn lại vào đúng đơn ban đầu để seller và Zootop theo dõi.</p>
+        </section>
+        <section class="object-card" style="--object-color: var(--pink)">
+          <div class="object-visual" data-label="LỖI"></div>
+          <div class="object-step">Bước 13</div>
+          <h2>Xử lý phát sinh</h2>
+          <p>Đơn lỗi, cần gửi lại hoặc cần hoàn tiền được tách sang luồng xử lý riêng.</p>
         </section>
       </div>
-
-      <div class="visual-flow" aria-label="Sơ đồ tracking và xử lý lỗi">
-        <section class="visual-node" style="--node-color: var(--coral)">
-          <div class="node-kicker">Bước 7</div>
-          <h2>Tracking trả về</h2>
-          <p>PrintBelle export TrackNo, carrier và raw status như notfound, InfoReceived để Zootop đối chiếu.</p>
-          <div class="node-tags"><span>TrackNo</span><span>USPS</span><span>17TRACK?</span></div>
-        </section>
-        <div class="flow-arrow">→</div>
-        <section class="visual-node" style="--node-color: var(--pink)">
-          <div class="node-kicker">Ngoại lệ</div>
-          <h2>Issue / Hold / Refund</h2>
-          <p>Những đơn lỗi link, sai design, resend hoặc refund hiện đang nằm ở sheet riêng và cần thành luồng web.</p>
-          <div class="node-tags"><span>Issue</span><span>Hold</span><span>Refund</span></div>
-        </section>
-        <div class="flow-arrow">→</div>
-        <section class="visual-node" style="--node-color: #6b6a63">
-          <div class="node-kicker">Mục tiêu web</div>
-          <h2>Seller xem trạng thái dễ hiểu</h2>
-          <p>Seller không thấy mã 415/922 hay notfound thô; seller thấy trạng thái đã được Zootop map lại.</p>
-          <div class="node-tags"><span>Đang xử lý</span><span>Đã có tracking</span><span>Cần hỗ trợ</span></div>
-        </section>
-      </div>
-
-      <section class="feedback-box">
-        <h2>Nhờ khách feedback trên sơ đồ này</h2>
-        <p>Sơ đồ đang mô tả theo cách chúng tôi hiểu từ các file Excel hiện tại. Nhờ khách xác nhận hoặc sửa giúp 4 điểm sau:</p>
-        <ol>
-          <li>Luồng từ seller gửi đơn đến lúc Zootop đưa sang xưởng có đúng thực tế không?</li>
-          <li>Mã supplier như <code>415</code>, <code>922</code> đang tương ứng nền tảng/xưởng nào?</li>
-          <li>OrderNo/SystemSku của PrintBelle có cần lưu trong hệ thống mới để đối soát không?</li>
-          <li>Status tracking như <code>notfound</code>, <code>InfoReceived</code> nên hiển thị cho seller thành trạng thái nào?</li>
-        </ol>
-      </section>
 
       <div class="lane-grid">
         <section class="lane">
           <h2>Seller</h2>
           <ul>
-            <li>Gửi order/list đơn</li>
-            <li>Cung cấp người nhận, SKU/Variant, quantity</li>
-            <li>Gửi link design/mockup/label nếu có</li>
+            <li>Gửi danh sách đơn cần sản xuất</li>
+            <li>Cung cấp người nhận, mã hàng và số lượng</li>
+            <li>Gửi link thiết kế, ảnh mô phỏng và nhãn vận chuyển nếu có</li>
           </ul>
         </section>
         <section class="lane">
           <h2>Zootop Bear hiện tại</h2>
           <ul>
             <li>Copy/import vào Excel theo nhóm sản phẩm</li>
-            <li>Tính cost bằng công thức Excel</li>
-            <li>Lookup supplier bằng Variant ID/SKU</li>
+            <li>Tính tiền bằng công thức Excel</li>
+            <li>Tra xưởng sản xuất bằng mã sản phẩm</li>
+            <li>Kiểm tra lỗi trước khi đưa sang xưởng</li>
           </ul>
         </section>
         <section class="lane">
           <h2>Nền tảng/xưởng</h2>
           <ul>
-            <li>Nhận order từ file/API/portal</li>
-            <li>Sinh mã đơn supplier</li>
-            <li>Sinh System SKU và tracking</li>
+            <li>Nhận đơn từ file, trang web xưởng hoặc kết nối tự động</li>
+            <li>Tạo mã đơn riêng của xưởng</li>
+            <li>Tạo mã hàng nội bộ và mã vận đơn</li>
           </ul>
         </section>
         <section class="lane">
           <h2>Theo dõi</h2>
           <ul>
-            <li>Export/cập nhật tracking</li>
-            <li>Đối chiếu bằng OrderId/SKU</li>
-            <li>Ghi issue, resend, refund nếu lỗi</li>
+            <li>Cập nhật mã vận đơn</li>
+            <li>Đối chiếu lại với mã đơn/mã hàng ban đầu</li>
+            <li>Ghi lỗi, gửi lại hoặc hoàn tiền nếu phát sinh</li>
           </ul>
         </section>
       </div>
@@ -194,100 +206,150 @@
           <div class="step-no">01</div>
           <div class="step-role">Seller</div>
           <div class="step-main">
-            <h3>Gửi danh sách đơn</h3>
-            <p>Seller gửi đơn theo file hoặc dữ liệu từ shop. Mỗi dòng có thông tin người nhận, sản phẩm, số lượng, thiết kế và mockup.</p>
+            <h3>Chuẩn bị danh sách đơn</h3>
+            <p>Seller gom các đơn cần Zootop xử lý vào một file/list theo mẫu đang dùng. Nếu một đơn có nhiều sản phẩm, đơn đó có thể được tách thành nhiều dòng nhưng vẫn dùng chung một mã đơn.</p>
           </div>
-          <div class="step-data">Dữ liệu thấy trong file: <code>Order ID</code>, <code>Customer</code>, <code>Address</code>, <code>SKU</code>, <code>Variant ID</code>, <code>Design</code>, <code>Mockup</code>.</div>
+          <div class="step-data">Dữ liệu chính: ngày tạo đơn, mã đơn, mã khách hàng/seller, hình thức giao hàng và số lượng.</div>
         </div>
 
         <div class="step">
           <div class="step-no">02</div>
-          <div class="step-role">Zootop Bear</div>
+          <div class="step-role">Seller</div>
           <div class="step-main">
-            <h3>Đưa đơn vào đúng sheet/category</h3>
-            <p>Đơn được phân vào các sheet như Home Decor, Mug, Accessories/Home Living, Gildan/Apparel để dùng đúng rule tính giá.</p>
+            <h3>Điền thông tin người nhận</h3>
+            <p>Mỗi đơn có thông tin của người nhận cuối cùng. Xưởng dùng thông tin này để in nhãn giao hàng và gửi hàng đến đúng địa chỉ.</p>
           </div>
-          <div class="step-data">Các sheet đang có: <code>Home Decor 2026</code>, <code>MUG US</code>, <code>Accessories Home&Living</code>, <code>GILDAN+ Apparel US</code>.</div>
+          <div class="step-data">Thông tin cần có: tên người nhận, email/số điện thoại, quốc gia, bang, thành phố, địa chỉ và mã zip.</div>
         </div>
 
         <div class="step">
           <div class="step-no">03</div>
-          <div class="step-role">Zootop Bear</div>
+          <div class="step-role">Seller</div>
           <div class="step-main">
-            <h3>Lookup sản phẩm và supplier</h3>
-            <p>Excel dùng ProductCode/SKU/Variant ID để tìm giá và tìm xưởng. Với PrintBelle, ProductCode/SellersItemSku match được 30/30 với file công ty.</p>
+            <h3>Điền sản phẩm và file thiết kế</h3>
+            <p>Seller điền sản phẩm cần làm, phiên bản sản phẩm, số lượng và link file thiết kế. Với áo, một sản phẩm có thể có nhiều vị trí in như mặt trước, mặt sau hoặc tay áo.</p>
           </div>
-          <div class="step-data">Mapping chính: <code>Variant ID → VARIANT_SUPPLIER_MAP → Supplier</code>. Supplier có mã như <code>415</code>, <code>922</code>, hoặc tên như PrintBelle.</div>
+          <div class="step-data">Các mã trong file như SKU/Product ID/Variant ID được hiểu là mã hàng hoặc mã phiên bản sản phẩm.</div>
         </div>
 
         <div class="step">
           <div class="step-no">04</div>
           <div class="step-role">Zootop Bear</div>
           <div class="step-main">
-            <h3>Tính tiền theo rule Excel</h3>
-            <p>Order nhiều dòng được gom theo Order ID. Shipping/add-item thường chỉ tính một lần trên order, các dòng sau chủ yếu tính base cost.</p>
+            <h3>Đưa đơn vào đúng sheet/category</h3>
+            <p>Nhân viên đưa đơn vào đúng nhóm sản phẩm trong Excel. Mỗi nhóm có cách tính tiền và cách xử lý riêng, nên việc đưa đúng nhóm là bước quan trọng.</p>
           </div>
-          <div class="step-data"><code>total = base cost * quantity + shipping fee + add item fee * (total quantity - 1)</code>. Nếu có label thì dùng <code>label fee</code>.</div>
+          <div class="step-data">Ví dụ nhóm sản phẩm: Home Decor, Mug, Accessories/Home Living, Gildan/Apparel.</div>
         </div>
 
         <div class="step">
           <div class="step-no">05</div>
           <div class="step-role">Zootop Bear</div>
           <div class="step-main">
-            <h3>Kiểm tra lỗi trước khi gửi xưởng</h3>
-            <p>Các lỗi như link design hỏng, front/back lệch, SKU không match hoặc thiếu thông tin được đưa vào sheet lỗi để xử lý thủ công.</p>
+            <h3>Kiểm tra dữ liệu đầu vào</h3>
+            <p>Nhân viên kiểm tra các lỗi có thể làm đơn không đẩy sang xưởng được hoặc xưởng không sản xuất được: thiếu địa chỉ, thiếu mã hàng, link thiết kế không mở được, file trước/sau bị lệch hoặc thiếu ảnh mô phỏng.</p>
           </div>
-          <div class="step-data">Sheet đang có: <code>Issue</code>, <code>Import lên có vấn đề</code>. Đây là tiền thân của Hold/Ticket trong web.</div>
+          <div class="step-data">Các đơn có vấn đề hiện được tách sang sheet lỗi để nhân viên xử lý riêng trước khi tiếp tục.</div>
         </div>
 
         <div class="step">
           <div class="step-no">06</div>
-          <div class="step-role">Nền tảng/xưởng</div>
+          <div class="step-role">Zootop Bear</div>
           <div class="step-main">
-            <h3>Đơn được tạo trên supplier</h3>
-            <p>Khi sang PrintBelle, hệ thống bên đó có mã riêng như OrderNo và SystemSku. Hai mã này không giống Order ID/SKU của Zootop.</p>
+            <h3>Tra bảng sản phẩm và bảng giá</h3>
+            <p>Nhân viên hoặc công thức Excel dùng mã hàng để tra bảng sản phẩm. Từ đó lấy được giá gốc, phí ship, phí thêm item, phí label, thời gian sản xuất và các thông tin liên quan.</p>
           </div>
-          <div class="step-data">PrintBelle trả/hiển thị: <code>OrderNo=PBKDP...</code>, <code>OrderId</code>, <code>SystemSku=KDP...</code>.</div>
+          <div class="step-data">Nguồn tra cứu chính là file đơn tổng, US Factory Catalog và bảng giá nằm trong từng nhóm sản phẩm.</div>
         </div>
 
         <div class="step">
           <div class="step-no">07</div>
-          <div class="step-role">Tracking</div>
+          <div class="step-role">Zootop Bear</div>
           <div class="step-main">
-            <h3>Lấy tracking từ supplier</h3>
-            <p>File PrintBelle có TrackNo, carrier và status. Tracking có thể được export rồi đối chiếu ngược về file công ty.</p>
+            <h3>Tính tổng tiền theo đơn</h3>
+            <p>Các dòng có cùng mã đơn được gom lại để tính tổng tiền. Giá sản phẩm tính theo từng item; phí ship hoặc phí label thường tính một lần cho cả đơn; đơn áo có thể cộng thêm phí in mặt sau hoặc tay áo.</p>
           </div>
-          <div class="step-data">Carrier thấy được: <code>USPS</code>, <code>Amazon Shipping</code>, <code>GOFO</code>. Status: <code>notfound</code>, <code>InfoReceived</code>.</div>
+          <div class="step-data">Hiểu đơn giản: tổng tiền = tiền sản phẩm + phí ship/label + phí item thêm + phí in thêm nếu có.</div>
         </div>
 
         <div class="step">
           <div class="step-no">08</div>
-          <div class="step-role">Zootop Bear tương lai</div>
+          <div class="step-role">Zootop Bear</div>
           <div class="step-main">
-            <h3>Web cần lưu mapping đầy đủ</h3>
-            <p>Để tự động hóa, Zootop phải lưu cả mã order của seller, mã order nội bộ Zootop, mã order supplier, SKU gửi đi, SKU supplier và tracking.</p>
+            <h3>Tìm xưởng xử lý đơn</h3>
+            <p>Sau khi biết sản phẩm là gì, Excel tra tiếp để biết đơn đó sẽ đưa sang xưởng/nền tảng nào sản xuất. Một số dòng hiển thị tên xưởng, một số dòng hiển thị mã nội bộ của xưởng.</p>
           </div>
-          <div class="step-data"><code>seller_order_id</code>, <code>zootop_order_id</code>, <code>supplier_order_no</code>, <code>supplier_system_sku</code>, <code>tracking_no</code>.</div>
+          <div class="step-data">Ví dụ dữ liệu đang thấy có tên/mã như PrintBelle, 415, 922. Đây là dấu hiệu để nhân viên biết đơn cần đi sang xưởng nào.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-no">09</div>
+          <div class="step-role">Zootop Bear</div>
+          <div class="step-main">
+            <h3>Đưa đơn hợp lệ sang xưởng</h3>
+            <p>Với đơn đã đủ dữ liệu và đã xác định được xưởng, nhân viên tạo đơn trên nền tảng của xưởng. Tùy từng xưởng, cách làm có thể là nhập trên web, upload file hoặc dùng kết nối tự động.</p>
+          </div>
+          <div class="step-data">Các xưởng/nền tảng hiện có: FlashShip, SimplePrint, PrintBelle, ART ADD, Snap Ecom.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-no">10</div>
+          <div class="step-role">Nền tảng/xưởng</div>
+          <div class="step-main">
+            <h3>Xưởng tạo mã đơn và mã sản phẩm nội bộ</h3>
+            <p>Khi đơn đã được tạo trên nền tảng của xưởng, xưởng có thể sinh mã đơn và mã hàng riêng trong hệ thống của họ. Zootop cần giữ lại các mã này để tra cứu khi hỏi hỗ trợ hoặc khi đối chiếu mã vận đơn.</p>
+          </div>
+          <div class="step-data">Ví dụ với PrintBelle có mã đơn của PrintBelle, mã đơn mình gửi sang, mã sản phẩm và mã SKU nội bộ của họ.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-no">11</div>
+          <div class="step-role">Mã vận đơn</div>
+          <div class="step-main">
+            <h3>Nhận mã vận đơn từ xưởng</h3>
+            <p>Sau khi xưởng sản xuất xong và giao cho hãng vận chuyển, Zootop nhận được mã vận đơn. Mã này dùng để theo dõi hàng đang ở đâu và đã giao hay chưa.</p>
+          </div>
+          <div class="step-data">Thông tin thường có: mã vận đơn, hãng vận chuyển, trạng thái vận chuyển, ngày ship và ngày giao.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-no">12</div>
+          <div class="step-role">Zootop Bear</div>
+          <div class="step-main">
+            <h3>Cập nhật lại file theo dõi</h3>
+            <p>Nhân viên hoặc file xuất từ xưởng cập nhật mã vận đơn và trạng thái về file vận hành. Zootop đối chiếu bằng mã đơn/mã hàng để gắn mã vận đơn đúng vào đơn ban đầu của seller.</p>
+          </div>
+          <div class="step-data">Mục đích của bước này là tránh nhầm mã vận đơn giữa các đơn, nhất là khi nhiều đơn cùng sản phẩm hoặc cùng seller.</div>
+        </div>
+
+        <div class="step">
+          <div class="step-no">13</div>
+          <div class="step-role">Zootop Bear</div>
+          <div class="step-main">
+            <h3>Xử lý lỗi, resend, refund</h3>
+            <p>Nếu đơn bị lỗi thiết kế, lỗi khi đưa lên xưởng, giao sai, hàng lỗi, cần gửi lại hoặc cần hoàn tiền, nhân viên tách đơn đó sang luồng xử lý riêng để theo dõi đến khi xong.</p>
+          </div>
+          <div class="step-data">Các trường hợp đang thấy trong file: đơn có vấn đề, lỗi nhập file, hoàn tiền, gửi lại và ghi chú xử lý đơn.</div>
         </div>
       </div>
 
       <div class="note-grid">
         <section class="note-card">
-          <h3>Điểm đã khá chắc</h3>
+          <h3>Dữ liệu web cần giữ lại</h3>
           <ul>
-            <li>Seller không nên thấy mã supplier như 415/922.</li>
-            <li>ProductCode/SellersItemSku là cầu nối mạnh với PrintBelle.</li>
-            <li>OrderNo của PrintBelle cần lưu riêng, không thay thế Order ID của seller.</li>
-            <li>Tracking/status supplier cần map lại sang trạng thái dễ hiểu cho seller.</li>
+            <li>Một đơn có thể có nhiều sản phẩm, nên web cần lưu được nhiều item trong cùng một đơn.</li>
+            <li>Mã hàng/mã phiên bản sản phẩm dùng để tra giá và tìm đúng xưởng sản xuất.</li>
+            <li>Mã đơn của xưởng và mã vận đơn cần lưu riêng để đối soát khi có vấn đề.</li>
+            <li>Trạng thái từ xưởng cần gắn đúng với từng đơn hoặc từng item trong đơn.</li>
           </ul>
         </section>
         <section class="note-card">
-          <h3>Điểm cần confirm</h3>
+          <h3>Luồng web sẽ thay phần Excel</h3>
           <ul>
-            <li>415/922 tương ứng xưởng/nền tảng nào.</li>
-            <li>Khi nhiều sản phẩm trong một order, shipping/add-item lấy theo rule nào.</li>
-            <li>PrintBelle có API lấy tracking/export logistics không.</li>
-            <li>Order lỗi sẽ cho seller sửa trước hay đưa nội bộ xử lý.</li>
+            <li>Nhận file seller và chuyển thành danh sách đơn rõ ràng trên hệ thống.</li>
+            <li>Tính tiền theo bảng sản phẩm và rule của từng nhóm hàng.</li>
+            <li>Xác định đơn nào cần đi sang xưởng nào.</li>
+            <li>Thay sheet lỗi bằng luồng tạm giữ đơn, ticket, hoàn tiền hoặc gửi lại.</li>
           </ul>
         </section>
       </div>

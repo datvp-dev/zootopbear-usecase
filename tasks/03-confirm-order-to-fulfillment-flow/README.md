@@ -36,6 +36,8 @@ Day la luong backbone cua phase 1. Ket qua confirm se dung de viet chi tiet cac 
 - Da xac dinh cum use case lien quan.
 - Da tao bo cau hoi confirm tai `tasks/03-confirm-order-to-fulfillment-flow/CONFIRM_ORDER_FLOW.md`.
 - Da tao ban cau hoi de hoi khach bang ngon ngu de hieu tai `tasks/03-confirm-order-to-fulfillment-flow/CUSTOMER_CONFIRM.md`.
+- Da tao bo cau hoi chi tiet hon cho buoi hop khach tai `tasks/03-confirm-order-to-fulfillment-flow/CUSTOMER_DETAILED_QUESTIONS_ORDER_FLOW.md`.
+- Da review HTML luong thu cong hien tai tai `tasks/03-confirm-order-to-fulfillment-flow/HTML_MANUAL_FLOW_REVIEW.md`.
 - Da them bang mo luong thu cong vao `seller.html` va trang minh hoa tai `seller-manual-flow.html`.
 - Da tao file Excel cau hoi confirm bang tieng Viet co dau tai `tasks/03-confirm-order-to-fulfillment-flow/cau-hoi-confirm-luong-seller-to-supplier.xlsx`.
 - Da tao ghi chu lam tiep cho ngay hom sau tai `tasks/03-confirm-order-to-fulfillment-flow/GHI_CHU_LAM_TIEP.md`.
@@ -57,6 +59,8 @@ Day la luong backbone cua phase 1. Ket qua confirm se dung de viet chi tiet cac 
 - `tasks/01-review-usecase/USECASE_REVIEW.md`
 - `tasks/03-confirm-order-to-fulfillment-flow/CONFIRM_ORDER_FLOW.md`
 - `tasks/03-confirm-order-to-fulfillment-flow/CUSTOMER_CONFIRM.md`
+- `tasks/03-confirm-order-to-fulfillment-flow/CUSTOMER_DETAILED_QUESTIONS_ORDER_FLOW.md`
+- `tasks/03-confirm-order-to-fulfillment-flow/HTML_MANUAL_FLOW_REVIEW.md`
 - `tasks/03-confirm-order-to-fulfillment-flow/GHI_CHU_LAM_TIEP.md`
 - `tasks/03-confirm-order-to-fulfillment-flow/cau-hoi-confirm-luong-seller-to-supplier.xlsx`
 - `seller.html`
