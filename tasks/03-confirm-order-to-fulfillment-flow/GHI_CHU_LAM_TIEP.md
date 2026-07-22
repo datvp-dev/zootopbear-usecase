@@ -211,8 +211,9 @@ Yêu cầu Codex đọc theo thứ tự:
 1. `tasks/README.md`
 2. `PROJECT_OVERVIEW.md`
 3. `tasks/03-confirm-order-to-fulfillment-flow/GHI_CHU_LAM_TIEP.md`
-4. `tasks/04-analyze-current-manual-flow/MANUAL_FLOW_ANALYSIS.md`
-5. `seller-manual-flow.html`
-6. `tasks/03-confirm-order-to-fulfillment-flow/cau-hoi-confirm-luong-seller-to-supplier.xlsx`
+4. `tasks/03-confirm-order-to-fulfillment-flow/MEETING_NOTE_2026-07-22.md`
+5. `tasks/04-analyze-current-manual-flow/MANUAL_FLOW_ANALYSIS.md`
+6. `seller-manual-flow.html`
+7. `tasks/03-confirm-order-to-fulfillment-flow/cau-hoi-confirm-luong-seller-to-supplier.xlsx`
 
 Sau đó mới tiếp tục cập nhật câu hỏi hoặc chỉnh luồng.
