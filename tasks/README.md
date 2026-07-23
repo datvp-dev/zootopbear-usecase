@@ -18,6 +18,7 @@ Trong do `NN` la so thu tu 2 chu so, tang dan theo thoi diem tao task.
 | 02 | `02-confirm-artsadd-api` | Confirm cach ket noi API ART ADD. |
 | 03 | `03-confirm-order-to-fulfillment-flow` | Confirm luong seller tao/import don den supplier va tracking. |
 | 04 | `04-analyze-current-manual-flow` | Phan tich 2 file Excel de hieu luong van hanh thu cong hien tai. |
+| 05 | `05-confirm-all-usecases` | Confirm toan bo use case theo role va list man hinh Phase 1. |
 
 ## Ghi chu tiep tuc
 
@@ -34,5 +35,5 @@ File nay tom tat cac phat hien ve Excel thu cong, catalog, tracking PrintBelle, 
 Task moi tiep theo nen bat dau bang:
 
 ```text
-05-
+06-
 ```

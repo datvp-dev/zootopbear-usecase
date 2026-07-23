@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UC-SEL-07 — Upload/link thiết kế</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="usecase-detail.css">
+</head>
+<body>
+<main class="case-page">
+  <a class="case-back" href="../seller.html">← Quay lại Seller use case</a>
+  <div class="case-kicker">UC-SEL-07 · Seller</div>
+  <h1 class="case-title">Upload/link file thiết kế</h1>
+  <p class="case-sub">Seller cung cấp file thiết kế, link thiết kế, ảnh mô phỏng và ghi chú sản phẩm để Zootop/xưởng có đủ dữ liệu sản xuất.</p>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Wireframe dự kiến</h2>
+      <div class="wire">
+        <div class="wire-top">Thiết kế · Mặt trước · Mặt sau · Tay áo</div>
+        <div class="wire-form">
+          <div class="wire-field"></div><div class="wire-field"></div><div class="wire-field"></div>
+          <div class="wire-table"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </section>
+    <section class="case-card">
+      <h2>Luồng trực quan</h2>
+      <div class="flow-strip">
+        <div class="flow-node" data-step="1"><b>Seller chọn item</b><span>Chọn dòng sản phẩm trong đơn.</span></div>
+        <div class="flow-node" data-step="2"><b>Gắn thiết kế</b><span>Upload file hoặc nhập link thiết kế.</span></div>
+        <div class="flow-node" data-step="3"><b>Gắn ảnh mô phỏng</b><span>Giúp nội bộ/xưởng kiểm tra trực quan.</span></div>
+        <div class="flow-node" data-step="4"><b>Kiểm tra lỗi</b><span>Thiếu/sai thiết kế sẽ đưa đơn vào trạng thái cần xử lý.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Ý hiểu hiện tại</h2>
+      <ul>
+        <li>Đơn lỗi thiết kế là một nhóm lỗi quan trọng, có thể tạo ticket.</li>
+        <li>Với apparel có thể có nhiều vị trí in như mặt trước, mặt sau, tay áo.</li>
+        <li>Ảnh mô phỏng cần dùng từ “ảnh mô phỏng” để khách dễ hiểu.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Cần hỏi khách</h2>
+      <ul class="confirm-list">
+        <li>Seller upload file trực tiếp lên hệ thống hay chỉ nhập link Google Drive/Dropbox?</li>
+        <li>File thiết kế có giới hạn dung lượng/định dạng không?</li>
+        <li>Nếu seller muốn đổi thiết kế sau khi gửi đơn thì xử lý qua ticket đúng không?</li>
+      </ul>
+    </section>
+  </div>
+  <div class="links-row">
+    <a href="../screens.html#scr-create-order">Xem màn hình liên quan</a>
+    <a href="uc-sel-08-payment.html">Use case tiếp theo</a>
+  </div>
+</main>
+</body>
+</html>

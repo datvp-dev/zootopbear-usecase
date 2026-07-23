@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UC-SEL-11 — Ticket hỗ trợ đơn hàng</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="usecase-detail.css">
+</head>
+<body>
+<main class="case-page">
+  <a class="case-back" href="../seller.html">← Quay lại Seller use case</a>
+  <div class="case-kicker">UC-SEL-11 · Seller</div>
+  <h1 class="case-title">Tạo ticket hỗ trợ đơn hàng</h1>
+  <p class="case-sub">Seller tạo ticket khi cần đổi thiết kế, báo lỗi đơn, hỏi trạng thái, hỏi mã vận đơn hoặc có vấn đề giao hàng.</p>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Wireframe dự kiến</h2>
+      <div class="wire">
+        <div class="wire-top">Ticket · Đơn liên quan · Nội dung hỗ trợ</div>
+        <div class="wire-form">
+          <div class="wire-field"></div><div class="wire-field"></div><div class="wire-field"></div>
+          <div class="wire-button"></div>
+        </div>
+      </div>
+    </section>
+    <section class="case-card">
+      <h2>Luồng trực quan</h2>
+      <div class="flow-strip">
+        <div class="flow-node" data-step="1"><b>Seller chọn đơn</b><span>Ticket nên gắn với một đơn cụ thể.</span></div>
+        <div class="flow-node" data-step="2"><b>Nhập vấn đề</b><span>Đổi thiết kế, báo lỗi, hỏi mã vận đơn.</span></div>
+        <div class="flow-node" data-step="3"><b>CSKH tiếp nhận</b><span>Ghi chú và chuyển xử lý nếu cần.</span></div>
+        <div class="flow-node" data-step="4"><b>Vận hành xử lý</b><span>Nếu chưa có ticket đầy đủ, đưa lên group nội bộ.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Ý hiểu hiện tại</h2>
+      <ul>
+        <li>Khách confirm đơn lỗi xử lý thủ công.</li>
+        <li>Ticket dùng cho đơn lỗi, ví dụ seller muốn đổi design.</li>
+        <li>Nếu chưa có ticket module thì bắn lên group nội bộ cho vận hành.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Cần hỏi khách</h2>
+      <ul class="confirm-list">
+        <li>Phase 1 có làm ticket trong hệ thống luôn không, hay dùng group nội bộ trước?</li>
+        <li>Seller được tạo những loại ticket nào?</li>
+        <li>Ai là người phản hồi cuối cùng cho seller: CSKH, vận hành hay admin?</li>
+      </ul>
+    </section>
+  </div>
+  <div class="links-row">
+    <a href="../screens.html#scr-ticket">Xem màn hình liên quan</a>
+    <a href="../seller.html">Quay lại danh sách Seller</a>
+  </div>
+</main>
+</body>
+</html>

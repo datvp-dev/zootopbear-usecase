@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UC-SEL-01 — Đăng nhập / đăng ký tài khoản</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="usecase-detail.css">
+</head>
+<body>
+<main class="case-page">
+  <a class="case-back" href="../seller.html">← Quay lại Seller use case</a>
+  <div class="case-kicker">UC-SEL-01 · Seller</div>
+  <h1 class="case-title">Đăng nhập, đăng ký và quên mật khẩu bằng email</h1>
+  <p class="case-sub">Seller dùng email làm thông tin bắt buộc để đăng nhập, đăng ký tài khoản và tự xác nhận email. Sau khi xác nhận, seller vào được hệ thống ở trạng thái Dùng thử; Admin nhận thông báo và chuyển seller sang trạng thái phù hợp sau.</p>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Wireframe dự kiến</h2>
+      <div class="wire auth-wire auth-multi">
+        <div class="auth-multi-grid">
+          <div class="auth-mock" data-screen="Màn 1 · Login">
+            <div class="auth-logo">Zootop<span>Bear</span></div>
+            <div class="auth-card">
+              <h3>Welcome to Zootop Bear!</h3>
+              <div class="auth-label">Email <b>*</b></div>
+              <div class="auth-input">Enter your email</div>
+              <div class="auth-label">Password</div>
+              <div class="auth-password">
+                <div class="auth-input">Password</div>
+                <div class="auth-eye">👁</div>
+              </div>
+              <div class="auth-row">
+                <span class="auth-check"><span class="auth-box"></span>Remember me</span>
+                <span class="auth-link">Forgot password?</span>
+              </div>
+              <div class="auth-button">Login</div>
+              <div class="auth-note">Don't have an account? <span class="auth-link">Sign up</span></div>
+            </div>
+          </div>
+          <div class="auth-mock" data-screen="Màn 2 · SignUp">
+            <div class="auth-logo">Zootop<span>Bear</span></div>
+            <div class="auth-card">
+              <h3>SignUp</h3>
+              <div class="auth-label">Name</div>
+              <div class="auth-input">Enter your name</div>
+              <div class="auth-label">Email <b>*</b></div>
+              <div class="auth-input">Enter your email</div>
+              <div class="auth-label">Password</div>
+              <div class="auth-password">
+                <div class="auth-input">Password</div>
+                <div class="auth-eye">👁</div>
+              </div>
+              <div class="auth-label">Password confirmation</div>
+              <div class="auth-password">
+                <div class="auth-input">Password confirmation</div>
+                <div class="auth-eye">👁</div>
+              </div>
+              <div class="auth-button">SignUp</div>
+              <div class="auth-note">Already have an account? <span class="auth-link">Login</span></div>
+            </div>
+          </div>
+          <div class="auth-mock" data-screen="Màn 3 · Forgot Password">
+            <div class="auth-logo">Zootop<span>Bear</span></div>
+            <div class="auth-card">
+              <h3>Forgot Password</h3>
+              <div class="auth-help">Enter your email address and we will send you a verification code to reset your password.</div>
+              <div class="auth-label">Email <b>*</b></div>
+              <div class="auth-input">Enter your email</div>
+              <div class="auth-button">Send Verification Code</div>
+              <div class="auth-note"><span class="auth-link">Login</span></div>
+            </div>
+          </div>
+          <div class="auth-mock" data-screen="Màn 4 · Xác nhận email">
+            <div class="auth-logo">Zootop<span>Bear</span></div>
+            <div class="auth-card">
+              <h3>Verify Email</h3>
+              <div class="auth-help">Nhập verification code được gửi tới email để kích hoạt tài khoản dùng thử.</div>
+              <div class="auth-label">Email</div>
+              <div class="auth-input">seller@email.com</div>
+              <div class="auth-label">Verification code</div>
+              <div class="auth-input">Enter verification code</div>
+              <div class="auth-button">Verify & Start Trial</div>
+              <div class="auth-note">Xác nhận xong vào hệ thống với trạng thái Dùng thử.</div>
+            </div>
+          </div>
+          <div class="auth-mock" data-screen="Màn 5 · Dùng thử">
+            <div class="auth-logo">Zootop<span>Bear</span></div>
+            <div class="auth-card">
+              <h3>Trial Account</h3>
+              <div class="auth-help">Seller đã vào được hệ thống. Admin sẽ nhận thông báo và chuyển seller sang trạng thái phù hợp sau.</div>
+              <div class="auth-label">Trạng thái</div>
+              <div class="auth-input">Dùng thử</div>
+              <div class="auth-button">Go to Seller Dashboard</div>
+              <div class="auth-note">Dùng thử chỉ xem catalog public; chưa tạo đơn, nạp ví hoặc thao tác nghiệp vụ.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="case-card">
+      <h2>Luồng trực quan</h2>
+      <div class="flow-strip">
+        <div class="flow-node" data-step="1"><b>Seller nhập email</b><span>Email là thông tin bắt buộc cho đăng nhập, đăng ký và quên mật khẩu.</span></div>
+        <div class="flow-node" data-step="2"><b>Đăng nhập</b><span>Seller nhập email + mật khẩu, có thể chọn ghi nhớ đăng nhập.</span></div>
+        <div class="flow-node" data-step="3"><b>Đăng ký / quên mật khẩu</b><span>SignUp cần Name, Email, Password; Forgot Password gửi verification code qua email.</span></div>
+        <div class="flow-node" data-step="4"><b>Seller xác nhận email</b><span>Seller bấm link hoặc nhập code để tự kích hoạt tài khoản.</span></div>
+        <div class="flow-node" data-step="5"><b>Vào trạng thái Dùng thử</b><span>Seller vào được hệ thống; hệ thống gửi thông báo seller mới cho Admin.</span></div>
+        <div class="flow-node" data-step="6"><b>Admin chuyển trạng thái</b><span>Admin xem danh sách seller, gán tier/phụ trách và chuyển seller sang trạng thái phù hợp.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Ý hiểu hiện tại</h2>
+      <ul>
+        <li>Seller là khách hàng chính của Zootop Bear.</li>
+        <li>Email là trường bắt buộc trên màn đăng nhập/đăng ký/quên mật khẩu.</li>
+        <li>Màn xác thực cần có đủ 3 màn/trạng thái: Login, SignUp và Forgot Password.</li>
+        <li>SignUp gồm Name, Email, Password và Password confirmation.</li>
+        <li>Forgot Password nhập Email và gửi verification code để reset mật khẩu.</li>
+        <li>Seller đăng ký xong không cần chờ Admin duyệt mới được vào hệ thống.</li>
+        <li>Seller tự xác nhận email bằng verification code/link, sau đó vào hệ thống ở trạng thái Dùng thử.</li>
+        <li>Seller Dùng thử chỉ xem được catalog giống phần public ngoài trang chính; không tạo/import đơn, không nạp ví, không tạo ticket và không thao tác nghiệp vụ khác.</li>
+        <li>Về sau hệ thống/API sẽ check trạng thái seller để khóa/mở quyền thao tác nên không quá rủi ro khi cho seller vào hệ thống trước.</li>
+        <li>Khi seller tạo tài khoản, hệ thống gửi thông báo đến Admin để tránh Admin bị miss seller mới.</li>
+        <li>Seller không tự vào các xưởng để tạo đơn; seller thao tác trên hệ thống Zootop Bear.</li>
+        <li>Admin không còn là bước chặn trước khi seller vào hệ thống; Admin quản lý và chuyển trạng thái seller sau khi seller đã ở trạng thái Dùng thử.</li>
+        <li>Admin chuyển trạng thái seller từ Dùng thử sang trạng thái khác từ màn danh sách seller, có thể gán nhân viên phụ trách cho seller đó.</li>
+        <li>Sau khi gán phụ trách, hệ thống gửi thông báo đến nhân viên phụ trách. Kênh thông báo cụ thể sẽ tính sau.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Câu hỏi draft — chờ Anh duyệt trước khi hỏi khách</h2>
+      <ul class="confirm-list">
+        <li>Form SignUp hiện gồm Name, Email, Password, Password confirmation; có cần thêm số điện thoại, tên shop, sản lượng dự kiến không?</li>
+        <li>Admin sẽ chuyển seller từ Dùng thử sang những trạng thái nào: Active, Partner, VIP, Locked, Rejected?</li>
+        <li>Nếu seller không xác nhận email thì sau bao lâu code/link hết hạn và có được gửi lại không?</li>
+        <li>Khi seller tạo tài khoản mới, thông báo cho Admin qua email, kênh thông báo nội bộ, hay cả hai?</li>
+        <li>Nhân viên phụ trách seller là CSKH, Vận hành, hay có thể chọn bất kỳ user nội bộ nào?</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="links-row">
+    <a href="../screens.html#scr-login">Xem màn hình liên quan</a>
+    <a href="../screens.html#scr-seller-list">Xem màn Admin chuyển trạng thái seller</a>
+    <a href="uc-adm-01-seller-approval.html">Use case Admin chuyển trạng thái seller</a>
+    <a href="uc-sel-02-catalog.html">Use case tiếp theo</a>
+  </div>
+</main>
+</body>
+</html>

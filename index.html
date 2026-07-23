@@ -43,35 +43,35 @@
       <h2 class="big">Use Case Overview</h2>
       <div class="intro-note">
         Tài liệu liệt kê toàn bộ use case theo từng vai trò để khách hàng xác nhận đúng/đủ phạm vi
-        trước khi đi vào đặc tả chi tiết. Seller thao tác trên hệ thống Zootop Bear; hệ thống tính giá riêng,
-        map dữ liệu và bắn đơn sang 5 nền tảng fulfillment/xưởng phía sau.
+        trước khi đi vào đặc tả chi tiết. Seller thao tác trên hệ thống Zootop Bear; hệ thống thay phần file Excel riêng,
+        gom đơn về danh sách đơn tổng nội bộ, tính giá riêng, xác nhận đơn rồi mới gửi sang xưởng phù hợp.
       </div>
 
       <div class="role-grid">
         <a class="role-card" href="seller.html" style="--c:var(--teal)">
           <div class="rc-name">Seller</div>
           <div class="rc-count">11 use case</div>
-          <div class="rc-desc">Người dùng chính. Đăng ký, catalog, nạp tiền, nhập đơn, tracking, hủy đơn, tạo ticket hỗ trợ.</div>
+          <div class="rc-desc">Người dùng chính. Đăng ký, xem catalog, nạp tiền, tạo/import đơn theo template, theo dõi mã vận đơn, hủy đơn, tạo ticket.</div>
         </a>
         <a class="role-card" href="admin.html" style="--c:var(--purple)">
           <div class="rc-name">Admin</div>
           <div class="rc-count">11 use case</div>
-          <div class="rc-desc">Full quyền: seller, catalog, giá, 5 nền tảng fulfillment/xưởng, đơn, ví, ticket, audit.</div>
+          <div class="rc-desc">Full quyền: seller, catalog, giá, xưởng đang xử lý đơn mới, PrintBelle lưu lịch sử/import đơn cũ, đơn, ví, ticket, audit.</div>
         </a>
         <a class="role-card" href="ketoan.html" style="--c:var(--amber)">
           <div class="rc-name">Kế toán</div>
           <div class="rc-count">5 use case</div>
-          <div class="rc-desc">Duyệt nạp tiền, điều chỉnh ví, ledger, billing history, refund khi hủy/fail đơn.</div>
+          <div class="rc-desc">Duyệt nạp tiền, điều chỉnh ví, xác nhận tiền đơn, xem chi phí xưởng, billing history, refund/đối soát.</div>
         </a>
         <a class="role-card" href="vanhanh.html" style="--c:var(--coral)">
           <div class="rc-name">Vận hành</div>
           <div class="rc-count">6 use case</div>
-          <div class="rc-desc">Theo dõi đơn gửi nền tảng/xưởng, log kết nối, xử lý Hold/lỗi, retry, tracking, ticket.</div>
+          <div class="rc-desc">Kiểm tra file đơn tổng, xác nhận/gửi đơn sang xưởng, theo dõi trạng thái xưởng, mã vận đơn và đơn lỗi.</div>
         </a>
         <a class="role-card" href="cskh.html" style="--c:var(--pink)">
           <div class="rc-name">CSKH</div>
           <div class="rc-count">4 use case</div>
-          <div class="rc-desc">Xem seller/đơn/tracking được phân công, ghi chú, tiếp nhận và chuyển xử lý ticket.</div>
+          <div class="rc-desc">Xem seller/đơn/mã vận đơn được phân công, ghi chú hỗ trợ, tiếp nhận ticket và chuyển xử lý nội bộ.</div>
         </a>
       </div>
 
@@ -83,14 +83,15 @@
       </div>
 
       <div class="confirm">
-        <h3>Điểm cần khách hàng chốt</h3>
-        <label>☐ Hủy đơn: seller tự hủy trong 30 phút sau khi lên đơn; sau 30 phút cần liên hệ support để hỗ trợ hủy.</label>
-        <label>☐ Ticket hỗ trợ đơn hàng: seller tạo ticket, hệ thống chuyển vấn đề/sửa đơn qua API tới nền tảng/xưởng tương ứng.</label>
-        <label>☐ Mapping template fulfill sang order nội bộ và API từng nền tảng: nguồn dữ liệu từng cột, SKU/Variant, shipping, label, design/mockup.</label>
-        <label>☐ Tách 2 lớp giá: giá seller trả cho Zootop Bear và giá/cost tạo đơn trên FlashShip/SimplePrint/PrintBelle/ART ADD/Snap Ecom.</label>
-        <label>☐ Phân quyền nội bộ: Admin full quyền; cần chốt Kế toán, Vận hành, CSKH xem/làm gì và có giới hạn theo seller phụ trách không.</label>
-        <label>☐ Admin/Seller Dashboard: các cột, bộ lọc, trạng thái đơn và tracking cần hiển thị.</label>
-        <label>☐ Xác nhận danh sách use case này đúng và đủ cho Phase 1.</label>
+        <h3>Điểm đã confirm cần đưa vào Phase 1</h3>
+        <label>Seller nhập file riêng hoặc import lên web; Zootop gom về danh sách đơn tổng, kiểm tra và xác nhận trước khi gửi xưởng.</label>
+        <label>Hủy đơn: seller tự hủy trong 30 phút sau khi lên đơn; sau 30 phút cần liên hệ support để hỗ trợ hủy.</label>
+        <label>Ticket hỗ trợ đơn hàng: đơn lỗi xử lý thủ công qua ticket; nếu chưa có ticket thì gửi cảnh báo lên group nội bộ cho vận hành.</label>
+        <label>Template fulfill sang order nội bộ cần giữ đủ dữ liệu: SKU/Variant, shipping, label, thiết kế và ảnh mô phỏng.</label>
+        <label>Tách 2 lớp giá: seller chỉ thấy giá Zootop Bear; Admin/Kế toán thấy thêm chi phí xưởng để đối soát.</label>
+        <label>Nhà cung cấp: phase này làm các xưởng đang xử lý đơn mới; PrintBelle tạm pending, chỉ import đơn cũ để thống kê/đối soát và lưu lịch sử.</label>
+        <label>Mã xưởng đã note: 415 = Snap, 922 = Flash POD; hệ thống cần lưu mapping để sau này mở rộng.</label>
+        <label>Dashboard cần thể hiện danh sách đơn tổng, trạng thái đơn, trạng thái xưởng và mã vận đơn.</label>
       </div>
     </div>
   </main>

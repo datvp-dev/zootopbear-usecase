@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UC-ADM-01 — Danh sách seller và chuyển trạng thái seller</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="usecase-detail.css">
+</head>
+<body>
+<main class="case-page">
+  <a class="case-back" href="../admin.html">← Quay lại Admin use case</a>
+  <div class="case-kicker">UC-ADM-01 · Admin</div>
+  <h1 class="case-title">Danh sách seller và chuyển trạng thái seller</h1>
+  <p class="case-sub">Admin xem toàn bộ seller trong hệ thống, nhận thông báo khi có seller mới tự kích hoạt email, quản lý seller ở trạng thái Dùng thử, gán tier/phụ trách và chuyển sang trạng thái phù hợp.</p>
+
+  <div class="case-grid case-grid-single">
+    <section class="case-card">
+      <h2>Wireframe dự kiến</h2>
+      <div class="admin-wire">
+        <div class="admin-page-area">
+          <div class="admin-page-head">
+            <div><h3>Danh sách seller</h3><p>Admin theo dõi seller dùng thử, gán tier, phụ trách và chuyển trạng thái.</p></div>
+            <span class="admin-btn is-primary">+ Thêm seller nội bộ</span>
+          </div>
+          <div class="admin-frame">
+            <div class="admin-content">
+              <div class="admin-filters">
+                <span class="admin-filter">Status: Dùng thử</span>
+                <span class="admin-filter">Tier: All</span>
+                <span class="admin-filter">Created date: All</span>
+                <span class="admin-filter">Search...</span>
+                <span class="admin-btn">Reset</span>
+              </div>
+              <div class="admin-table">
+                <div class="admin-row is-head"><span>#</span><span>Seller</span><span>Email</span><span>Status</span><span>Phụ trách</span><span>Action</span></div>
+                <div class="admin-row"><span>1</span><span>Bear Store<br>Code: SEL-001</span><span>seller@email.com</span><span class="admin-status">Dùng thử</span><span>Chưa gán</span><span class="admin-mini-actions"><span>Chuyển trạng thái</span><span>Gán phụ trách</span></span></div>
+                <div class="admin-row"><span>2</span><span>US POD Shop<br>Code: SEL-002</span><span>uspod@email.com</span><span class="admin-status ok">Active</span><span>CSKH A</span><span class="admin-mini-actions"><span>Xem</span><span>Khóa</span></span></div>
+                <div class="admin-row"><span>3</span><span>Old Seller<br>Code: SEL-003</span><span>old@email.com</span><span class="admin-status bad">Rejected</span><span>-</span><span class="admin-mini-actions"><span>Xem lý do</span></span></div>
+              </div>
+              <div class="admin-footer-row">
+                <span>Showing 1 to 3 of 3 sellers</span>
+                <div class="admin-pages"><span>Previous</span><span class="is-active">1</span><span>Next</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="admin-story-grid">
+          <div class="admin-popup" data-screen="Popup 1 · Chuyển trạng thái">
+            <h3>Chuyển trạng thái seller</h3>
+            <p>Seller đã tự kích hoạt email và đang ở trạng thái Dùng thử. Admin chọn trạng thái tiếp theo, tier và nhân viên phụ trách.</p>
+            <div class="admin-field">Seller: Bear Store · seller@email.com</div>
+            <div class="admin-field">Trạng thái mới: Active / Partner / VIP / Locked</div>
+            <div class="admin-field">Chọn tier: Tier 1 / Tier 2 / Tier 3</div>
+            <div class="admin-field">Gán nhân viên phụ trách</div>
+            <div class="admin-actions"><span class="admin-btn is-primary">Lưu trạng thái</span><span class="admin-btn">Hủy</span></div>
+          </div>
+          <div class="admin-popup" data-screen="Popup 2 · Khóa/Từ chối seller">
+            <h3>Khóa hoặc từ chối seller</h3>
+            <p>Admin nhập lý do nếu seller không phù hợp, có rủi ro hoặc cần dừng quyền dùng thử.</p>
+            <div class="admin-field">Lý do khóa/từ chối</div>
+            <div class="admin-field">Ghi chú nội bộ nếu có</div>
+            <div class="admin-actions"><span class="admin-btn is-primary">Xác nhận</span><span class="admin-btn">Quay lại</span></div>
+          </div>
+          <div class="admin-popup" data-screen="Popup 3 · Thông báo phụ trách">
+            <h3>Gửi thông báo nhân viên</h3>
+            <p>Sau khi Admin gán phụ trách, hệ thống gửi thông báo cho nhân viên được chọn.</p>
+            <div class="admin-field">Người nhận: CSKH A</div>
+            <div class="admin-field">Nội dung: Bạn được gán phụ trách seller Bear Store</div>
+            <div class="admin-note">Kênh thông báo cụ thể sẽ chốt sau: email, notification nội bộ hoặc kênh chat.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="case-card">
+      <h2>Luồng trực quan</h2>
+      <div class="flow-strip">
+        <div class="flow-node" data-step="1"><b>Seller đăng ký</b><span>Seller nhập Name, Email, Password và Password confirmation.</span></div>
+        <div class="flow-node" data-step="2"><b>Seller tự kích hoạt</b><span>Seller xác nhận email và vào hệ thống ở trạng thái Dùng thử.</span></div>
+        <div class="flow-node" data-step="3"><b>Thông báo Admin</b><span>Hệ thống gửi thông báo có seller mới cho Admin. Kênh thông báo sẽ chốt sau.</span></div>
+        <div class="flow-node" data-step="4"><b>Admin xem danh sách</b><span>Admin kiểm tra seller Dùng thử, chọn tier và gán nhân viên phụ trách.</span></div>
+        <div class="flow-node" data-step="5"><b>Chuyển trạng thái</b><span>Admin chuyển seller sang Active/Partner/VIP/Locked hoặc trạng thái phù hợp.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Ý hiểu hiện tại</h2>
+      <ul>
+        <li>Seller không cần chờ Admin duyệt mới được vào hệ thống.</li>
+        <li>Seller tự xác nhận email và vào hệ thống với trạng thái Dùng thử.</li>
+        <li>Seller Dùng thử chỉ xem được catalog giống phần public ngoài trang chính; không tạo/import đơn, không nạp ví, không tạo ticket và không thao tác nghiệp vụ khác.</li>
+        <li>Hệ thống/API sẽ check trạng thái seller để quyết định quyền thao tác ở các chức năng.</li>
+        <li>Màn danh sách seller cần xem được toàn bộ seller trong hệ thống.</li>
+        <li>Danh sách cần có trạng thái: dùng thử, active, partner/VIP, rejected, locked.</li>
+        <li>Khi seller tạo tài khoản, hệ thống cần thông báo cho Admin. Kênh thông báo sẽ tính sau.</li>
+        <li>Trong màn danh sách seller, seller Dùng thử có nút chuyển trạng thái và gán phụ trách.</li>
+        <li>Khi chuyển trạng thái, Admin gán tier và gán nhân viên phụ trách cho seller.</li>
+        <li>Sau khi gán phụ trách, hệ thống gửi thông báo đến nhân viên phụ trách.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Câu hỏi draft — chờ Anh duyệt trước khi hỏi khách</h2>
+      <ul class="confirm-list">
+        <li>Khi seller tạo tài khoản mới, Admin nhận thông báo qua email, qua kênh thông báo nội bộ, hay cả hai?</li>
+        <li>Nhân viên phụ trách seller là CSKH, Vận hành, hay có thể chọn bất kỳ user nội bộ nào?</li>
+        <li>Các trạng thái chính thức của seller cần có những gì: Active, Partner, VIP, Locked, Rejected?</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="links-row">
+    <a href="../screens.html#scr-seller-list">Xem màn danh sách seller</a>
+    <a href="../screens.html#scr-common-layout">Xem Common layout</a>
+    <a href="uc-sel-01-register.html">Xem luồng Seller đăng ký</a>
+  </div>
+</main>
+</body>
+</html>

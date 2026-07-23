@@ -26,20 +26,20 @@
 renderSidebar('admin.html');
 renderUseCases({
   actorName: 'Admin',
-  actorRole: 'Full quyền: seller, catalog, giá, nền tảng/xưởng, đơn, ví',
+  actorRole: 'Full quyền: seller, catalog, giá, xưởng đang xử lý đơn mới, PrintBelle lưu lịch sử, đơn, ví, ticket',
   theme: 't-purple',
   useCases: [
-    { code: 'UC-ADM-01', title: 'Duyệt seller, gán tier', sub: 'Duyệt, khóa, gán nhân viên phụ trách' },
-    { code: 'UC-ADM-02', title: 'Quản lý tài khoản nội bộ', sub: 'Full quyền Admin, phân quyền role khác' },
-    { code: 'UC-ADM-03', title: 'Quản lý catalog sản phẩm', sub: 'SKU, variant, ảnh, template, print area' },
-    { code: 'UC-ADM-04', title: 'Cấu hình bảng giá Zootop Bear', sub: 'Tier, ship, label fee, add item fee' },
-    { code: 'UC-ADM-05', title: 'Quản lý nền tảng/xưởng fulfillment', sub: 'FlashShip, SimplePrint, PrintBelle, ART ADD, Snap Ecom' },
-    { code: 'UC-ADM-06', title: 'Mapping sản phẩm sang nền tảng', sub: 'SKU/variant nội bộ và SKU/variant xưởng', flag: 'open' },
-    { code: 'UC-ADM-07', title: 'Theo dõi đơn và dashboard tổng', sub: 'Seller, status, payment, platform, tracking' },
-    { code: 'UC-ADM-08', title: 'Xử lý đơn Hold, retry lỗi', sub: 'Log gửi đơn, webhook/API error' },
-    { code: 'UC-ADM-09', title: 'Quản lý ví, refund, credit đặc biệt', sub: 'Top-up, hoàn tiền, seller được đẩy đơn trước', flag: 'open' },
-    { code: 'UC-ADM-10', title: 'Xem audit log', sub: 'Giá, ví, đơn, tracking, thao tác người dùng' },
-    { code: 'UC-ADM-11', title: 'Quản lý ticket hỗ trợ', sub: 'Ticket seller và đồng bộ API tới xưởng' },
+    { code: 'UC-ADM-01', title: 'Danh sách seller và chuyển trạng thái seller', sub: 'Admin nhận thông báo seller mới, xem seller dùng thử, gán tier/phụ trách và chuyển trạng thái', screen: 'scr-seller-list', page: 'usecases/uc-adm-01-seller-approval.html' },
+    { code: 'UC-ADM-02', title: 'Quản lý tài khoản nội bộ', sub: 'Full quyền Admin, phân quyền role khác', screen: 'scr-user-role' },
+    { code: 'UC-ADM-03', title: 'Quản lý catalog sản phẩm', sub: 'Catalog lấy từ xưởng, chuẩn hóa cho Zootop, gắn template theo từng nhóm hàng', screen: 'scr-catalog' },
+    { code: 'UC-ADM-04', title: 'Cấu hình bảng giá Zootop Bear', sub: 'Giá seller, tier, ship, label fee, add item fee, chi phí xưởng để đối soát', screen: 'scr-pricing' },
+    { code: 'UC-ADM-05', title: 'Quản lý nền tảng/xưởng fulfillment', sub: 'Các xưởng đang xử lý đơn mới; PrintBelle tạm pending, chỉ import đơn cũ/lưu lịch sử', screen: 'scr-supplier' },
+    { code: 'UC-ADM-06', title: 'Mapping sản phẩm sang xưởng', sub: 'Mã Zootop, SKU/variant, mã xưởng; 415 = Snap, 922 = Flash POD', flag: 'open', screen: 'scr-mapping' },
+    { code: 'UC-ADM-07', title: 'Theo dõi đơn và dashboard tổng', sub: 'Seller, đơn tổng nội bộ, xác nhận đơn, xưởng, trạng thái, mã vận đơn', screen: 'scr-internal-orders' },
+    { code: 'UC-ADM-08', title: 'Xử lý đơn Hold, lỗi, gửi lại', sub: 'Đơn thiếu dữ liệu, sai thiết kế, lỗi xưởng, ticket hoặc group nội bộ', screen: 'scr-confirm-send' },
+    { code: 'UC-ADM-09', title: 'Quản lý ví, refund, credit đặc biệt', sub: 'Top-up, hoàn tiền, seller được đẩy đơn trước', flag: 'open', screen: 'scr-accounting' },
+    { code: 'UC-ADM-10', title: 'Xem audit log', sub: 'Giá, ví, đơn, mã vận đơn, thao tác người dùng', screen: 'scr-user-role' },
+    { code: 'UC-ADM-11', title: 'Quản lý ticket hỗ trợ', sub: 'Ticket seller, xử lý thủ công; nếu chưa có ticket thì gửi cảnh báo lên group nội bộ', screen: 'scr-ticket' },
   ]
 });
 </script>

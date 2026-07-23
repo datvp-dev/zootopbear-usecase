@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UC-SEL-09 — Theo dõi mã vận đơn</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="usecase-detail.css">
+</head>
+<body>
+<main class="case-page">
+  <a class="case-back" href="../seller.html">← Quay lại Seller use case</a>
+  <div class="case-kicker">UC-SEL-09 · Seller</div>
+  <h1 class="case-title">Theo dõi đơn và mã vận đơn</h1>
+  <p class="case-sub">Seller theo dõi trạng thái đơn bằng ngôn ngữ dễ hiểu, bao gồm trạng thái xử lý của xưởng và mã vận đơn sau khi xưởng ship hàng.</p>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Wireframe dự kiến</h2>
+      <div class="wire">
+        <div class="wire-top">Chi tiết đơn · Trạng thái · Mã vận đơn</div>
+        <div class="wire-cards"><div class="wire-card"></div><div class="wire-card"></div><div class="wire-card"></div></div>
+        <div class="wire-table"><span></span><span></span><span></span><span></span></div>
+      </div>
+    </section>
+    <section class="case-card">
+      <h2>Luồng trực quan</h2>
+      <div class="flow-strip">
+        <div class="flow-node" data-step="1"><b>Đơn được gửi xưởng</b><span>Sau khi nội bộ xác nhận.</span></div>
+        <div class="flow-node" data-step="2"><b>Xưởng xử lý</b><span>Xưởng có trạng thái đơn riêng.</span></div>
+        <div class="flow-node" data-step="3"><b>Có mã vận đơn</b><span>Khi xưởng giao hàng cho hãng vận chuyển.</span></div>
+        <div class="flow-node" data-step="4"><b>Seller theo dõi</b><span>Hiển thị trạng thái dễ hiểu, có thể qua 17TRACK.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Ý hiểu hiện tại</h2>
+      <ul>
+        <li>Các xưởng có trạng thái đơn riêng, không chỉ có mã vận đơn.</li>
+        <li>Tracking carrier cũng có trạng thái riêng.</li>
+        <li>Cần map trạng thái về câu chữ dễ hiểu cho seller.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Cần hỏi khách</h2>
+      <ul class="confirm-list">
+        <li>Seller cần xem những trạng thái nào: chờ xác nhận, đã gửi xưởng, đang sản xuất, đã có mã vận đơn, đã giao?</li>
+        <li>Có cần gửi email khi có mã vận đơn không?</li>
+        <li>Seller có cần link mở trang hãng vận chuyển/17TRACK không?</li>
+      </ul>
+    </section>
+  </div>
+  <div class="links-row">
+    <a href="../screens.html#scr-order-detail">Xem màn hình liên quan</a>
+    <a href="uc-sel-10-cancel.html">Use case tiếp theo</a>
+  </div>
+</main>
+</body>
+</html>

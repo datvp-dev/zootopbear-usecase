@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UC-SEL-05 — Tạo đơn lẻ</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="usecase-detail.css">
+</head>
+<body>
+<main class="case-page">
+  <a class="case-back" href="../seller.html">← Quay lại Seller use case</a>
+  <div class="case-kicker">UC-SEL-05 · Seller</div>
+  <h1 class="case-title">Tạo đơn lẻ trên Zootop Bear</h1>
+  <p class="case-sub">Seller nhập một đơn trực tiếp trên web. Đây là phiên bản thay thế cho việc seller điền từng dòng vào file Excel riêng.</p>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Wireframe dự kiến</h2>
+      <div class="wire">
+        <div class="wire-top">Tạo đơn · Người nhận · Sản phẩm · Thiết kế</div>
+        <div class="wire-form">
+          <div class="wire-field"></div><div class="wire-field"></div><div class="wire-field"></div>
+          <div class="wire-table"><span></span><span></span><span></span></div>
+          <div class="wire-button"></div>
+        </div>
+      </div>
+    </section>
+    <section class="case-card">
+      <h2>Luồng trực quan</h2>
+      <div class="flow-strip">
+        <div class="flow-node" data-step="1"><b>Nhập order_id</b><span>Mã đơn của seller để đối chiếu sau này.</span></div>
+        <div class="flow-node" data-step="2"><b>Nhập người nhận</b><span>Tên, địa chỉ, thành phố, bang, zip.</span></div>
+        <div class="flow-node" data-step="3"><b>Chọn sản phẩm</b><span>Mã hàng/variant, số lượng, size, màu.</span></div>
+        <div class="flow-node" data-step="4"><b>Gửi Zootop</b><span>Đơn vào danh sách đơn tổng, chưa gửi xưởng ngay.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Ý hiểu hiện tại</h2>
+      <ul>
+        <li>Seller không gửi đơn trực tiếp sang xưởng.</li>
+        <li>Đơn tạo trên web cần đi vào danh sách đơn tổng nội bộ.</li>
+        <li>Đơn phải được kế toán/vận hành xác nhận trước khi gửi xưởng.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Cần hỏi khách</h2>
+      <ul class="confirm-list">
+        <li>Phase 1 có cần tạo đơn lẻ không, hay ưu tiên import file trước?</li>
+        <li>Một đơn có nhiều sản phẩm thì seller nhập ngay trên một màn hay tách nhiều dòng?</li>
+        <li>Seller gửi đơn xong có cần nhận email thông báo không?</li>
+      </ul>
+    </section>
+  </div>
+  <div class="links-row">
+    <a href="../screens.html#scr-create-order">Xem màn hình liên quan</a>
+    <a href="uc-sel-06-import-order.html">Use case tiếp theo</a>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>List màn hình — Zootop Bear</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .screen-page { padding: 40px 48px 70px; max-width: 1180px; }
+  .screen-page .lead { font-size: 15px; color: var(--muted); margin-bottom: 8px; }
+  .screen-page h2.big { font-size: 26px; font-weight: 600; margin-bottom: 12px; }
+  .intro-note {
+    background: rgba(29,158,117,0.08); border: 1px solid rgba(29,158,117,0.25);
+    border-radius: 12px; padding: 16px 20px; font-size: 14px; color: var(--teal-sub); margin-bottom: 28px;
+  }
+  .screen-index {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px;
+    margin-bottom: 28px;
+  }
+  .screen-index a {
+    border: 1px solid var(--line); background: var(--panel); border-radius: 8px; padding: 10px 12px;
+    color: var(--ink); text-decoration: none; font-size: 13px;
+  }
+  .screen-index a:hover { border-color: var(--teal); background: rgba(29,158,117,0.08); }
+  .screen-card {
+    border: 1px solid var(--line); background: var(--panel); border-radius: 12px;
+    margin-bottom: 18px; overflow: hidden; scroll-margin-top: 20px;
+  }
+  .screen-head {
+    display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 16px 18px;
+    border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.025);
+  }
+  .screen-code { color: var(--teal-sub); font-size: 12px; font-weight: 700; letter-spacing: 0.04em; }
+  .screen-title { font-size: 18px; font-weight: 650; }
+  .screen-desc { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .screen-body {
+    display: grid; grid-template-columns: minmax(320px, 1.1fr) minmax(320px, 0.9fr); gap: 18px;
+    padding: 18px;
+  }
+  #scr-seller-list .screen-body { grid-template-columns: minmax(720px, 1.35fr) minmax(280px, 0.65fr); }
+  .wireframe {
+    border: 1px solid var(--line); border-radius: 10px; background: var(--bg); padding: 12px;
+    min-height: 230px;
+  }
+  .wf-top, .wf-row, .wf-card, .wf-side, .wf-main, .wf-table, .wf-button, .wf-field {
+    border: 1px solid #55544e; background: rgba(255,255,255,0.035); border-radius: 6px;
+  }
+  .wf-top { height: 32px; margin-bottom: 10px; display: flex; align-items: center; padding: 0 10px; color: var(--muted); font-size: 11px; }
+  .wf-grid { display: grid; grid-template-columns: 92px 1fr; gap: 10px; }
+  .wf-side { min-height: 174px; padding: 8px; display: grid; gap: 8px; align-content: start; }
+  .wf-side span, .wf-line {
+    display: block; height: 10px; border-radius: 999px; background: rgba(255,255,255,0.13);
+  }
+  .wf-main { min-height: 174px; padding: 10px; }
+  .wf-row { height: 28px; margin-bottom: 8px; }
+  .wf-table { height: 112px; padding: 8px; display: grid; gap: 7px; }
+  .wf-table span { height: 11px; border-radius: 999px; background: rgba(255,255,255,0.12); }
+  .wf-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+  .wf-card { height: 54px; }
+  .wf-form { display: grid; gap: 8px; }
+  .wf-field { height: 30px; }
+  .wf-button { height: 32px; width: 110px; background: rgba(29,158,117,0.18); border-color: rgba(29,158,117,0.45); }
+  .auth-wire {
+    min-height: 360px;
+    display: grid;
+    place-items: center;
+    background:
+      radial-gradient(circle at 20% 8%, rgba(249,131,42,0.26), transparent 34%),
+      radial-gradient(circle at 86% 88%, rgba(232,93,4,0.2), transparent 38%),
+      linear-gradient(180deg, #120A05 0%, #1B1008 100%);
+    position: relative;
+    overflow: visible;
+  }
+  .auth-wire::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(249,131,42,0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(249,131,42,0.055) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 80% 72% at 50% 45%, #000 30%, transparent 82%);
+  }
+  .auth-wire.auth-multi {
+    align-items: start;
+    place-items: stretch;
+    overflow: visible;
+  }
+  .auth-multi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    width: 100%;
+  }
+  .auth-mock {
+    width: min(100%, 360px);
+    text-align: center;
+    color: #FFF3E6;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(249,131,42,0.18);
+    border-radius: 22px;
+    padding: 12px;
+    background: rgba(18,10,5,0.5);
+  }
+  .auth-multi .auth-mock { width: 100%; }
+  .auth-mock::before {
+    content: attr(data-screen);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,179,92,0.32);
+    background: rgba(249,131,42,0.12);
+    color: #FFB35C;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .auth-logo {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    text-shadow: 0 0 22px rgba(249,131,42,0.38);
+  }
+  .auth-multi .auth-logo { font-size: 20px; margin-bottom: 12px; }
+  .auth-logo span {
+    background: linear-gradient(100deg, #FFB35C, #F9832A, #E85D04);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .auth-card {
+    background: rgba(255,243,230,0.055);
+    border: 1px solid rgba(249,131,42,0.22);
+    border-radius: 18px;
+    padding: 22px 24px;
+    box-shadow: 0 18px 46px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    text-align: left;
+  }
+  .auth-multi .auth-card { padding: 16px 18px; }
+  .auth-card h3 {
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 19px;
+    margin-bottom: 14px;
+    color: #FFF3E6;
+  }
+  .auth-help { text-align: center; color: #D9BFA6; font-size: 11px; line-height: 1.5; margin: -4px 0 14px; }
+  .auth-label { font-size: 12px; margin: 10px 0 5px; color: #FFF3E6; }
+  .auth-input {
+    height: 34px;
+    border: 1px solid rgba(249,131,42,0.26);
+    border-radius: 9px;
+    background: rgba(18,10,5,0.72);
+    color: #A98F78;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    padding: 0 11px;
+  }
+  .auth-password { display: grid; grid-template-columns: 1fr 38px; gap: 0; }
+  .auth-password .auth-input { border-radius: 9px 0 0 9px; }
+  .auth-eye { height: 34px; border: 1px solid rgba(249,131,42,0.26); border-left: 0; border-radius: 0 9px 9px 0; display: grid; place-items: center; color: #FFB35C; background: rgba(18,10,5,0.72); font-size: 12px; }
+  .auth-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 12px 0; font-size: 11px; color: #D9BFA6; }
+  .auth-check { display: inline-flex; align-items: center; gap: 6px; }
+  .auth-box { width: 12px; height: 12px; border: 1px solid rgba(255,179,92,0.46); border-radius: 4px; display: inline-block; background: rgba(255,243,230,0.05); }
+  .auth-link { color: #FFB35C; text-decoration: underline; }
+  .auth-button { height: 36px; border-radius: 999px; background: linear-gradient(120deg, #F9832A, #E85D04); color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 700; margin: 10px 0 12px; box-shadow: 0 8px 24px rgba(232,93,4,0.34); }
+  .auth-note { text-align: center; font-size: 11px; color: #D9BFA6; }
+  .auth-footer { display: flex; justify-content: center; gap: 10px; margin-top: 18px; font-size: 11px; }
+  .admin-wire {
+    border: 1px solid rgba(249,131,42,0.22);
+    border-radius: 18px;
+    padding: 16px;
+    background:
+      radial-gradient(circle at 18% 10%, rgba(249,131,42,0.18), transparent 30%),
+      radial-gradient(circle at 90% 90%, rgba(232,93,4,0.14), transparent 34%),
+      linear-gradient(180deg, #120A05 0%, #1B1008 100%);
+    color: #FFF3E6;
+  }
+  .admin-app { display: grid; grid-template-columns: 190px 1fr; min-height: 520px; border: 1px solid rgba(249,131,42,0.2); border-radius: 18px; overflow: hidden; background: rgba(255,243,230,0.035); box-shadow: 0 18px 42px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.05); }
+  .admin-sidebar { border-right: 1px solid rgba(249,131,42,0.14); background: rgba(18,10,5,0.72); padding: 16px 12px; }
+  .admin-brand { font-family: Georgia, 'Times New Roman', serif; font-size: 16px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px; }
+  .admin-brand span { background: linear-gradient(100deg, #FFB35C, #F9832A, #E85D04); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .admin-menu { display: grid; gap: 7px; }
+  .admin-menu span { display: flex; align-items: center; min-height: 30px; border-radius: 10px; padding: 0 10px; color: #D9BFA6; font-size: 11px; }
+  .admin-menu span.is-active { color: #FFF3E6; background: rgba(249,131,42,0.14); border: 1px solid rgba(249,131,42,0.24); }
+  .admin-main { display: grid; grid-template-rows: auto 1fr; min-width: 0; }
+  .admin-topbar { display: grid; grid-template-columns: 1fr minmax(180px, 340px) auto; gap: 12px; align-items: center; padding: 12px 16px; border-bottom: 1px solid rgba(249,131,42,0.14); background: rgba(18,10,5,0.58); }
+  .admin-breadcrumb { color: #D9BFA6; font-size: 11px; }
+  .admin-search { min-height: 34px; border: 1px solid rgba(249,131,42,0.2); border-radius: 10px; background: rgba(255,243,230,0.06); display: flex; align-items: center; padding: 0 12px; color: #A98F78; font-size: 11px; }
+  .admin-top-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+  .admin-icon-pill { min-height: 30px; border-radius: 10px; border: 1px solid rgba(249,131,42,0.18); background: rgba(255,243,230,0.06); color: #FFF3E6; display: inline-flex; align-items: center; padding: 0 10px; font-size: 11px; }
+  .admin-page-area { padding: 18px; display: grid; gap: 14px; }
+  .admin-page-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+  .admin-page-head h3 { margin: 0; font-size: 17px; color: #FFF3E6; }
+  .admin-page-head p { margin: 3px 0 0; color: #D9BFA6; font-size: 11px; }
+  .admin-frame { border: 1px solid rgba(249,131,42,0.2); border-radius: 18px; background: rgba(255,243,230,0.045); box-shadow: 0 18px 42px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.05); overflow: hidden; }
+  .admin-bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px 16px; border-bottom: 1px solid rgba(249,131,42,0.16); background: rgba(18,10,5,0.58); }
+  .admin-title b { display: block; font-size: 16px; font-family: Georgia, 'Times New Roman', serif; }
+  .admin-title span { display: block; margin-top: 3px; font-size: 11px; color: #D9BFA6; }
+  .admin-pill { display: inline-flex; align-items: center; min-height: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid rgba(255,179,92,0.34); color: #FFB35C; background: rgba(249,131,42,0.1); font-size: 11px; font-weight: 700; }
+  .admin-content { padding: 14px; display: grid; gap: 12px; }
+  .admin-tabs, .admin-filters, .admin-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .admin-tab, .admin-filter, .admin-btn, .admin-field { min-height: 32px; border: 1px solid rgba(249,131,42,0.18); border-radius: 10px; background: rgba(18,10,5,0.62); color: #D9BFA6; display: inline-flex; align-items: center; padding: 0 10px; font-size: 11px; }
+  .admin-tab.is-active, .admin-btn.is-primary { color: #fff; border-color: rgba(249,131,42,0.42); background: linear-gradient(120deg, #F9832A, #E85D04); box-shadow: 0 8px 22px rgba(232,93,4,0.25); }
+  .admin-filter { flex: 1; min-width: 140px; }
+  .admin-table { display: grid; gap: 7px; }
+  .admin-row { display: grid; grid-template-columns: .35fr 1.15fr 1.15fr .8fr .8fr .95fr; gap: 8px; align-items: center; border: 1px solid rgba(255,179,92,0.13); border-radius: 12px; padding: 9px 10px; background: rgba(255,243,230,0.04); font-size: 11px; }
+  .admin-row.is-head { color: #FFB35C; background: rgba(249,131,42,0.08); font-weight: 700; }
+  .admin-status { color: #FFB35C; font-weight: 700; }
+  .admin-status.ok { color: #7EE2A8; }
+  .admin-status.bad { color: #F5A38C; }
+  .admin-mini-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+  .admin-mini-actions span { border: 1px solid rgba(255,179,92,0.24); border-radius: 999px; padding: 5px 8px; color: #FFF3E6; background: rgba(249,131,42,0.08); }
+  .admin-footer-row { display: flex; justify-content: space-between; gap: 12px; align-items: center; color: #D9BFA6; font-size: 11px; }
+  .admin-pages { display: flex; gap: 4px; }
+  .admin-pages span { min-width: 28px; min-height: 28px; border-radius: 8px; border: 1px solid rgba(249,131,42,0.16); display: grid; place-items: center; background: rgba(255,243,230,0.045); }
+  .admin-pages span.is-active { background: rgba(249,131,42,0.18); color: #FFB35C; }
+  .admin-story-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-top: 14px; }
+  .admin-popup { border: 1px solid rgba(249,131,42,0.22); border-radius: 18px; padding: 14px; background: rgba(18,10,5,0.72); box-shadow: 0 14px 36px rgba(0,0,0,0.3); }
+  .admin-popup::before { content: attr(data-screen); display: inline-flex; margin-bottom: 10px; border-radius: 999px; border: 1px solid rgba(255,179,92,0.32); background: rgba(249,131,42,0.12); color: #FFB35C; padding: 5px 9px; font-size: 11px; font-weight: 700; }
+  .admin-popup h3 { font-size: 15px; margin-bottom: 8px; color: #FFF3E6; }
+  .admin-popup p { color: #D9BFA6; font-size: 11px; margin-bottom: 10px; line-height: 1.5; }
+  .admin-popup .admin-field { width: 100%; margin-bottom: 8px; }
+  .admin-popup .admin-actions { margin-top: 10px; }
+  .admin-note { border-left: 3px solid #F9832A; background: rgba(249,131,42,0.08); border-radius: 10px; padding: 10px 12px; color: #D9BFA6; font-size: 11px; line-height: 1.45; }
+  .mapping-block h3 { font-size: 14px; color: var(--teal-sub); margin-bottom: 8px; }
+  .mapping-block p, .mapping-block li { color: var(--muted); font-size: 13px; }
+  .mapping-block ul { margin-left: 18px; margin-bottom: 14px; }
+  .uc-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+  .uc-tags span {
+    display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 999px;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--line); color: var(--ink); font-size: 11px;
+  }
+  .role-line { margin-top: 8px; font-size: 12px; color: var(--muted); }
+  @media (max-width: 900px) {
+    .screen-page { padding: 28px 22px 44px; }
+    .screen-head, .screen-body { grid-template-columns: 1fr; }
+    #scr-seller-list .screen-body { grid-template-columns: 1fr; }
+    .admin-app { grid-template-columns: 1fr; }
+    .admin-sidebar { display: none; }
+    .admin-topbar { grid-template-columns: 1fr; }
+    .admin-row { grid-template-columns: 1fr; }
+    .wf-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="content">
+    <div class="screen-page">
+      <div class="lead">Zootop Bear · Phase 1 · Format tham chiếu Simple Hub</div>
+      <h2 class="big">List màn hình theo use case đã chốt</h2>
+      <div class="intro-note">
+        Trang này gom các màn hình dự kiến từ use case đã chốt. Mỗi màn có wireframe nhanh, role sử dụng và danh sách use case liên quan.
+        Khi bấm vào use case ở các trang role, popup sẽ có link quay về màn hình tương ứng trong trang này.
+      </div>
+
+      <div class="screen-index">
+        <a href="#scr-common-layout">SCR-00 · Common layout</a>
+        <a href="#scr-login">SCR-01 · Đăng nhập / Đăng ký seller</a>
+        <a href="#scr-seller-dashboard">SCR-02 · Trang chính Seller</a>
+        <a href="#scr-catalog">SCR-03 · Catalog sản phẩm</a>
+        <a href="#scr-create-order">SCR-04 · Tạo đơn lẻ</a>
+        <a href="#scr-import-order">SCR-05 · Import file đơn</a>
+        <a href="#scr-order-detail">SCR-06 · Chi tiết đơn / mã vận đơn</a>
+        <a href="#scr-wallet">SCR-07 · Ví / top-up Seller</a>
+        <a href="#scr-ticket">SCR-08 · Ticket hỗ trợ</a>
+        <a href="#scr-internal-orders">SCR-09 · Danh sách đơn tổng nội bộ</a>
+        <a href="#scr-confirm-send">SCR-10 · Xác nhận và gửi xưởng</a>
+        <a href="#scr-supplier">SCR-11 · Xưởng / nền tảng</a>
+        <a href="#scr-mapping">SCR-12 · Mapping sản phẩm - xưởng</a>
+        <a href="#scr-pricing">SCR-13 · Giá / chi phí xưởng</a>
+        <a href="#scr-accounting">SCR-14 · Kế toán / đối soát</a>
+        <a href="#scr-user-role">SCR-15 · Người dùng / phân quyền</a>
+        <a href="#scr-seller-list">SCR-16 · Danh sách seller</a>
+      </div>
+
+      <section class="screen-card" id="scr-common-layout">
+        <div class="screen-head">
+          <div class="screen-code">SCR-00</div>
+          <div>
+            <div class="screen-title">Common layout / Header menu footer</div>
+            <div class="screen-desc">Layout dùng chung cho các màn nội bộ: sidebar trái, topbar search, breadcrumb, notification và khu vực nội dung.</div>
+            <div class="role-line">Role: Admin, Kế toán, Vận hành, CSKH</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="admin-wire">
+            <div class="admin-app">
+              <aside class="admin-sidebar">
+                <div class="admin-brand">Zootop<span>Bear</span></div>
+                <div class="admin-menu">
+                  <span>Dashboard</span>
+                  <span class="is-active">Seller</span>
+                  <span>Catalog</span>
+                  <span>Orders</span>
+                  <span>Wallet</span>
+                  <span>Ticket</span>
+                  <span>Notification</span>
+                  <span>Settings</span>
+                </div>
+              </aside>
+              <div class="admin-main">
+                <div class="admin-topbar">
+                  <div class="admin-breadcrumb">Module / Screen name</div>
+                  <div class="admin-search">Search orders, sellers, catalog...</div>
+                  <div class="admin-top-actions">
+                    <span class="admin-icon-pill">🔔</span>
+                    <span class="admin-icon-pill">User role</span>
+                  </div>
+                </div>
+                <div class="admin-page-area">
+                  <div class="admin-page-head">
+                    <div><h3>Khu vực nội dung từng màn</h3><p>Phần này thay đổi theo nghiệp vụ: danh sách seller, đơn hàng, ví, ticket...</p></div>
+                    <span class="admin-btn is-primary">Primary action</span>
+                  </div>
+                  <div class="admin-frame">
+                    <div class="admin-content">
+                      <div class="admin-note">Các màn chi tiết bên dưới sẽ không vẽ lại sidebar/topbar/footer nữa, chỉ tập trung vào nội dung nghiệp vụ chính.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mapping-block">
+            <h3>Áp dụng cho màn hình</h3>
+            <div class="uc-tags"><span>Common</span><span>Admin</span><span>Internal roles</span></div>
+            <ul>
+              <li>Sidebar trái chứa menu module chính.</li>
+              <li>Topbar có breadcrumb, ô search chung, notification và thông tin user.</li>
+              <li>Các màn nghiệp vụ chỉ cần vẽ phần content chính để khách dễ review.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-login">
+        <div class="screen-head">
+          <div class="screen-code">SCR-01</div>
+          <div>
+            <div class="screen-title">Đăng nhập / Đăng ký seller bằng email</div>
+            <div class="screen-desc">Seller đăng ký bằng email, tự xác nhận email và vào hệ thống ở trạng thái Dùng thử; Admin nhận thông báo để quản lý sau.</div>
+            <div class="role-line">Role: Seller, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe auth-wire auth-multi">
+            <div class="auth-multi-grid">
+              <div class="auth-mock" data-screen="Màn 1 · Login">
+                <div class="auth-logo">Zootop<span>Bear</span></div>
+                <div class="auth-card">
+                  <h3>Welcome to Zootop Bear!</h3>
+                  <div class="auth-label">Email <b>*</b></div>
+                  <div class="auth-input">Enter your email</div>
+                  <div class="auth-label">Password</div>
+                  <div class="auth-password">
+                    <div class="auth-input">Password</div>
+                    <div class="auth-eye">👁</div>
+                  </div>
+                  <div class="auth-row">
+                    <span class="auth-check"><span class="auth-box"></span>Remember me</span>
+                    <span class="auth-link">Forgot password?</span>
+                  </div>
+                  <div class="auth-button">Login</div>
+                  <div class="auth-note">Don't have an account? <span class="auth-link">Sign up</span></div>
+                </div>
+              </div>
+              <div class="auth-mock" data-screen="Màn 2 · SignUp">
+                <div class="auth-logo">Zootop<span>Bear</span></div>
+                <div class="auth-card">
+                  <h3>SignUp</h3>
+                  <div class="auth-label">Name</div>
+                  <div class="auth-input">Enter your name</div>
+                  <div class="auth-label">Email <b>*</b></div>
+                  <div class="auth-input">Enter your email</div>
+                  <div class="auth-label">Password</div>
+                  <div class="auth-password">
+                    <div class="auth-input">Password</div>
+                    <div class="auth-eye">👁</div>
+                  </div>
+                  <div class="auth-label">Password confirmation</div>
+                  <div class="auth-password">
+                    <div class="auth-input">Password confirmation</div>
+                    <div class="auth-eye">👁</div>
+                  </div>
+                  <div class="auth-button">SignUp</div>
+                  <div class="auth-note">Already have an account? <span class="auth-link">Login</span></div>
+                </div>
+              </div>
+              <div class="auth-mock" data-screen="Màn 3 · Forgot Password">
+                <div class="auth-logo">Zootop<span>Bear</span></div>
+                <div class="auth-card">
+                  <h3>Forgot Password</h3>
+                  <div class="auth-help">Enter your email address and we will send you a verification code to reset your password.</div>
+                  <div class="auth-label">Email <b>*</b></div>
+                  <div class="auth-input">Enter your email</div>
+                  <div class="auth-button">Send Verification Code</div>
+                  <div class="auth-note"><span class="auth-link">Login</span></div>
+                </div>
+              </div>
+              <div class="auth-mock" data-screen="Màn 4 · Xác nhận email">
+                <div class="auth-logo">Zootop<span>Bear</span></div>
+                <div class="auth-card">
+                  <h3>Verify Email</h3>
+                  <div class="auth-help">Nhập verification code được gửi tới email để kích hoạt tài khoản dùng thử.</div>
+                  <div class="auth-label">Email</div>
+                  <div class="auth-input">seller@email.com</div>
+                  <div class="auth-label">Verification code</div>
+                  <div class="auth-input">Enter verification code</div>
+                  <div class="auth-button">Verify & Start Trial</div>
+                  <div class="auth-note">Xác nhận xong vào hệ thống với trạng thái Dùng thử.</div>
+                </div>
+              </div>
+              <div class="auth-mock" data-screen="Màn 5 · Dùng thử">
+                <div class="auth-logo">Zootop<span>Bear</span></div>
+                <div class="auth-card">
+                  <h3>Trial Account</h3>
+                  <div class="auth-help">Seller đã vào được hệ thống. Admin sẽ nhận thông báo và chuyển seller sang trạng thái phù hợp sau.</div>
+                  <div class="auth-label">Trạng thái</div>
+                  <div class="auth-input">Dùng thử</div>
+                  <div class="auth-button">Go to Seller Dashboard</div>
+                  <div class="auth-note">Dùng thử chỉ xem catalog public; chưa tạo đơn, nạp ví hoặc thao tác nghiệp vụ.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-01</span><span>UC-ADM-01</span></div>
+            <ul>
+              <li>Seller đăng nhập bằng email và mật khẩu.</li>
+              <li>Seller chưa có tài khoản thì bấm Sign up, nhập Name, Email, Password và Password confirmation.</li>
+              <li>Sau khi Sign up, hệ thống gửi verification code/link qua email để seller tự kích hoạt.</li>
+              <li>Seller xác nhận email xong được vào hệ thống với trạng thái Dùng thử.</li>
+              <li>Seller Dùng thử chỉ xem được catalog như phần public ngoài trang chính; các thao tác nghiệp vụ sẽ bị khóa theo trạng thái seller.</li>
+              <li>Seller quên mật khẩu thì nhập Email ở màn Forgot Password và nhận verification code qua email.</li>
+              <li>Hệ thống gửi thông báo seller mới cho Admin; Admin chuyển trạng thái/gán tier/gán nhân viên phụ trách ở màn danh sách seller.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-seller-dashboard">
+        <div class="screen-head">
+          <div class="screen-code">SCR-02</div>
+          <div>
+            <div class="screen-title">Trang chính Seller</div>
+            <div class="screen-desc">Màn đầu tiên sau đăng nhập, cho seller nhìn nhanh đơn, ví, ticket và việc cần xử lý.</div>
+            <div class="role-line">Role: Seller</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Đơn mới · Import file · Ví · Ticket</div>
+            <div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-04</span><span>UC-SEL-08</span><span>UC-SEL-09</span><span>UC-SEL-11</span></div>
+            <ul>
+              <li>Seller xem số dư ví, đơn đang chờ xác nhận, đơn đã có mã vận đơn và ticket đang mở.</li>
+              <li>Các nút chính dẫn tới tạo đơn, import đơn, nạp tiền và tạo ticket.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-catalog">
+        <div class="screen-head">
+          <div class="screen-code">SCR-03</div>
+          <div>
+            <div class="screen-title">Catalog sản phẩm / Template</div>
+            <div class="screen-desc">Seller xem sản phẩm, mã hàng, giá Zootop, file mẫu và template import theo nhóm hàng.</div>
+            <div class="role-line">Role: Seller, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Tìm kiếm · Nhóm sản phẩm · Tải template</div>
+            <div class="wf-grid"><div class="wf-side"><span></span><span></span><span></span><span></span></div><div class="wf-main"><div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div><div class="wf-table"><span></span><span></span><span></span></div></div></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-02</span><span>UC-SEL-03</span><span>UC-ADM-03</span></div>
+            <ul>
+              <li>Seller xem mã hàng, phiên bản sản phẩm, file mẫu, ảnh mô phỏng và giá Zootop.</li>
+              <li>Admin quản lý catalog lấy từ xưởng và gắn template phù hợp cho từng nhóm sản phẩm.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-create-order">
+        <div class="screen-head">
+          <div class="screen-code">SCR-04</div>
+          <div>
+            <div class="screen-title">Tạo đơn lẻ</div>
+            <div class="screen-desc">Seller nhập một đơn trực tiếp trên web thay cho việc điền một dòng trong file Excel riêng.</div>
+            <div class="role-line">Role: Seller</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Thông tin người nhận · Sản phẩm · Thiết kế · Tổng tiền</div>
+            <div class="wf-form"><div class="wf-field"></div><div class="wf-field"></div><div class="wf-field"></div><div class="wf-table"><span></span><span></span><span></span></div><div class="wf-button"></div></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-05</span><span>UC-SEL-07</span><span>UC-SEL-08</span></div>
+            <ul>
+              <li>Seller điền order_id, người nhận, sản phẩm, số lượng, thiết kế và ảnh mô phỏng.</li>
+              <li>Hệ thống tính tổng tiền Zootop trước khi seller gửi đơn.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-import-order">
+        <div class="screen-head">
+          <div class="screen-code">SCR-05</div>
+          <div>
+            <div class="screen-title">Import file đơn</div>
+            <div class="screen-desc">Seller upload file Excel theo template; hệ thống kiểm tra từng dòng và gom vào danh sách đơn tổng.</div>
+            <div class="role-line">Role: Seller, Vận hành</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Tải template · Upload file · Kết quả kiểm tra</div>
+            <div class="wf-form"><div class="wf-field"></div><div class="wf-button"></div><div class="wf-table"><span></span><span></span><span></span><span></span><span></span></div></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-06</span><span>UC-OPS-01</span><span>UC-OPS-03</span></div>
+            <ul>
+              <li>File hợp lệ tạo thành đơn chờ kiểm tra/xác nhận.</li>
+              <li>Dòng lỗi hiển thị lý do rõ ràng để seller hoặc vận hành sửa.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-order-detail">
+        <div class="screen-head">
+          <div class="screen-code">SCR-06</div>
+          <div>
+            <div class="screen-title">Chi tiết đơn / mã vận đơn</div>
+            <div class="screen-desc">Một màn chi tiết cho seller và nội bộ cùng xem trạng thái đơn, trạng thái xưởng và mã vận đơn.</div>
+            <div class="role-line">Role: Seller, CSKH, Vận hành, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Order ID · Trạng thái · Mã vận đơn</div>
+            <div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-09</span><span>UC-SUP-01</span><span>UC-SUP-02</span><span>UC-OPS-05</span><span>UC-ADM-07</span></div>
+            <ul>
+              <li>Hiển thị mã đơn seller, mã đơn nội bộ, mã đơn xưởng và mã vận đơn.</li>
+              <li>Trạng thái cần dùng ngôn ngữ dễ hiểu cho seller, không hiển thị raw status khó hiểu.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-wallet">
+        <div class="screen-head">
+          <div class="screen-code">SCR-07</div>
+          <div>
+            <div class="screen-title">Ví / top-up Seller</div>
+            <div class="screen-desc">Seller nạp tiền, xem số dư và lịch sử trừ tiền theo đơn.</div>
+            <div class="role-line">Role: Seller, Kế toán, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Số dư · Tạo yêu cầu top-up · Lịch sử ví</div>
+            <div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-04</span><span>UC-ACC-01</span><span>UC-ACC-02</span><span>UC-ACC-03</span><span>UC-ADM-09</span></div>
+            <ul>
+              <li>Seller tạo yêu cầu nạp tiền và xem số dư.</li>
+              <li>Kế toán duyệt/từ chối top-up, điều chỉnh ví và xem sổ giao dịch.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-ticket">
+        <div class="screen-head">
+          <div class="screen-code">SCR-08</div>
+          <div>
+            <div class="screen-title">Ticket hỗ trợ đơn hàng</div>
+            <div class="screen-desc">Nơi tiếp nhận đổi thiết kế, lỗi đơn, hỏi trạng thái, vấn đề giao hàng; nếu chưa có ticket thì nội bộ dùng group xử lý.</div>
+            <div class="role-line">Role: Seller, CSKH, Vận hành, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Ticket mới · Đang xử lý · Đã xong</div>
+            <div class="wf-grid"><div class="wf-side"><span></span><span></span><span></span></div><div class="wf-main"><div class="wf-row"></div><div class="wf-table"><span></span><span></span><span></span><span></span></div></div></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-11</span><span>UC-SUP-03</span><span>UC-SUP-04</span><span>UC-OPS-06</span><span>UC-ADM-11</span></div>
+            <ul>
+              <li>Seller tạo ticket theo đơn.</li>
+              <li>CSKH tiếp nhận, vận hành/admin xử lý hoặc chuyển lên group nội bộ nếu chưa có module hoàn chỉnh.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-internal-orders">
+        <div class="screen-head">
+          <div class="screen-code">SCR-09</div>
+          <div>
+            <div class="screen-title">Danh sách đơn tổng nội bộ</div>
+            <div class="screen-desc">Màn thay cho file đơn tổng, nơi vận hành/kế toán/admin xem toàn bộ đơn từ nhiều seller.</div>
+            <div class="role-line">Role: Vận hành, Kế toán, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Bộ lọc seller · trạng thái · xưởng · ngày</div>
+            <div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-OPS-01</span><span>UC-ADM-07</span><span>UC-ACC-03</span></div>
+            <ul>
+              <li>Gom đơn từ file/import của seller về một danh sách chung.</li>
+              <li>Hiển thị trạng thái kiểm tra, tổng tiền, xưởng dự kiến và người phụ trách.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-confirm-send">
+        <div class="screen-head">
+          <div class="screen-code">SCR-10</div>
+          <div>
+            <div class="screen-title">Xác nhận và gửi xưởng</div>
+            <div class="screen-desc">Bước kiểm soát quan trọng: đơn phải được xác nhận trước khi gửi sang xưởng sản xuất.</div>
+            <div class="role-line">Role: Vận hành, Kế toán, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Kiểm tra dữ liệu · Xác nhận · Gửi xưởng</div>
+            <div class="wf-grid"><div class="wf-side"><span></span><span></span><span></span><span></span></div><div class="wf-main"><div class="wf-table"><span></span><span></span><span></span><span></span></div><div class="wf-button"></div></div></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-OPS-02</span><span>UC-OPS-03</span><span>UC-OPS-04</span><span>UC-ACC-05</span><span>UC-ADM-08</span></div>
+            <ul>
+              <li>Xác nhận đơn đủ dữ liệu và đủ điều kiện xử lý.</li>
+              <li>Gửi xưởng bằng upload file, nhập tay hoặc API tùy từng nền tảng.</li>
+              <li>Đơn lỗi chuyển sang Hold/ticket/group nội bộ.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-supplier">
+        <div class="screen-head">
+          <div class="screen-code">SCR-11</div>
+          <div>
+            <div class="screen-title">Quản lý xưởng / nền tảng</div>
+            <div class="screen-desc">Lưu thông tin các xưởng xử lý đơn mới và PrintBelle dạng lưu lịch sử/import đơn cũ.</div>
+            <div class="role-line">Role: Admin, Vận hành</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Xưởng đang dùng · Tạm pending · Thông tin kết nối</div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-ADM-05</span><span>UC-OPS-02</span></div>
+            <ul>
+              <li>Quản lý thông tin Flash POD, Snap, ART ADD, SimplePrint và các xưởng active khác.</li>
+              <li>PrintBelle tạm pending, chỉ lưu để import đơn cũ/thống kê/đối soát.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-mapping">
+        <div class="screen-head">
+          <div class="screen-code">SCR-12</div>
+          <div>
+            <div class="screen-title">Mapping sản phẩm - xưởng</div>
+            <div class="screen-desc">Nơi xác định mã hàng/variant của Zootop tương ứng mã nào ở từng xưởng.</div>
+            <div class="role-line">Role: Admin, Vận hành</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Mã Zootop · Mã xưởng · 415 Snap · 922 Flash POD</div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-ADM-06</span><span>UC-ADM-03</span><span>UC-OPS-03</span></div>
+            <ul>
+              <li>Khách đã note 415 = Snap, 922 = Flash POD.</li>
+              <li>Nếu không map được mã hàng thì đơn cần vào trạng thái lỗi/Hold.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-pricing">
+        <div class="screen-head">
+          <div class="screen-code">SCR-13</div>
+          <div>
+            <div class="screen-title">Giá Zootop / chi phí xưởng</div>
+            <div class="screen-desc">Quản lý giá bán cho seller và chi phí xưởng để admin/kế toán đối soát.</div>
+            <div class="role-line">Role: Admin, Kế toán</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Tier seller · Giá Zootop · Chi phí xưởng · Margin</div>
+            <div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-ADM-04</span><span>UC-ACC-04</span><span>UC-SEL-08</span></div>
+            <ul>
+              <li>Seller chỉ thấy giá Zootop.</li>
+              <li>Admin/Kế toán thấy thêm chi phí xưởng và chênh lệch để đối soát.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-accounting">
+        <div class="screen-head">
+          <div class="screen-code">SCR-14</div>
+          <div>
+            <div class="screen-title">Kế toán / đối soát</div>
+            <div class="screen-desc">Tổng hợp top-up, ví, tiền đơn, refund/resend và đơn cũ PrintBelle cần thống kê.</div>
+            <div class="role-line">Role: Kế toán, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Top-up · Tiền đơn · Chi phí xưởng · Refund</div>
+            <div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-ACC-01</span><span>UC-ACC-02</span><span>UC-ACC-03</span><span>UC-ACC-04</span><span>UC-ACC-05</span><span>UC-ADM-09</span></div>
+            <ul>
+              <li>Kế toán duyệt nạp tiền, theo dõi ví và đối soát tiền đơn.</li>
+              <li>Import đơn cũ PrintBelle để thống kê lại tiền nong/lịch sử.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-user-role">
+        <div class="screen-head">
+          <div class="screen-code">SCR-15</div>
+          <div>
+            <div class="screen-title">Người dùng / phân quyền / audit</div>
+            <div class="screen-desc">Admin full quyền, quản lý tài khoản nội bộ, phân quyền role và xem lịch sử thao tác.</div>
+            <div class="role-line">Role: Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">User nội bộ · Role · Audit log</div>
+            <div class="wf-grid"><div class="wf-side"><span></span><span></span><span></span></div><div class="wf-main"><div class="wf-table"><span></span><span></span><span></span><span></span></div></div></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-ADM-02</span><span>UC-ADM-10</span><span>UC-ADM-01</span></div>
+            <ul>
+              <li>Admin tạo/sửa/khóa tài khoản nội bộ và phân quyền.</li>
+              <li>Audit log ghi lại thao tác quan trọng về giá, ví, đơn, mã vận đơn và người dùng.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-seller-list">
+        <div class="screen-head">
+          <div class="screen-code">SCR-16</div>
+          <div>
+            <div class="screen-title">Danh sách seller / Chuyển trạng thái seller</div>
+            <div class="screen-desc">Admin xem toàn bộ seller, nhận seller mới ở trạng thái Dùng thử, chuyển trạng thái và gán nhân viên phụ trách.</div>
+            <div class="role-line">Role: Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="admin-wire">
+            <div class="admin-page-area">
+              <div class="admin-page-head">
+                <div><h3>Danh sách seller</h3><p>Admin theo dõi seller dùng thử, gán tier, phụ trách và chuyển trạng thái.</p></div>
+                <span class="admin-btn is-primary">+ Thêm seller nội bộ</span>
+              </div>
+              <div class="admin-frame">
+                <div class="admin-content">
+                  <div class="admin-filters">
+                    <span class="admin-filter">Status: Dùng thử</span>
+                    <span class="admin-filter">Tier: All</span>
+                    <span class="admin-filter">Created date: All</span>
+                    <span class="admin-filter">Search...</span>
+                    <span class="admin-btn">Reset</span>
+                  </div>
+                  <div class="admin-table">
+                    <div class="admin-row is-head"><span>#</span><span>Seller</span><span>Email</span><span>Status</span><span>Phụ trách</span><span>Action</span></div>
+                    <div class="admin-row"><span>1</span><span>Bear Store<br>Code: SEL-001</span><span>seller@email.com</span><span class="admin-status">Dùng thử</span><span>Chưa gán</span><span class="admin-mini-actions"><span>Chuyển trạng thái</span><span>Gán phụ trách</span></span></div>
+                    <div class="admin-row"><span>2</span><span>US POD Shop<br>Code: SEL-002</span><span>uspod@email.com</span><span class="admin-status ok">Active</span><span>CSKH A</span><span class="admin-mini-actions"><span>Xem</span><span>Khóa</span></span></div>
+                    <div class="admin-row"><span>3</span><span>Old Seller<br>Code: SEL-003</span><span>old@email.com</span><span class="admin-status bad">Rejected</span><span>-</span><span class="admin-mini-actions"><span>Xem lý do</span></span></div>
+                  </div>
+                  <div class="admin-footer-row">
+                    <span>Showing 1 to 3 of 3 sellers</span>
+                    <div class="admin-pages"><span>Previous</span><span class="is-active">1</span><span>Next</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="admin-story-grid">
+              <div class="admin-popup" data-screen="Popup 1 · Chuyển trạng thái">
+                <h3>Chuyển trạng thái seller</h3>
+                <p>Seller đã tự kích hoạt email và đang ở trạng thái Dùng thử. Admin chọn trạng thái tiếp theo, tier và nhân viên phụ trách.</p>
+                <div class="admin-field">Seller: Bear Store · seller@email.com</div>
+                <div class="admin-field">Trạng thái mới: Active / Partner / VIP / Locked</div>
+                <div class="admin-field">Chọn tier: Tier 1 / Tier 2 / Tier 3</div>
+                <div class="admin-field">Gán nhân viên phụ trách</div>
+                <div class="admin-actions"><span class="admin-btn is-primary">Lưu trạng thái</span><span class="admin-btn">Hủy</span></div>
+              </div>
+              <div class="admin-popup" data-screen="Popup 2 · Khóa/Từ chối seller">
+                <h3>Khóa hoặc từ chối seller</h3>
+                <p>Admin nhập lý do nếu seller không phù hợp, có rủi ro hoặc cần dừng quyền dùng thử.</p>
+                <div class="admin-field">Lý do khóa/từ chối</div>
+                <div class="admin-field">Ghi chú nội bộ nếu có</div>
+                <div class="admin-actions"><span class="admin-btn is-primary">Xác nhận</span><span class="admin-btn">Quay lại</span></div>
+              </div>
+              <div class="admin-popup" data-screen="Popup 3 · Thông báo phụ trách">
+                <h3>Gửi thông báo nhân viên</h3>
+                <p>Sau khi Admin gán phụ trách, hệ thống gửi thông báo cho nhân viên được chọn.</p>
+                <div class="admin-field">Người nhận: CSKH A</div>
+                <div class="admin-field">Nội dung: Bạn được gán phụ trách seller Bear Store</div>
+                <div class="admin-note">Kênh thông báo cụ thể sẽ chốt sau: email, notification nội bộ hoặc kênh chat.</div>
+              </div>
+            </div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-ADM-01</span><span>UC-SEL-01</span></div>
+            <ul>
+              <li>Admin xem danh sách seller toàn hệ thống: dùng thử, active, partner/VIP, bị từ chối, bị khóa.</li>
+              <li>Khi seller tạo tài khoản và xác nhận email, hệ thống tạo seller trạng thái Dùng thử và gửi thông báo cho Admin; kênh thông báo sẽ chốt sau.</li>
+              <li>Seller Dùng thử chỉ xem catalog public, chưa tạo/import đơn, chưa nạp ví và chưa tạo ticket; hệ thống/API check trạng thái seller để khóa/mở quyền thao tác.</li>
+              <li>Admin chuyển trạng thái seller từ Dùng thử sang trạng thái phù hợp, chọn tier và gán nhân viên phụ trách.</li>
+              <li>Sau khi gán phụ trách, hệ thống gửi thông báo đến nhân viên phụ trách.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script src="sidebar.js"></script>
+<script>renderSidebar('screens.html');</script>
+</body>
+</html>
