@@ -24,13 +24,53 @@ Mục tiêu của task này không phải hỏi sâu từng luồng chi tiết n
 - `screens.html` - List màn hình + wireframe + mapping use case.
 - `tasks/03-confirm-order-to-fulfillment-flow/MEETING_NOTE_2026-07-22.md` - Note confirm với khách ngày 22/07/2026 và cập nhật sau đó.
 
+## Rule common bắt buộc cho wireframe tiếp theo
+
+Tất cả wireframe/màn hình tạo tiếp trong task này phải bám theo phong cách thiết kế landing page Zootop Bear khách gửi:
+
+```text
+https://seta-datnd-6862.github.io/zootopbear-lp/
+```
+
+Tư tưởng thiết kế cần giữ:
+
+- Không dùng phong cách trắng/xanh của SimplePrint làm style chính.
+- SimplePrint chỉ dùng để tham khảo bố cục/input/text nếu khách gửi ảnh.
+- Visual chính phải theo Zootop Bear landing page:
+  - nền tối nâu/đen;
+  - glow cam;
+  - đường grid nền nhẹ nếu cần;
+  - card kiểu glass/dark card;
+  - border cam/nâu nhẹ;
+  - button dạng pill, gradient cam;
+  - text chính màu kem/sáng;
+  - text phụ màu sand/muted;
+  - điểm nhấn màu cam/gold.
+- Heading nên có cảm giác brand Zootop Bear, dùng kiểu serif/display nếu phù hợp.
+- Body text nên gọn, dễ đọc, ưu tiên tiếng Việt dễ hiểu cho khách không biết kỹ thuật.
+- Wireframe vẫn phải rõ nghiệp vụ trước: input, button, bảng, trạng thái, role, dữ liệu chính.
+- Mỗi màn hình/trạng thái trong một use case phải tách thành một ô riêng dễ nhìn. Không nhồi nhiều màn vào một khung phải scroll ngang/dọc mới hiểu được.
+- Nếu một use case có nhiều trạng thái, trình bày như các ô con/storyboard: ví dụ Login, SignUp, Forgot Password, Xác nhận email, Dùng thử.
+- Câu hỏi cần confirm với khách phải được viết trước ở dạng draft để Anh duyệt. Câu nào Anh duyệt thì mới đưa vào bộ câu hỏi chính; câu nào chưa ổn thì Anh sẽ mô tả thêm để sửa cách hỏi.
+- Mọi thay đổi đã làm trong task này phải bổ sung lại vào file task/README tương ứng để hôm sau mở task lên vẫn nắm được bối cảnh, quyết định đã chốt và file nào đã tạo/sửa.
+- Nếu khách gửi ảnh tham khảo từ nền tảng khác:
+  - giữ đúng input/text/flow trong ảnh;
+  - đổi lại màu sắc, card, button, layout detail theo style Zootop Bear.
+
+Quy tắc áp dụng cho các màn tiếp theo:
+
+```text
+Ảnh tham khảo khách gửi = nguồn bố cục và dữ liệu cần có
+Landing page Zootop Bear = nguồn phong cách thiết kế bắt buộc
+```
+
 ## Phạm vi cần confirm
 
 ### 1. Role Seller
 
 Use case hiện tại:
 
-- UC-SEL-01 - Đăng ký tài khoản.
+- UC-SEL-01 - Đăng nhập, đăng ký và quên mật khẩu bằng email.
 - UC-SEL-02 - Xem bảng sản phẩm và chi tiết sản phẩm.
 - UC-SEL-03 - Tải ảnh mô phỏng/template thiết kế.
 - UC-SEL-04 - Tạo yêu cầu top-up và xem ví.
@@ -45,6 +85,15 @@ Use case hiện tại:
 Điểm cần khách xác nhận:
 
 - Seller có cần thêm chức năng nào khác ngoài các mục trên không.
+- Màn đăng nhập/đăng ký/quên mật khẩu dùng email bắt buộc, có đúng hướng không.
+- Đã cập nhật theo hướng mới: seller đăng ký xong tự xác nhận email, không cần chờ Admin duyệt mới được vào hệ thống.
+- Sau khi seller xác nhận email, seller vào hệ thống ở trạng thái Dùng thử.
+- Seller ở trạng thái Dùng thử chỉ xem được catalog giống phần public ngoài trang chính; không tạo/import đơn, không nạp ví, không tạo ticket và không thao tác nghiệp vụ khác.
+- Về sau hệ thống/API sẽ check trạng thái seller để khóa/mở quyền thao tác nên không quá rủi ro khi cho seller vào hệ thống trước.
+- Khi seller tạo tài khoản/xác nhận email, hệ thống gửi thông báo cho Admin để tránh Admin bị miss seller mới.
+- Forgot Password gửi verification code qua email.
+- Form SignUp hiện gồm Name, Email, Password, Password confirmation; vẫn cần hỏi khách có cần thêm số điện thoại, tên shop, sản lượng dự kiến không.
+- Wireframe màn đăng nhập/đăng ký/quên mật khẩu tách riêng 3 trạng thái Login / SignUp / Forgot Password, giữ input/text theo ảnh SimplePrint khách gửi nhưng dùng phong cách thiết kế landing page Zootop Bear: nền tối, glow cam, card glass, nút cam gradient.
 - Seller có được tạo đơn lẻ trực tiếp trên web không, hay Phase 1 chỉ import file.
 - Seller có cần xem lịch sử import file và lỗi từng dòng không.
 - Seller chỉ xem giá Zootop Bear, không xem chi phí xưởng, có đúng không.
@@ -54,7 +103,7 @@ Use case hiện tại:
 
 Use case hiện tại:
 
-- UC-ADM-01 - Duyệt seller, gán tier.
+- UC-ADM-01 - Danh sách seller và chuyển trạng thái seller.
 - UC-ADM-02 - Quản lý tài khoản nội bộ.
 - UC-ADM-03 - Quản lý catalog sản phẩm.
 - UC-ADM-04 - Cấu hình bảng giá Zootop Bear.
@@ -69,6 +118,11 @@ Use case hiện tại:
 Điểm cần khách xác nhận:
 
 - Admin full quyền toàn hệ thống, có đúng không.
+- Admin không còn là bước chặn seller trước khi vào hệ thống.
+- Cần có màn danh sách seller để Admin xem toàn bộ seller trong hệ thống: dùng thử, active, partner/VIP, bị từ chối, bị khóa.
+- Khi seller tạo tài khoản mới/xác nhận email, hệ thống gửi thông báo cho Admin; kênh thông báo là email hay kênh nội bộ sẽ tính sau.
+- Trong màn danh sách seller có nút chuyển trạng thái seller; khi chuyển trạng thái Admin gán tier và gán nhân viên phụ trách cho seller.
+- Sau khi Admin gán phụ trách, hệ thống gửi thông báo đến nhân viên phụ trách.
 - Admin có quản lý cả giá Zootop và chi phí xưởng không.
 - Admin có là người cấu hình mapping mã Zootop sang mã xưởng không.
 - Admin có cần xử lý trực tiếp đơn lỗi/ticket hay chỉ xem và phân quyền cho vận hành.
@@ -129,8 +183,9 @@ Use case hiện tại:
 
 ## List màn hình cần khách review
 
-Theo `screens.html`, hiện có 15 màn hình dự kiến:
+Theo `screens.html`, hiện có 17 màn hình dự kiến:
 
+0. SCR-00 - Common layout / Header menu footer.
 1. SCR-01 - Đăng nhập / Đăng ký seller.
 2. SCR-02 - Trang chính Seller.
 3. SCR-03 - Catalog sản phẩm / Template.
@@ -146,10 +201,11 @@ Theo `screens.html`, hiện có 15 màn hình dự kiến:
 13. SCR-13 - Giá Zootop / chi phí xưởng.
 14. SCR-14 - Kế toán / đối soát.
 15. SCR-15 - Người dùng / phân quyền / audit.
+16. SCR-16 - Danh sách seller / Chuyển trạng thái seller.
 
 Điểm cần khách xác nhận:
 
-- 15 màn hình này đã đủ để bao phủ Phase 1 chưa.
+- 17 màn hình này đã đủ để bao phủ Phase 1 chưa.
 - Có màn nào nên gộp lại để đơn giản hơn không.
 - Có màn nào cần tách riêng vì nghiệp vụ nhiều không.
 - Với format tham chiếu Simple Hub, khách muốn ưu tiên màn hình nào làm trước.
@@ -170,6 +226,16 @@ Sau buổi confirm, cần có:
 
 - Batch Seller: đã tạo 11 file HTML chi tiết trong thư mục `usecases/`.
 - Đã gắn link từ từng use case Seller trong `seller.html` sang file HTML tương ứng.
+- Đã tạo thêm file chi tiết `usecases/uc-adm-01-seller-approval.html` cho chức năng Admin xem danh sách seller và chuyển trạng thái seller.
+- Đã thiết kế lại wireframe cho màn `SCR-16 - Danh sách seller / Chuyển trạng thái seller` theo style Zootop Bear, gồm:
+  - màn danh sách seller có bộ lọc trạng thái, ô tìm kiếm, bảng seller và nút Chuyển trạng thái/Gán phụ trách;
+  - popup chuyển trạng thái seller;
+  - popup khóa/từ chối seller;
+  - popup thông báo nhân viên phụ trách sau khi gán seller.
+- Đã cập nhật lại màn `SCR-16` theo ảnh tham khảo SimplePrint Store/List khách gửi: lấy bố cục sidebar trái, topbar search, breadcrumb, filter panel, bảng dữ liệu, action button và pagination; vẫn giữ style Zootop Bear dark/orange.
+- Theo góp ý mới, đã tách phần header/sidebar/common menu/footer sang màn riêng `SCR-00 - Common layout`. Các màn nghiệp vụ như `SCR-16` chỉ vẽ phần nội dung chính để khách dễ tập trung review nghiệp vụ.
+- Theo góp ý nghiệp vụ mới, đã đổi luồng từ “seller chờ Admin duyệt rồi mới vào hệ thống” sang “seller tự xác nhận email, vào hệ thống ở trạng thái Dùng thử; Admin nhận thông báo và chuyển trạng thái seller sau”.
+- Đã note thêm: seller Dùng thử chỉ xem catalog public, các chức năng nghiệp vụ sẽ bị khóa theo trạng thái seller và API sẽ check trạng thái seller khi thao tác.
 - Mỗi file Seller có:
   - mô tả mục đích;
   - wireframe cơ bản;

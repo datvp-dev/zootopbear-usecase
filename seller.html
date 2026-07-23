@@ -54,32 +54,36 @@ renderUseCases({
   theme: 't-teal',
   useCases: [
     {
-      code: 'UC-SEL-01', title: 'Đăng ký tài khoản', sub: 'Chờ admin duyệt', screen: 'scr-login', page: 'usecases/uc-sel-01-register.html',
+      code: 'UC-SEL-01', title: 'Đăng nhập, đăng ký và quên mật khẩu', sub: 'Bắt buộc dùng email; seller tự xác nhận email và vào hệ thống ở trạng thái Dùng thử', screen: 'scr-login', page: 'usecases/uc-sel-01-register.html',
       detail: `
         <h3>Precondition</h3>
         <ul>
-          <li>Seller truy cập trang đăng ký từ landing page.</li>
-          <li>Email / số điện thoại chưa tồn tại trong hệ thống.</li>
+          <li>Seller truy cập màn đăng nhập của Zootop Bear.</li>
+          <li>Email là thông tin bắt buộc để đăng nhập, đăng ký và quên mật khẩu.</li>
         </ul>
         <h3>Luồng chính</h3>
         <ol>
-          <li>Seller điền form: họ tên, email, SĐT, mật khẩu, thông tin shop và sản lượng dự kiến.</li>
-          <li>Hệ thống validate: định dạng email/SĐT, độ mạnh mật khẩu, email chưa trùng.</li>
-          <li>Tạo tài khoản trạng thái <b>Chờ duyệt</b>, gửi email xác nhận cho seller.</li>
-          <li>Tài khoản vào hàng chờ duyệt của admin.</li>
-          <li>Admin xem hồ sơ, chọn <b>Duyệt</b> và gán tier (1/2/3), có thể gán nhân viên phụ trách.</li>
-          <li>Tài khoản chuyển <b>Active</b>, seller nhận email và đăng nhập được.</li>
+          <li>Seller nhập email và mật khẩu để đăng nhập.</li>
+          <li>Nếu chưa có tài khoản, seller bấm <b>SignUp</b> và nhập Name, Email, Password, Password confirmation.</li>
+          <li>Nếu quên mật khẩu, seller bấm <b>Forgot Password</b>, nhập email và nhận verification code để reset mật khẩu.</li>
+          <li>Hệ thống gửi verification code/link đến email của seller để seller tự kích hoạt tài khoản.</li>
+          <li>Seller bấm link hoặc nhập code xác nhận email, tài khoản chuyển sang trạng thái <b>Dùng thử</b> và vào được màn hình seller.</li>
+          <li>Ở trạng thái <b>Dùng thử</b>, seller chỉ xem được catalog giống phần public ngoài trang chính; chưa tạo/import đơn, chưa nạp ví, chưa tạo ticket và chưa thao tác nghiệp vụ khác.</li>
+          <li>Hệ thống gửi thông báo seller mới cho Admin để Admin không bị miss tài khoản mới.</li>
+          <li>Admin mở màn danh sách seller, xem hồ sơ, gán tier/phụ trách và chuyển seller từ <b>Dùng thử</b> sang trạng thái phù hợp.</li>
+          <li>Hệ thống gửi thông báo cho nhân viên phụ trách vừa được gán. Kênh thông báo cụ thể sẽ chốt sau.</li>
         </ol>
         <h3>Luồng ngoại lệ</h3>
         <table>
           <tr><th>Điều kiện</th><th>Xử lý</th></tr>
-          <tr><td>Admin từ chối</td><td>Chuyển Rejected, gửi email kèm lý do; seller có thể đăng ký lại.</td></tr>
+          <tr><td>Admin chuyển trạng thái không phù hợp</td><td>Chuyển Rejected/Locked hoặc trạng thái tương ứng; gửi email/thông báo kèm lý do nếu cần.</td></tr>
           <tr><td>Email đã tồn tại</td><td>Báo lỗi trên form, gợi ý đăng nhập / quên mật khẩu.</td></tr>
-          <tr><td>Đăng nhập khi chưa duyệt</td><td>Chỉ thấy màn "đang chờ duyệt", không vào được catalog.</td></tr>
+          <tr><td>Đăng nhập khi chưa xác nhận email</td><td>Yêu cầu xác nhận email trước; chưa vào dashboard seller.</td></tr>
         </table>
         <h3>Business rules</h3>
         <ul>
-          <li>Tier mặc định là Tier 1 nếu admin không chọn (tránh seller Active không có bảng giá).</li>
+          <li>Seller mới sau xác nhận email có trạng thái mặc định là Dùng thử.</li>
+          <li>API/hệ thống sẽ check trạng thái seller để quyết định chức năng nào được thao tác.</li>
           <li>Mọi thao tác duyệt/từ chối/khóa đều ghi audit log.</li>
         </ul>`
     },

@@ -29,7 +29,7 @@ renderUseCases({
   actorRole: 'Full quyền: seller, catalog, giá, xưởng đang xử lý đơn mới, PrintBelle lưu lịch sử, đơn, ví, ticket',
   theme: 't-purple',
   useCases: [
-    { code: 'UC-ADM-01', title: 'Duyệt seller, gán tier', sub: 'Duyệt, khóa, gán nhân viên phụ trách', screen: 'scr-login' },
+    { code: 'UC-ADM-01', title: 'Danh sách seller và chuyển trạng thái seller', sub: 'Admin nhận thông báo seller mới, xem seller dùng thử, gán tier/phụ trách và chuyển trạng thái', screen: 'scr-seller-list', page: 'usecases/uc-adm-01-seller-approval.html' },
     { code: 'UC-ADM-02', title: 'Quản lý tài khoản nội bộ', sub: 'Full quyền Admin, phân quyền role khác', screen: 'scr-user-role' },
     { code: 'UC-ADM-03', title: 'Quản lý catalog sản phẩm', sub: 'Catalog lấy từ xưởng, chuẩn hóa cho Zootop, gắn template theo từng nhóm hàng', screen: 'scr-catalog' },
     { code: 'UC-ADM-04', title: 'Cấu hình bảng giá Zootop Bear', sub: 'Giá seller, tier, ship, label fee, add item fee, chi phí xưởng để đối soát', screen: 'scr-pricing' },
