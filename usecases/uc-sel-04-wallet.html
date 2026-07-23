@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UC-SEL-04 — Top-up và ví</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="usecase-detail.css">
+</head>
+<body>
+<main class="case-page">
+  <a class="case-back" href="../seller.html">← Quay lại Seller use case</a>
+  <div class="case-kicker">UC-SEL-04 · Seller</div>
+  <h1 class="case-title">Tạo yêu cầu top-up và xem ví</h1>
+  <p class="case-sub">Seller tạo yêu cầu nạp tiền, theo dõi số dư ví và lịch sử cộng/trừ tiền liên quan đến đơn hàng.</p>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Wireframe dự kiến</h2>
+      <div class="wire">
+        <div class="wire-top">Ví Seller · Số dư · Nạp tiền</div>
+        <div class="wire-cards"><div class="wire-card"></div><div class="wire-card"></div><div class="wire-card"></div></div>
+        <div class="wire-form"><div class="wire-field"></div><div class="wire-button"></div></div>
+      </div>
+    </section>
+    <section class="case-card">
+      <h2>Luồng trực quan</h2>
+      <div class="flow-strip">
+        <div class="flow-node" data-step="1"><b>Seller tạo yêu cầu</b><span>Nhập số tiền và thông tin/chứng từ nạp tiền.</span></div>
+        <div class="flow-node" data-step="2"><b>Kế toán kiểm tra</b><span>Đối chiếu thanh toán thực tế.</span></div>
+        <div class="flow-node" data-step="3"><b>Cộng ví</b><span>Yêu cầu được duyệt thì số dư seller tăng.</span></div>
+        <div class="flow-node" data-step="4"><b>Trừ khi có đơn</b><span>Khi đơn được xử lý, ví ghi nhận giao dịch trừ tiền.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Ý hiểu hiện tại</h2>
+      <ul>
+        <li>Kế toán là role chính duyệt top-up và điều chỉnh ví.</li>
+        <li>Seller cần xem được số dư và lịch sử ví.</li>
+        <li>Giá trừ cho seller là giá Zootop, không phải chi phí xưởng.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Cần hỏi khách</h2>
+      <ul class="confirm-list">
+        <li>Seller nạp tiền bằng phương thức nào và có cần upload chứng từ không?</li>
+        <li>Khi đơn chờ xác nhận thì đã giữ tiền hay chỉ trừ tiền sau khi xác nhận?</li>
+        <li>Seller có được âm ví/đẩy đơn trước không?</li>
+      </ul>
+    </section>
+  </div>
+  <div class="links-row">
+    <a href="../screens.html#scr-wallet">Xem màn hình liên quan</a>
+    <a href="uc-sel-05-create-order.html">Use case tiếp theo</a>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UC-SEL-02 — Xem catalog sản phẩm</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="usecase-detail.css">
+</head>
+<body>
+<main class="case-page">
+  <a class="case-back" href="../seller.html">← Quay lại Seller use case</a>
+  <div class="case-kicker">UC-SEL-02 · Seller</div>
+  <h1 class="case-title">Xem bảng sản phẩm và chi tiết sản phẩm</h1>
+  <p class="case-sub">Seller xem danh sách sản phẩm Zootop đã chuẩn hóa từ các xưởng, bao gồm mã hàng, biến thể, file mẫu và giá bán của Zootop.</p>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Wireframe dự kiến</h2>
+      <div class="wire">
+        <div class="wire-top">Catalog · Tìm kiếm · Nhóm sản phẩm</div>
+        <div class="wire-cards"><div class="wire-card"></div><div class="wire-card"></div><div class="wire-card"></div></div>
+        <div class="wire-table"><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+    </section>
+    <section class="case-card">
+      <h2>Luồng trực quan</h2>
+      <div class="flow-strip">
+        <div class="flow-node" data-step="1"><b>Seller mở catalog</b><span>Xem sản phẩm theo nhóm như Home Decor, Mug, Apparel.</span></div>
+        <div class="flow-node" data-step="2"><b>Chọn sản phẩm</b><span>Xem mã hàng, variant, size/màu nếu có.</span></div>
+        <div class="flow-node" data-step="3"><b>Xem giá Zootop</b><span>Seller chỉ thấy giá Zootop tính cho seller.</span></div>
+        <div class="flow-node" data-step="4"><b>Tải file mẫu</b><span>Tải template hoặc file hướng dẫn thiết kế/import liên quan.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Ý hiểu hiện tại</h2>
+      <ul>
+        <li>Catalog Phase 1 lấy từ các xưởng/nền tảng rồi chuẩn hóa lại cho Zootop Bear.</li>
+        <li>Seller không thấy chi phí xưởng, chỉ thấy giá Zootop.</li>
+        <li>Catalog cần gắn với template Excel theo từng nhóm sản phẩm.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Cần hỏi khách</h2>
+      <ul class="confirm-list">
+        <li>Seller cần xem tồn kho/thời gian sản xuất dự kiến trong catalog không?</li>
+        <li>Giá hiển thị theo tier seller có cần ghi rõ tier đang áp dụng không?</li>
+        <li>Mỗi nhóm sản phẩm dùng một template riêng hay tất cả dùng một template chung?</li>
+      </ul>
+    </section>
+  </div>
+  <div class="links-row">
+    <a href="../screens.html#scr-catalog">Xem màn hình liên quan</a>
+    <a href="uc-sel-03-template.html">Use case tiếp theo</a>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>List màn hình — Zootop Bear</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .screen-page { padding: 40px 48px 70px; max-width: 1180px; }
+  .screen-page .lead { font-size: 15px; color: var(--muted); margin-bottom: 8px; }
+  .screen-page h2.big { font-size: 26px; font-weight: 600; margin-bottom: 12px; }
+  .intro-note {
+    background: rgba(29,158,117,0.08); border: 1px solid rgba(29,158,117,0.25);
+    border-radius: 12px; padding: 16px 20px; font-size: 14px; color: var(--teal-sub); margin-bottom: 28px;
+  }
+  .screen-index {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px;
+    margin-bottom: 28px;
+  }
+  .screen-index a {
+    border: 1px solid var(--line); background: var(--panel); border-radius: 8px; padding: 10px 12px;
+    color: var(--ink); text-decoration: none; font-size: 13px;
+  }
+  .screen-index a:hover { border-color: var(--teal); background: rgba(29,158,117,0.08); }
+  .screen-card {
+    border: 1px solid var(--line); background: var(--panel); border-radius: 12px;
+    margin-bottom: 18px; overflow: hidden; scroll-margin-top: 20px;
+  }
+  .screen-head {
+    display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 16px 18px;
+    border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.025);
+  }
+  .screen-code { color: var(--teal-sub); font-size: 12px; font-weight: 700; letter-spacing: 0.04em; }
+  .screen-title { font-size: 18px; font-weight: 650; }
+  .screen-desc { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .screen-body {
+    display: grid; grid-template-columns: minmax(320px, 1.1fr) minmax(320px, 0.9fr); gap: 18px;
+    padding: 18px;
+  }
+  .wireframe {
+    border: 1px solid var(--line); border-radius: 10px; background: var(--bg); padding: 12px;
+    min-height: 230px;
+  }
+  .wf-top, .wf-row, .wf-card, .wf-side, .wf-main, .wf-table, .wf-button, .wf-field {
+    border: 1px solid #55544e; background: rgba(255,255,255,0.035); border-radius: 6px;
+  }
+  .wf-top { height: 32px; margin-bottom: 10px; display: flex; align-items: center; padding: 0 10px; color: var(--muted); font-size: 11px; }
+  .wf-grid { display: grid; grid-template-columns: 92px 1fr; gap: 10px; }
+  .wf-side { min-height: 174px; padding: 8px; display: grid; gap: 8px; align-content: start; }
+  .wf-side span, .wf-line {
+    display: block; height: 10px; border-radius: 999px; background: rgba(255,255,255,0.13);
+  }
+  .wf-main { min-height: 174px; padding: 10px; }
+  .wf-row { height: 28px; margin-bottom: 8px; }
+  .wf-table { height: 112px; padding: 8px; display: grid; gap: 7px; }
+  .wf-table span { height: 11px; border-radius: 999px; background: rgba(255,255,255,0.12); }
+  .wf-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+  .wf-card { height: 54px; }
+  .wf-form { display: grid; gap: 8px; }
+  .wf-field { height: 30px; }
+  .wf-button { height: 32px; width: 110px; background: rgba(29,158,117,0.18); border-color: rgba(29,158,117,0.45); }
+  .mapping-block h3 { font-size: 14px; color: var(--teal-sub); margin-bottom: 8px; }
+  .mapping-block p, .mapping-block li { color: var(--muted); font-size: 13px; }
+  .mapping-block ul { margin-left: 18px; margin-bottom: 14px; }
+  .uc-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+  .uc-tags span {
+    display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 999px;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--line); color: var(--ink); font-size: 11px;
+  }
+  .role-line { margin-top: 8px; font-size: 12px; color: var(--muted); }
+  @media (max-width: 900px) {
+    .screen-page { padding: 28px 22px 44px; }
+    .screen-head, .screen-body { grid-template-columns: 1fr; }
+    .wf-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="content">
+    <div class="screen-page">
+      <div class="lead">Zootop Bear · Phase 1 · Format tham chiếu Simple Hub</div>
+      <h2 class="big">List màn hình theo use case đã chốt</h2>
+      <div class="intro-note">
+        Trang này gom các màn hình dự kiến từ use case đã chốt. Mỗi màn có wireframe nhanh, role sử dụng và danh sách use case liên quan.
+        Khi bấm vào use case ở các trang role, popup sẽ có link quay về màn hình tương ứng trong trang này.
+      </div>
+
+      <div class="screen-index">
+        <a href="#scr-login">SCR-01 · Đăng nhập / Đăng ký seller</a>
+        <a href="#scr-seller-dashboard">SCR-02 · Trang chính Seller</a>
+        <a href="#scr-catalog">SCR-03 · Catalog sản phẩm</a>
+        <a href="#scr-create-order">SCR-04 · Tạo đơn lẻ</a>
+        <a href="#scr-import-order">SCR-05 · Import file đơn</a>
+        <a href="#scr-order-detail">SCR-06 · Chi tiết đơn / mã vận đơn</a>
+        <a href="#scr-wallet">SCR-07 · Ví / top-up Seller</a>
+        <a href="#scr-ticket">SCR-08 · Ticket hỗ trợ</a>
+        <a href="#scr-internal-orders">SCR-09 · Danh sách đơn tổng nội bộ</a>
+        <a href="#scr-confirm-send">SCR-10 · Xác nhận và gửi xưởng</a>
+        <a href="#scr-supplier">SCR-11 · Xưởng / nền tảng</a>
+        <a href="#scr-mapping">SCR-12 · Mapping sản phẩm - xưởng</a>
+        <a href="#scr-pricing">SCR-13 · Giá / chi phí xưởng</a>
+        <a href="#scr-accounting">SCR-14 · Kế toán / đối soát</a>
+        <a href="#scr-user-role">SCR-15 · Người dùng / phân quyền</a>
+      </div>
+
+      <section class="screen-card" id="scr-login">
+        <div class="screen-head">
+          <div class="screen-code">SCR-01</div>
+          <div>
+            <div class="screen-title">Đăng nhập / Đăng ký seller</div>
+            <div class="screen-desc">Seller đăng ký tài khoản, chờ Admin duyệt, sau đó mới được dùng hệ thống.</div>
+            <div class="role-line">Role: Seller, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Zootop Bear</div>
+            <div class="wf-form">
+              <div class="wf-field"></div><div class="wf-field"></div><div class="wf-field"></div>
+              <div class="wf-button"></div>
+              <div class="wf-table"><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-01</span><span>UC-ADM-01</span></div>
+            <ul>
+              <li>Seller điền form đăng ký và nhận trạng thái chờ duyệt.</li>
+              <li>Admin duyệt, từ chối, khóa hoặc gán tier cho seller.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-seller-dashboard">
+        <div class="screen-head">
+          <div class="screen-code">SCR-02</div>
+          <div>
+            <div class="screen-title">Trang chính Seller</div>
+            <div class="screen-desc">Màn đầu tiên sau đăng nhập, cho seller nhìn nhanh đơn, ví, ticket và việc cần xử lý.</div>
+            <div class="role-line">Role: Seller</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Đơn mới · Import file · Ví · Ticket</div>
+            <div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-04</span><span>UC-SEL-08</span><span>UC-SEL-09</span><span>UC-SEL-11</span></div>
+            <ul>
+              <li>Seller xem số dư ví, đơn đang chờ xác nhận, đơn đã có mã vận đơn và ticket đang mở.</li>
+              <li>Các nút chính dẫn tới tạo đơn, import đơn, nạp tiền và tạo ticket.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-catalog">
+        <div class="screen-head">
+          <div class="screen-code">SCR-03</div>
+          <div>
+            <div class="screen-title">Catalog sản phẩm / Template</div>
+            <div class="screen-desc">Seller xem sản phẩm, mã hàng, giá Zootop, file mẫu và template import theo nhóm hàng.</div>
+            <div class="role-line">Role: Seller, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Tìm kiếm · Nhóm sản phẩm · Tải template</div>
+            <div class="wf-grid"><div class="wf-side"><span></span><span></span><span></span><span></span></div><div class="wf-main"><div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div><div class="wf-table"><span></span><span></span><span></span></div></div></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-02</span><span>UC-SEL-03</span><span>UC-ADM-03</span></div>
+            <ul>
+              <li>Seller xem mã hàng, phiên bản sản phẩm, file mẫu, ảnh mô phỏng và giá Zootop.</li>
+              <li>Admin quản lý catalog lấy từ xưởng và gắn template phù hợp cho từng nhóm sản phẩm.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-create-order">
+        <div class="screen-head">
+          <div class="screen-code">SCR-04</div>
+          <div>
+            <div class="screen-title">Tạo đơn lẻ</div>
+            <div class="screen-desc">Seller nhập một đơn trực tiếp trên web thay cho việc điền một dòng trong file Excel riêng.</div>
+            <div class="role-line">Role: Seller</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Thông tin người nhận · Sản phẩm · Thiết kế · Tổng tiền</div>
+            <div class="wf-form"><div class="wf-field"></div><div class="wf-field"></div><div class="wf-field"></div><div class="wf-table"><span></span><span></span><span></span></div><div class="wf-button"></div></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-05</span><span>UC-SEL-07</span><span>UC-SEL-08</span></div>
+            <ul>
+              <li>Seller điền order_id, người nhận, sản phẩm, số lượng, thiết kế và ảnh mô phỏng.</li>
+              <li>Hệ thống tính tổng tiền Zootop trước khi seller gửi đơn.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-import-order">
+        <div class="screen-head">
+          <div class="screen-code">SCR-05</div>
+          <div>
+            <div class="screen-title">Import file đơn</div>
+            <div class="screen-desc">Seller upload file Excel theo template; hệ thống kiểm tra từng dòng và gom vào danh sách đơn tổng.</div>
+            <div class="role-line">Role: Seller, Vận hành</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Tải template · Upload file · Kết quả kiểm tra</div>
+            <div class="wf-form"><div class="wf-field"></div><div class="wf-button"></div><div class="wf-table"><span></span><span></span><span></span><span></span><span></span></div></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-06</span><span>UC-OPS-01</span><span>UC-OPS-03</span></div>
+            <ul>
+              <li>File hợp lệ tạo thành đơn chờ kiểm tra/xác nhận.</li>
+              <li>Dòng lỗi hiển thị lý do rõ ràng để seller hoặc vận hành sửa.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-order-detail">
+        <div class="screen-head">
+          <div class="screen-code">SCR-06</div>
+          <div>
+            <div class="screen-title">Chi tiết đơn / mã vận đơn</div>
+            <div class="screen-desc">Một màn chi tiết cho seller và nội bộ cùng xem trạng thái đơn, trạng thái xưởng và mã vận đơn.</div>
+            <div class="role-line">Role: Seller, CSKH, Vận hành, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Order ID · Trạng thái · Mã vận đơn</div>
+            <div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-09</span><span>UC-SUP-01</span><span>UC-SUP-02</span><span>UC-OPS-05</span><span>UC-ADM-07</span></div>
+            <ul>
+              <li>Hiển thị mã đơn seller, mã đơn nội bộ, mã đơn xưởng và mã vận đơn.</li>
+              <li>Trạng thái cần dùng ngôn ngữ dễ hiểu cho seller, không hiển thị raw status khó hiểu.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-wallet">
+        <div class="screen-head">
+          <div class="screen-code">SCR-07</div>
+          <div>
+            <div class="screen-title">Ví / top-up Seller</div>
+            <div class="screen-desc">Seller nạp tiền, xem số dư và lịch sử trừ tiền theo đơn.</div>
+            <div class="role-line">Role: Seller, Kế toán, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Số dư · Tạo yêu cầu top-up · Lịch sử ví</div>
+            <div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-04</span><span>UC-ACC-01</span><span>UC-ACC-02</span><span>UC-ACC-03</span><span>UC-ADM-09</span></div>
+            <ul>
+              <li>Seller tạo yêu cầu nạp tiền và xem số dư.</li>
+              <li>Kế toán duyệt/từ chối top-up, điều chỉnh ví và xem sổ giao dịch.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-ticket">
+        <div class="screen-head">
+          <div class="screen-code">SCR-08</div>
+          <div>
+            <div class="screen-title">Ticket hỗ trợ đơn hàng</div>
+            <div class="screen-desc">Nơi tiếp nhận đổi thiết kế, lỗi đơn, hỏi trạng thái, vấn đề giao hàng; nếu chưa có ticket thì nội bộ dùng group xử lý.</div>
+            <div class="role-line">Role: Seller, CSKH, Vận hành, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Ticket mới · Đang xử lý · Đã xong</div>
+            <div class="wf-grid"><div class="wf-side"><span></span><span></span><span></span></div><div class="wf-main"><div class="wf-row"></div><div class="wf-table"><span></span><span></span><span></span><span></span></div></div></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-SEL-11</span><span>UC-SUP-03</span><span>UC-SUP-04</span><span>UC-OPS-06</span><span>UC-ADM-11</span></div>
+            <ul>
+              <li>Seller tạo ticket theo đơn.</li>
+              <li>CSKH tiếp nhận, vận hành/admin xử lý hoặc chuyển lên group nội bộ nếu chưa có module hoàn chỉnh.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-internal-orders">
+        <div class="screen-head">
+          <div class="screen-code">SCR-09</div>
+          <div>
+            <div class="screen-title">Danh sách đơn tổng nội bộ</div>
+            <div class="screen-desc">Màn thay cho file đơn tổng, nơi vận hành/kế toán/admin xem toàn bộ đơn từ nhiều seller.</div>
+            <div class="role-line">Role: Vận hành, Kế toán, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Bộ lọc seller · trạng thái · xưởng · ngày</div>
+            <div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-OPS-01</span><span>UC-ADM-07</span><span>UC-ACC-03</span></div>
+            <ul>
+              <li>Gom đơn từ file/import của seller về một danh sách chung.</li>
+              <li>Hiển thị trạng thái kiểm tra, tổng tiền, xưởng dự kiến và người phụ trách.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-confirm-send">
+        <div class="screen-head">
+          <div class="screen-code">SCR-10</div>
+          <div>
+            <div class="screen-title">Xác nhận và gửi xưởng</div>
+            <div class="screen-desc">Bước kiểm soát quan trọng: đơn phải được xác nhận trước khi gửi sang xưởng sản xuất.</div>
+            <div class="role-line">Role: Vận hành, Kế toán, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Kiểm tra dữ liệu · Xác nhận · Gửi xưởng</div>
+            <div class="wf-grid"><div class="wf-side"><span></span><span></span><span></span><span></span></div><div class="wf-main"><div class="wf-table"><span></span><span></span><span></span><span></span></div><div class="wf-button"></div></div></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-OPS-02</span><span>UC-OPS-03</span><span>UC-OPS-04</span><span>UC-ACC-05</span><span>UC-ADM-08</span></div>
+            <ul>
+              <li>Xác nhận đơn đủ dữ liệu và đủ điều kiện xử lý.</li>
+              <li>Gửi xưởng bằng upload file, nhập tay hoặc API tùy từng nền tảng.</li>
+              <li>Đơn lỗi chuyển sang Hold/ticket/group nội bộ.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-supplier">
+        <div class="screen-head">
+          <div class="screen-code">SCR-11</div>
+          <div>
+            <div class="screen-title">Quản lý xưởng / nền tảng</div>
+            <div class="screen-desc">Lưu thông tin các xưởng xử lý đơn mới và PrintBelle dạng lưu lịch sử/import đơn cũ.</div>
+            <div class="role-line">Role: Admin, Vận hành</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Xưởng đang dùng · Tạm pending · Thông tin kết nối</div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-ADM-05</span><span>UC-OPS-02</span></div>
+            <ul>
+              <li>Quản lý thông tin Flash POD, Snap, ART ADD, SimplePrint và các xưởng active khác.</li>
+              <li>PrintBelle tạm pending, chỉ lưu để import đơn cũ/thống kê/đối soát.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-mapping">
+        <div class="screen-head">
+          <div class="screen-code">SCR-12</div>
+          <div>
+            <div class="screen-title">Mapping sản phẩm - xưởng</div>
+            <div class="screen-desc">Nơi xác định mã hàng/variant của Zootop tương ứng mã nào ở từng xưởng.</div>
+            <div class="role-line">Role: Admin, Vận hành</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Mã Zootop · Mã xưởng · 415 Snap · 922 Flash POD</div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-ADM-06</span><span>UC-ADM-03</span><span>UC-OPS-03</span></div>
+            <ul>
+              <li>Khách đã note 415 = Snap, 922 = Flash POD.</li>
+              <li>Nếu không map được mã hàng thì đơn cần vào trạng thái lỗi/Hold.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-pricing">
+        <div class="screen-head">
+          <div class="screen-code">SCR-13</div>
+          <div>
+            <div class="screen-title">Giá Zootop / chi phí xưởng</div>
+            <div class="screen-desc">Quản lý giá bán cho seller và chi phí xưởng để admin/kế toán đối soát.</div>
+            <div class="role-line">Role: Admin, Kế toán</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Tier seller · Giá Zootop · Chi phí xưởng · Margin</div>
+            <div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-ADM-04</span><span>UC-ACC-04</span><span>UC-SEL-08</span></div>
+            <ul>
+              <li>Seller chỉ thấy giá Zootop.</li>
+              <li>Admin/Kế toán thấy thêm chi phí xưởng và chênh lệch để đối soát.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-accounting">
+        <div class="screen-head">
+          <div class="screen-code">SCR-14</div>
+          <div>
+            <div class="screen-title">Kế toán / đối soát</div>
+            <div class="screen-desc">Tổng hợp top-up, ví, tiền đơn, refund/resend và đơn cũ PrintBelle cần thống kê.</div>
+            <div class="role-line">Role: Kế toán, Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">Top-up · Tiền đơn · Chi phí xưởng · Refund</div>
+            <div class="wf-cards"><div class="wf-card"></div><div class="wf-card"></div><div class="wf-card"></div></div>
+            <div class="wf-table"><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-ACC-01</span><span>UC-ACC-02</span><span>UC-ACC-03</span><span>UC-ACC-04</span><span>UC-ACC-05</span><span>UC-ADM-09</span></div>
+            <ul>
+              <li>Kế toán duyệt nạp tiền, theo dõi ví và đối soát tiền đơn.</li>
+              <li>Import đơn cũ PrintBelle để thống kê lại tiền nong/lịch sử.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-card" id="scr-user-role">
+        <div class="screen-head">
+          <div class="screen-code">SCR-15</div>
+          <div>
+            <div class="screen-title">Người dùng / phân quyền / audit</div>
+            <div class="screen-desc">Admin full quyền, quản lý tài khoản nội bộ, phân quyền role và xem lịch sử thao tác.</div>
+            <div class="role-line">Role: Admin</div>
+          </div>
+        </div>
+        <div class="screen-body">
+          <div class="wireframe">
+            <div class="wf-top">User nội bộ · Role · Audit log</div>
+            <div class="wf-grid"><div class="wf-side"><span></span><span></span><span></span></div><div class="wf-main"><div class="wf-table"><span></span><span></span><span></span><span></span></div></div></div>
+          </div>
+          <div class="mapping-block">
+            <h3>Use case gắn vào màn hình</h3>
+            <div class="uc-tags"><span>UC-ADM-02</span><span>UC-ADM-10</span><span>UC-ADM-01</span></div>
+            <ul>
+              <li>Admin tạo/sửa/khóa tài khoản nội bộ và phân quyền.</li>
+              <li>Audit log ghi lại thao tác quan trọng về giá, ví, đơn, mã vận đơn và người dùng.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script src="sidebar.js"></script>
+<script>renderSidebar('screens.html');</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UC-SEL-10 — Hủy đơn và hoàn tiền</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="usecase-detail.css">
+</head>
+<body>
+<main class="case-page">
+  <a class="case-back" href="../seller.html">← Quay lại Seller use case</a>
+  <div class="case-kicker">UC-SEL-10 · Seller</div>
+  <h1 class="case-title">Hủy đơn và nhận hoàn tiền</h1>
+  <p class="case-sub">Seller có thể hủy đơn trong điều kiện cho phép. Sau thời gian cho phép hoặc sau khi đơn đã gửi xưởng, seller cần liên hệ hỗ trợ.</p>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Wireframe dự kiến</h2>
+      <div class="wire">
+        <div class="wire-top">Chi tiết đơn · Hủy đơn</div>
+        <div class="wire-table"><span></span><span></span><span></span><span></span></div>
+        <div class="wire-button"></div>
+      </div>
+    </section>
+    <section class="case-card">
+      <h2>Luồng trực quan</h2>
+      <div class="flow-strip">
+        <div class="flow-node" data-step="1"><b>Seller chọn hủy</b><span>Chỉ hiện khi đơn còn trong điều kiện hủy.</span></div>
+        <div class="flow-node" data-step="2"><b>Hệ thống kiểm tra</b><span>Kiểm tra thời gian và trạng thái đơn.</span></div>
+        <div class="flow-node" data-step="3"><b>Hoàn tiền</b><span>Nếu đủ điều kiện, tiền được hoàn về ví.</span></div>
+        <div class="flow-node" data-step="4"><b>Liên hệ hỗ trợ</b><span>Nếu quá hạn, seller tạo ticket để nhờ xử lý.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Ý hiểu hiện tại</h2>
+      <ul>
+        <li>Đã có rule seller tự hủy trong 30 phút sau khi lên đơn.</li>
+        <li>Sau 30 phút cần liên hệ support để hỗ trợ hủy.</li>
+        <li>Nếu đơn đã gửi xưởng, việc hủy phụ thuộc trạng thái xưởng.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Cần hỏi khách</h2>
+      <ul class="confirm-list">
+        <li>Mốc 30 phút tính từ lúc seller gửi đơn hay lúc nội bộ xác nhận đơn?</li>
+        <li>Hủy trong 30 phút có hoàn tiền tự động về ví không?</li>
+        <li>Nếu xưởng đã sản xuất thì có cho hủy/hoàn tiền một phần không?</li>
+      </ul>
+    </section>
+  </div>
+  <div class="links-row">
+    <a href="../screens.html#scr-order-detail">Xem màn hình liên quan</a>
+    <a href="uc-sel-11-ticket.html">Use case tiếp theo</a>
+  </div>
+</main>
+</body>
+</html>

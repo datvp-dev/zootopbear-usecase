@@ -353,3 +353,27 @@ Nhận tracking từ xưởng
 6. Tạo task/section riêng cho ticket/fallback group.
 7. Check kỹ giá 17TRACK API/quota trong dashboard hoặc hỏi sales.
 8. Confirm lại “4 nhà cung cấp kia” là 4 bên nào.
+
+## 11. Cập nhật ngày 23/07/2026 - PrintBelle tạm pending
+
+Thông tin đã note thêm:
+
+- PrintBelle tạm pending trong phase hiện tại.
+- Chưa ưu tiên xử lý API tạo đơn mới, webhook hoặc callback trạng thái cho PrintBelle.
+- PrintBelle chỉ cần dùng để import các đơn cũ vào hệ thống, phục vụ thống kê, đối soát tiền nong và lưu lịch sử.
+- Vẫn lưu thông tin nền tảng PrintBelle trong hệ thống để sau này còn tra cứu hoặc mở lại nếu cần.
+- Trên use case, PrintBelle nên được hiểu là nền tảng lưu lịch sử/import đơn cũ, không phải xưởng active để route đơn mới trong phase hiện tại.
+
+## 12. Cập nhật ngày 23/07/2026 - Định hướng theo format Simple Hub
+
+Khách hàng có nói muốn làm hệ thống theo format giống nền tảng Simple Hub.
+
+Ý hiểu cần ghi nhớ:
+
+- Simple Hub là format tham chiếu về cách tổ chức màn hình/trải nghiệm, không phải tên module trong hệ thống Zootop Bear.
+- Hệ thống nên ưu tiên đơn giản, dễ nhìn, gom các việc chính vào các màn hình trung tâm.
+- Khi lên list màn hình, nên dựa vào nhóm công việc chính thay vì chia quá nhiều màn nhỏ ngay từ đầu.
+- Mỗi role nên có dashboard/trang thao tác riêng, hiển thị đúng việc role đó cần làm hằng ngày.
+- Flow order nên được thể hiện như một khu vực xử lý đơn rõ ràng: nhận đơn, kiểm tra, xác nhận, gửi xưởng, theo dõi mã vận đơn, xử lý lỗi.
+- Catalog, giá, mapping xưởng, ví/đối soát và ticket có thể là các màn hình riêng hoặc tab trong khu vực quản trị tùy mức độ phức tạp.
+- Khi thiết kế màn hình cho khách review, cần dùng ngôn ngữ nghiệp vụ dễ hiểu, tránh mô tả kỹ thuật.

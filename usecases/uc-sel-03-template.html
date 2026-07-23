@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UC-SEL-03 — Tải template thiết kế</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="usecase-detail.css">
+</head>
+<body>
+<main class="case-page">
+  <a class="case-back" href="../seller.html">← Quay lại Seller use case</a>
+  <div class="case-kicker">UC-SEL-03 · Seller · Should</div>
+  <h1 class="case-title">Tải ảnh mô phỏng/template thiết kế</h1>
+  <p class="case-sub">Seller tải file mẫu sản phẩm, file hướng dẫn thiết kế hoặc template nhập đơn đúng với từng nhóm sản phẩm.</p>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Wireframe dự kiến</h2>
+      <div class="wire">
+        <div class="wire-top">Template theo sản phẩm</div>
+        <div class="wire-table"><span></span><span></span><span></span><span></span></div>
+        <div class="wire-button"></div>
+      </div>
+    </section>
+    <section class="case-card">
+      <h2>Luồng trực quan</h2>
+      <div class="flow-strip">
+        <div class="flow-node" data-step="1"><b>Seller chọn sản phẩm</b><span>Chọn đúng nhóm hàng cần làm.</span></div>
+        <div class="flow-node" data-step="2"><b>Xem file mẫu</b><span>Hệ thống hiển thị file thiết kế/import phù hợp.</span></div>
+        <div class="flow-node" data-step="3"><b>Tải về</b><span>Seller tải file để chuẩn bị thiết kế hoặc nhập đơn.</span></div>
+        <div class="flow-node" data-step="4"><b>Dùng khi tạo đơn</b><span>File thiết kế/ảnh mô phỏng được gắn vào đơn sau đó.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Ý hiểu hiện tại</h2>
+      <ul>
+        <li>Khách đã nói mỗi nhóm sản phẩm có thể cần template Excel riêng.</li>
+        <li>Template giúp seller nhập đúng dữ liệu để giảm lỗi khi import.</li>
+        <li>Chức năng này nên có, nhưng có thể không bắt buộc hoàn chỉnh ngay ngày đầu.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Cần hỏi khách</h2>
+      <ul class="confirm-list">
+        <li>Phase 1 cần cho tải template thiết kế, template nhập đơn hay cả hai?</li>
+        <li>Template có cần version để biết seller đang dùng bản nào không?</li>
+        <li>Khi catalog thay đổi, template cũ có còn được import không?</li>
+      </ul>
+    </section>
+  </div>
+  <div class="links-row">
+    <a href="../screens.html#scr-catalog">Xem màn hình liên quan</a>
+    <a href="uc-sel-04-wallet.html">Use case tiếp theo</a>
+  </div>
+</main>
+</body>
+</html>

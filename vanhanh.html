@@ -10,10 +10,10 @@
 <div class="app">
   <aside class="sidebar" id="sidebar"></aside>
   <main class="content">
-    <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết. Cần chốt: Vận hành xem toàn bộ đơn hay giới hạn theo seller phụ trách.</div>
+    <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết. Vận hành xử lý danh sách đơn tổng nội bộ, kiểm tra đơn, xác nhận hoặc phối hợp kế toán trước khi gửi đơn sang xưởng.</div>
     <div class="canvas" id="canvas">
       <div class="page-title">Use case của Vận hành</div>
-      <div class="page-sub">Theo dõi đơn gửi nền tảng/xưởng, xử lý sự cố · 6 use case</div>
+      <div class="page-sub">Xác nhận đơn, gửi xưởng, theo dõi trạng thái và xử lý sự cố · 6 use case</div>
     </div>
   </main>
 </div>
@@ -26,15 +26,15 @@
 renderSidebar('vanhanh.html');
 renderUseCases({
   actorName: 'Vận hành',
-  actorRole: 'Theo dõi đơn gửi nền tảng/xưởng và xử lý sự cố sản xuất',
+  actorRole: 'Kiểm tra đơn tổng nội bộ, xác nhận/gửi xưởng và xử lý sự cố sản xuất',
   theme: 't-coral',
   useCases: [
-    { code: 'UC-OPS-01', title: 'Xem bảng theo dõi đơn', sub: 'Ngày, seller, status, platform, payment' },
-    { code: 'UC-OPS-02', title: 'Theo dõi đơn gửi nền tảng/xưởng', sub: 'FlashShip, SimplePrint, PrintBelle, ART ADD, Snap Ecom' },
-    { code: 'UC-OPS-03', title: 'Xử lý đơn Hold', sub: 'Thiếu/sai design, dữ liệu đơn có vấn đề' },
-    { code: 'UC-OPS-04', title: 'Retry đơn gửi lỗi', sub: 'API/webhook error, log request/response' },
-    { code: 'UC-OPS-05', title: 'Theo dõi tracking thiếu', sub: 'Đơn shipped chưa có mã hoặc webhook chậm' },
-    { code: 'UC-OPS-06', title: 'Theo dõi ticket gửi xưởng', sub: 'Vấn đề/sửa đơn được đẩy tới nền tảng tương ứng' },
+    { code: 'UC-OPS-01', title: 'Xem danh sách đơn tổng nội bộ', sub: 'Đơn từ nhiều seller, trạng thái kiểm tra, tiền, xưởng dự kiến', screen: 'scr-internal-orders' },
+    { code: 'UC-OPS-02', title: 'Xác nhận và gửi đơn sang xưởng', sub: 'Gửi các xưởng đang xử lý đơn mới; PrintBelle chỉ import đơn cũ để đối soát/lưu lịch sử', screen: 'scr-confirm-send' },
+    { code: 'UC-OPS-03', title: 'Xử lý đơn Hold/đơn lỗi', sub: 'Thiếu dữ liệu, sai thiết kế, không map được mã hàng hoặc xưởng trả lỗi', screen: 'scr-confirm-send' },
+    { code: 'UC-OPS-04', title: 'Gửi lại đơn hoặc xử lý thủ công', sub: 'Upload lại file, nhập lại trên trang xưởng, gọi API lại nếu có', screen: 'scr-confirm-send' },
+    { code: 'UC-OPS-05', title: 'Theo dõi mã vận đơn và trạng thái', sub: 'Trạng thái xưởng, mã vận đơn, hãng vận chuyển, 17TRACK', screen: 'scr-order-detail' },
+    { code: 'UC-OPS-06', title: 'Theo dõi ticket và group nội bộ', sub: 'Đơn lỗi, yêu cầu đổi thiết kế, resend/refund cần vận hành xử lý', screen: 'scr-ticket' },
   ]
 });
 </script>

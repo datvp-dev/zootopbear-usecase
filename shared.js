@@ -84,6 +84,8 @@ function openDetail(uc) {
     <div class="dc-code">${uc.code}</div>
     <h2>${uc.title}</h2>
     <div class="dc-sub">${uc.sub}</div>
+    ${uc.page ? `<a class="screen-jump" href="${uc.page}">Xem mô tả use case</a>` : ''}
+    ${uc.screen ? `<a class="screen-jump" href="screens.html#${uc.screen}">Xem màn hình liên quan</a>` : ''}
     ${detailHtml}
   `;
   overlay.classList.add('open');

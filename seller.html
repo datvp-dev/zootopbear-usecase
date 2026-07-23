@@ -10,7 +10,7 @@
 <div class="app">
   <aside class="sidebar" id="sidebar"></aside>
   <main class="content">
-    <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết. Seller chỉ thao tác trên Zootop Bear; hệ thống sẽ tính giá, map dữ liệu và bắn đơn sang nền tảng/xưởng phù hợp.</div>
+    <div class="hint-bar">Bấm vào từng use case để xem giải thích và luồng chi tiết. Seller chỉ thao tác trên Zootop Bear; hệ thống nhận đơn, tính giá Zootop cho seller, đưa vào danh sách đơn tổng nội bộ và sau khi được xác nhận mới gửi sang xưởng phù hợp.</div>
     <div class="canvas" id="canvas">
       <div class="page-title">Use case của Seller</div>
       <div class="page-sub">Người dùng chính của hệ thống · 11 use case</div>
@@ -18,7 +18,7 @@
     <section class="manual-flow-panel" aria-label="Mô tả luồng hoạt động thủ công">
       <div class="panel-head">
         <div class="panel-title">Luồng hoạt động thủ công khi seller tạo đơn</div>
-        <div class="panel-sub">Dựa trên file đơn thủ công, bảng sản phẩm US Factory và file mã vận đơn PrintBelle để mô tả dễ hiểu cách Zootop Bear đang nhận đơn, tính tiền, đưa đơn sang xưởng và cập nhật mã vận đơn.</div>
+        <div class="panel-sub">Dựa trên luồng đã confirm: mỗi seller có file Excel riêng, Zootop Bear lấy đơn đưa vào file đơn tổng nội bộ, kế toán/vận hành xác nhận rồi mới gửi xưởng và cập nhật mã vận đơn.</div>
       </div>
       <table class="manual-flow-table">
         <thead>
@@ -31,9 +31,9 @@
         </thead>
         <tbody>
           <tr class="click-row" onclick="window.location.href='seller-manual-flow.html'">
-            <td><b>Seller gửi đơn → Zootop Bear xử lý Excel → đơn sang nền tảng/xưởng</b></td>
-            <td>File đơn thủ công, bảng sản phẩm, file mã vận đơn PrintBelle</td>
-            <td><span class="status-chip">Luồng hiện tại</span> đơn hàng, mã hàng, xưởng, tiền, mã vận đơn</td>
+            <td><b>File riêng seller → file đơn tổng Zootop → xác nhận đơn → gửi xưởng</b></td>
+            <td>File đơn riêng của seller, file đơn tổng, bảng sản phẩm, mã vận đơn</td>
+            <td><span class="status-chip">Luồng hiện tại</span> order_id, sản phẩm, tổng tiền, xưởng, trạng thái, mã vận đơn</td>
             <td><a class="flow-link" href="seller-manual-flow.html">Xem luồng</a></td>
           </tr>
         </tbody>
@@ -50,11 +50,11 @@
 renderSidebar('seller.html');
 renderUseCases({
   actorName: 'Seller',
-  actorRole: 'Tự đăng ký, xem catalog, nạp tiền, nhập đơn, upload thiết kế và theo dõi',
+  actorRole: 'Tự đăng ký, xem catalog, nạp tiền, tạo/import đơn, upload thiết kế và theo dõi mã vận đơn',
   theme: 't-teal',
   useCases: [
     {
-      code: 'UC-SEL-01', title: 'Đăng ký tài khoản', sub: 'Chờ admin duyệt',
+      code: 'UC-SEL-01', title: 'Đăng ký tài khoản', sub: 'Chờ admin duyệt', screen: 'scr-login', page: 'usecases/uc-sel-01-register.html',
       detail: `
         <h3>Precondition</h3>
         <ul>
@@ -83,16 +83,16 @@ renderUseCases({
           <li>Mọi thao tác duyệt/từ chối/khóa đều ghi audit log.</li>
         </ul>`
     },
-    { code: 'UC-SEL-02', title: 'Xem bảng sản phẩm và chi tiết sản phẩm', sub: 'Mã hàng, phiên bản sản phẩm, file mẫu, giá theo tier' },
-    { code: 'UC-SEL-03', title: 'Tải mockup/template thiết kế', sub: 'File mẫu sản phẩm, hướng dẫn artwork', flag: 'should' },
-    { code: 'UC-SEL-04', title: 'Tạo yêu cầu top-up và xem ví', sub: 'Số dư, chứng từ, lịch sử giao dịch' },
-    { code: 'UC-SEL-05', title: 'Tạo đơn lẻ hoặc qua kết nối tự động', sub: 'Thông tin người nhận, sản phẩm, hình thức giao hàng' },
-    { code: 'UC-SEL-06', title: 'Import file đơn theo template', sub: 'CSV/Excel, validate từng dòng, batch result' },
-    { code: 'UC-SEL-07', title: 'Upload/link file thiết kế', sub: 'Design front, mockup, product note' },
-    { code: 'UC-SEL-08', title: 'Xem breakdown và thanh toán đơn', sub: 'Giá Zootop Bear, ví, trạng thái Pending/Confirm' },
-    { code: 'UC-SEL-09', title: 'Theo dõi đơn và mã vận đơn', sub: 'Trạng thái, hãng vận chuyển, link theo dõi, 17TRACK' },
-    { code: 'UC-SEL-10', title: 'Hủy đơn và nhận hoàn tiền', sub: 'Tự hủy trong 30 phút, sau đó liên hệ hỗ trợ' },
-    { code: 'UC-SEL-11', title: 'Tạo ticket hỗ trợ đơn hàng', sub: 'Yêu cầu sửa/vấn đề đơn gửi tới xưởng' },
+    { code: 'UC-SEL-02', title: 'Xem bảng sản phẩm và chi tiết sản phẩm', sub: 'Mã hàng, phiên bản sản phẩm, file mẫu, giá Zootop theo tier', screen: 'scr-catalog', page: 'usecases/uc-sel-02-catalog.html' },
+    { code: 'UC-SEL-03', title: 'Tải ảnh mô phỏng/template thiết kế', sub: 'File mẫu sản phẩm theo từng nhóm hàng, hướng dẫn artwork', flag: 'should', screen: 'scr-catalog', page: 'usecases/uc-sel-03-template.html' },
+    { code: 'UC-SEL-04', title: 'Tạo yêu cầu top-up và xem ví', sub: 'Số dư, chứng từ, lịch sử giao dịch', screen: 'scr-wallet', page: 'usecases/uc-sel-04-wallet.html' },
+    { code: 'UC-SEL-05', title: 'Tạo đơn lẻ trên Zootop Bear', sub: 'Thay cho việc điền từng đơn vào file Excel riêng', screen: 'scr-create-order', page: 'usecases/uc-sel-05-create-order.html' },
+    { code: 'UC-SEL-06', title: 'Import file đơn theo template', sub: 'Excel theo từng nhóm sản phẩm, kiểm tra từng dòng, gom vào danh sách đơn tổng', screen: 'scr-import-order', page: 'usecases/uc-sel-06-import-order.html' },
+    { code: 'UC-SEL-07', title: 'Upload/link file thiết kế', sub: 'Thiết kế mặt trước/sau/tay áo, ảnh mô phỏng, ghi chú sản phẩm', screen: 'scr-create-order', page: 'usecases/uc-sel-07-upload-design.html' },
+    { code: 'UC-SEL-08', title: 'Xem tổng tiền và thanh toán đơn', sub: 'Seller chỉ thấy giá Zootop Bear, ví, trạng thái chờ xác nhận/đã xác nhận', screen: 'scr-pricing', page: 'usecases/uc-sel-08-payment.html' },
+    { code: 'UC-SEL-09', title: 'Theo dõi đơn và mã vận đơn', sub: 'Trạng thái dễ hiểu cho seller, hãng vận chuyển, mã vận đơn, 17TRACK', screen: 'scr-order-detail', page: 'usecases/uc-sel-09-tracking.html' },
+    { code: 'UC-SEL-10', title: 'Hủy đơn và nhận hoàn tiền', sub: 'Tự hủy trong 30 phút, sau đó liên hệ hỗ trợ', screen: 'scr-order-detail', page: 'usecases/uc-sel-10-cancel.html' },
+    { code: 'UC-SEL-11', title: 'Tạo ticket hỗ trợ đơn hàng', sub: 'Yêu cầu sửa thiết kế, báo lỗi đơn, hỏi mã vận đơn hoặc vấn đề giao hàng', screen: 'scr-ticket', page: 'usecases/uc-sel-11-ticket.html' },
   ]
 });
 </script>

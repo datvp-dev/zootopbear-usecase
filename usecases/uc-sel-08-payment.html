@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UC-SEL-08 — Tổng tiền và thanh toán đơn</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="usecase-detail.css">
+</head>
+<body>
+<main class="case-page">
+  <a class="case-back" href="../seller.html">← Quay lại Seller use case</a>
+  <div class="case-kicker">UC-SEL-08 · Seller</div>
+  <h1 class="case-title">Xem tổng tiền và thanh toán đơn</h1>
+  <p class="case-sub">Seller xem tổng tiền theo giá Zootop Bear. Chi phí xưởng chỉ dành cho Admin/Kế toán để đối soát.</p>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Wireframe dự kiến</h2>
+      <div class="wire">
+        <div class="wire-top">Tổng tiền đơn</div>
+        <div class="wire-cards"><div class="wire-card"></div><div class="wire-card"></div><div class="wire-card"></div></div>
+        <div class="wire-table"><span></span><span></span><span></span></div>
+        <div class="wire-button"></div>
+      </div>
+    </section>
+    <section class="case-card">
+      <h2>Luồng trực quan</h2>
+      <div class="flow-strip">
+        <div class="flow-node" data-step="1"><b>Hệ thống tính tiền</b><span>Dựa vào mã hàng, số lượng, ship/label, phí thêm nếu có.</span></div>
+        <div class="flow-node" data-step="2"><b>Seller xem giá</b><span>Chỉ hiển thị giá Zootop.</span></div>
+        <div class="flow-node" data-step="3"><b>Kiểm tra ví</b><span>Đủ tiền thì đơn có thể chờ xác nhận.</span></div>
+        <div class="flow-node" data-step="4"><b>Chờ xác nhận</b><span>Đơn chưa tự động gửi sang xưởng.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Ý hiểu hiện tại</h2>
+      <ul>
+        <li>Seller chỉ xem giá từ hệ thống Zootop Bear.</li>
+        <li>Admin/Kế toán xem được chi phí xưởng.</li>
+        <li>Đơn cần có bước xác nhận trước khi gửi xưởng.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Cần hỏi khách</h2>
+      <ul class="confirm-list">
+        <li>Tiền bị trừ khi seller gửi đơn hay khi kế toán/vận hành xác nhận đơn?</li>
+        <li>Nếu ví không đủ tiền thì đơn ở trạng thái nào?</li>
+        <li>Seller có cần xem breakdown từng khoản phí không hay chỉ xem tổng tiền?</li>
+      </ul>
+    </section>
+  </div>
+  <div class="links-row">
+    <a href="../screens.html#scr-pricing">Xem màn hình liên quan</a>
+    <a href="uc-sel-09-tracking.html">Use case tiếp theo</a>
+  </div>
+</main>
+</body>
+</html>

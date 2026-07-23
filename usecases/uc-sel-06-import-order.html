@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UC-SEL-06 — Import file đơn</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="usecase-detail.css">
+</head>
+<body>
+<main class="case-page">
+  <a class="case-back" href="../seller.html">← Quay lại Seller use case</a>
+  <div class="case-kicker">UC-SEL-06 · Seller</div>
+  <h1 class="case-title">Import file đơn theo template</h1>
+  <p class="case-sub">Seller upload file Excel theo template. Hệ thống kiểm tra dữ liệu từng dòng và gom đơn hợp lệ vào danh sách đơn tổng nội bộ.</p>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Wireframe dự kiến</h2>
+      <div class="wire">
+        <div class="wire-top">Import đơn · Tải template · Upload file</div>
+        <div class="wire-form">
+          <div class="wire-field"></div>
+          <div class="wire-button"></div>
+          <div class="wire-table"><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </section>
+    <section class="case-card">
+      <h2>Luồng trực quan</h2>
+      <div class="flow-strip">
+        <div class="flow-node" data-step="1"><b>Seller tải template</b><span>Chọn đúng template theo nhóm sản phẩm.</span></div>
+        <div class="flow-node" data-step="2"><b>Seller upload file</b><span>File thay cho Excel riêng hiện tại.</span></div>
+        <div class="flow-node" data-step="3"><b>Hệ thống kiểm tra</b><span>Bắt lỗi thiếu địa chỉ, sai mã hàng, thiếu thiết kế.</span></div>
+        <div class="flow-node" data-step="4"><b>Gom vào đơn tổng</b><span>Đơn hợp lệ chờ nội bộ xác nhận.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Ý hiểu hiện tại</h2>
+      <ul>
+        <li>Hiện tại mỗi seller có một file Excel riêng.</li>
+        <li>Web mới nên thay bằng import file theo seller và theo template chuẩn.</li>
+        <li>Cần lưu batch import để đối chiếu nếu có lỗi.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Cần hỏi khách</h2>
+      <ul class="confirm-list">
+        <li>Phase 1 bắt buộc seller dùng template chuẩn Zootop hay vẫn hỗ trợ file riêng từng seller?</li>
+        <li>Import lỗi một vài dòng thì cho nhập các dòng đúng trước hay bắt sửa cả file?</li>
+        <li>Seller có cần xem lịch sử từng lần import không?</li>
+      </ul>
+    </section>
+  </div>
+  <div class="links-row">
+    <a href="../screens.html#scr-import-order">Xem màn hình liên quan</a>
+    <a href="uc-sel-07-upload-design.html">Use case tiếp theo</a>
+  </div>
+</main>
+</body>
+</html>

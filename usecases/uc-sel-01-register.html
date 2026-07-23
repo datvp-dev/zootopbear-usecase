@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UC-SEL-01 — Đăng ký tài khoản</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="usecase-detail.css">
+</head>
+<body>
+<main class="case-page">
+  <a class="case-back" href="../seller.html">← Quay lại Seller use case</a>
+  <div class="case-kicker">UC-SEL-01 · Seller</div>
+  <h1 class="case-title">Đăng ký tài khoản</h1>
+  <p class="case-sub">Seller tự gửi thông tin đăng ký. Tài khoản chỉ được sử dụng sau khi Admin kiểm tra và duyệt.</p>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Wireframe dự kiến</h2>
+      <div class="wire">
+        <div class="wire-top">Đăng ký seller</div>
+        <div class="wire-form">
+          <div class="wire-field"></div>
+          <div class="wire-field"></div>
+          <div class="wire-field"></div>
+          <div class="wire-field"></div>
+          <div class="wire-button"></div>
+          <div class="wire-table"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </section>
+    <section class="case-card">
+      <h2>Luồng trực quan</h2>
+      <div class="flow-strip">
+        <div class="flow-node" data-step="1"><b>Seller điền form</b><span>Họ tên, email, số điện thoại, thông tin shop.</span></div>
+        <div class="flow-node" data-step="2"><b>Hệ thống ghi nhận</b><span>Tạo tài khoản ở trạng thái chờ duyệt.</span></div>
+        <div class="flow-node" data-step="3"><b>Admin duyệt</b><span>Kiểm tra seller, gán tier và nhân viên phụ trách nếu cần.</span></div>
+        <div class="flow-node" data-step="4"><b>Seller bắt đầu dùng</b><span>Sau khi active, seller có thể xem catalog, ví và tạo/import đơn.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Ý hiểu hiện tại</h2>
+      <ul>
+        <li>Seller là khách hàng chính của Zootop Bear.</li>
+        <li>Seller không tự vào các xưởng để tạo đơn; seller thao tác trên hệ thống Zootop Bear.</li>
+        <li>Admin có full quyền và là người duyệt seller.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Cần hỏi khách</h2>
+      <ul class="confirm-list">
+        <li>Seller đăng ký xong có cần xác thực email/số điện thoại không?</li>
+        <li>Admin cần gán seller cho CSKH/vận hành phụ trách ngay lúc duyệt không?</li>
+        <li>Seller bị từ chối có được đăng ký lại bằng email cũ không?</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="links-row">
+    <a href="../screens.html#scr-login">Xem màn hình liên quan</a>
+    <a href="uc-sel-02-catalog.html">Use case tiếp theo</a>
+  </div>
+</main>
+</body>
+</html>

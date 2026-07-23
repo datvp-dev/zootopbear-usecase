@@ -1,5 +1,6 @@
 function renderSidebar(activePage) {
   const items = [
+    { page: 'screens.html', name: 'Màn hình', color: '#6b6a63', count: 15 },
     { page: 'seller.html',  name: 'Seller',   color: 'var(--teal)',   count: 11 },
     { page: 'admin.html',   name: 'Admin',    color: 'var(--purple)', count: 11 },
     { page: 'ketoan.html',  name: 'Kế toán',  color: 'var(--amber)',  count: 5 },
