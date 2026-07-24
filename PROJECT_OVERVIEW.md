@@ -42,7 +42,7 @@ Muc tieu phase 1 la chot dung va du pham vi chuc nang theo tung role truoc, sau 
 - Huy don/hoan tien: huy truoc san xuat, hoan tien khi supplier fail/tu choi, ghi lich su.
 - Ticket ho tro don hang: seller tao ticket, CSKH/Van hanh/Admin theo doi va day van de/sua don sang nen tang/xuong tuong ung.
 - Gui don sang supplier qua API, nhan trang thai tu supplier, retry loi, nhat ky ket noi.
-- Tracking: luu tracking number/carrier/link, ket noi 17TRACK/webhook, hien thi cho seller.
+- Ma van don: luu tracking number/carrier/link neu supplier tra ve, hien thi cho seller; khach da chot khong lam 17TRACK/modal tracking trong Phase 1.
 - Thong bao Telegram cho tao don/nhap file va luu lich su thong bao.
 - Backup du lieu, log loi va giam sat co ban.
 
@@ -116,7 +116,7 @@ Template hien co cac cot:
 | Nhom du lieu | Cot trong template | Nguon du lieu can lam ro trong he thong |
 | --- | --- | --- |
 | Don hang | Date, Order ID, Ma khach hang | Tao tu he thong Zootop Bear, import tu file seller, hoac external ID seller cung cap. |
-| Van chuyen | Shipping method, Link Label, Tracking number | Seller nhap, he thong tinh/chon theo product/shipping rule, hoac supplier/17TRACK tra ve. |
+| Van chuyen | Shipping method, Link Label, Tracking number | Seller nhap, he thong tinh/chon theo product/shipping rule, hoac supplier tra ve. Khong lam 17TRACK trong Phase 1. |
 | Nguoi nhan | Customer's name, Email, Phone, Country, State, Address line 1, Address line 2, City, Zip | Seller nhap trong template/import; phase 1 luu nhu shipping info cua don, khong phai CRM khach cuoi. |
 | San pham | SKU, Quantity, Variant id | Lay tu catalog Zootop Bear va mapping voi SKU/variant cua tung supplier platform. |
 | Thiet ke | Design front, Mockup Front, Product Note | Seller cung cap link/file thiet ke/mockup/note khi tao don; can kiem tra quyen truy cap va mapping sang API tung nen tang. |
@@ -165,9 +165,9 @@ Zootop Bear da tao account seller tren cac nen tang nay. He thong Zootop Bear se
 - Nen tang co webhook trang thai/tracking khong, hay can polling API.
 - Nen tang tra ve supplier order id, status code, error code, tracking data nhu the nao.
 
-Rule routing theo san pham. Supplier/platform khong can thay thong tin seller thuc te cua Zootop Bear neu khong bat buoc. Supplier cap nhat trang thai qua API/webhook hoac theo kha nang thuc te cua tung nen tang; tracking lay tu API supplier va 17TRACK webhook neu nen tang/luong tich hop dap ung.
+Rule routing theo san pham. Supplier/platform khong can thay thong tin seller thuc te cua Zootop Bear neu khong bat buoc. Supplier cap nhat trang thai qua API/webhook hoac theo kha nang thuc te cua tung nen tang; tracking number/carrier lay tu supplier/platform. Khach da chot khong lam 17TRACK/modal tracking trong Phase 1.
 
-Seller can xem tracking number, carrier, tracking link, trang thai van chuyen va ngay giao du kien.
+Seller can xem tracking number, carrier/tracking link neu supplier co tra ve va trang thai don de hieu tren Zootop Bear.
 
 ### Ticket ho tro don hang
 

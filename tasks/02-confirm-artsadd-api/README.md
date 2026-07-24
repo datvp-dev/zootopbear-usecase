@@ -9,7 +9,12 @@ Lam ro cach Zootop Bear ket noi voi ART ADD de tao don, map du lieu don, nhan tr
 - Da tao task de ghi nhan thong tin.
 - Da doc folder demo `fulfillment.artsadd.com-php-demo`.
 - Da tao review tam thoi tai `tasks/02-confirm-artsadd-api/API_REVIEW.md`.
-- Dang can confirm them signing, webhook/tracking, status mapping, supplier SKU va API docs chuan cua ART ADD.
+- Da tao file tong hop trao doi hien tai va chat draft tai `tasks/02-confirm-artsadd-api/CURRENT_STATUS_AND_CHAT_DRAFT.md`.
+- ART ADD da cung cap AppKey/AppSecret va tao store test rieng cho API order.
+- Store test: `Zootop Bear API Test`, Store ID `4589cc68d3f38586e8aef1464166197f`.
+- Support da confirm API-created orders o trang thai unpaid; neu khong thanh toan thi khong bi tru tien.
+- Support da confirm co callback/webhook status ve he thong Zootop sau khi cung cap receiving endpoint URL, nhung chua co docs/payload mau.
+- Dang can confirm them signing, webhook/tracking sample payload, status mapping, supplier SKU va API docs chuan cua ART ADD.
 
 ## Noi dung can confirm
 

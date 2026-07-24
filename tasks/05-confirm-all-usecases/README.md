@@ -10,7 +10,7 @@ Mục tiêu của task này không phải hỏi sâu từng luồng chi tiết n
 - Mỗi role đã đủ chức năng chính chưa.
 - Có chức năng nào bị thiếu, thừa hoặc đặt sai role không.
 - Các màn hình dự kiến đã bao phủ được use case chưa.
-- Khách có đồng ý với hướng tổ chức màn hình theo format tham chiếu Simple Hub không.
+- Khách có đồng ý với hướng tổ chức màn hình theo format tham chiếu đã chọn không.
 
 ## Nguồn tham chiếu
 
@@ -98,6 +98,7 @@ Use case hiện tại:
 - Seller có cần xem lịch sử import file và lỗi từng dòng không.
 - Seller chỉ xem giá Zootop Bear, không xem chi phí xưởng, có đúng không.
 - Seller có được tự hủy đơn trong 30 phút không.
+- Với UC-SEL-09, khách đã chốt bỏ chức năng tracking/modal 17TRACK khỏi Phase 1; chỉ giữ theo dõi trạng thái đơn, hãng vận chuyển và mã vận đơn cơ bản.
 
 ### 2. Role Admin
 
@@ -208,7 +209,7 @@ Theo `screens.html`, hiện có 17 màn hình dự kiến:
 - 17 màn hình này đã đủ để bao phủ Phase 1 chưa.
 - Có màn nào nên gộp lại để đơn giản hơn không.
 - Có màn nào cần tách riêng vì nghiệp vụ nhiều không.
-- Với format tham chiếu Simple Hub, khách muốn ưu tiên màn hình nào làm trước.
+- Với format tham chiếu đã chọn, khách muốn ưu tiên màn hình nào làm trước.
 
 ## Kết quả mong muốn sau khi confirm
 
@@ -236,6 +237,8 @@ Sau buổi confirm, cần có:
 - Theo góp ý mới, đã tách phần header/sidebar/common menu/footer sang màn riêng `SCR-00 - Common layout`. Các màn nghiệp vụ như `SCR-16` chỉ vẽ phần nội dung chính để khách dễ tập trung review nghiệp vụ.
 - Theo góp ý nghiệp vụ mới, đã đổi luồng từ “seller chờ Admin duyệt rồi mới vào hệ thống” sang “seller tự xác nhận email, vào hệ thống ở trạng thái Dùng thử; Admin nhận thông báo và chuyển trạng thái seller sau”.
 - Đã note thêm: seller Dùng thử chỉ xem catalog public, các chức năng nghiệp vụ sẽ bị khóa theo trạng thái seller và API sẽ check trạng thái seller khi thao tác.
+- Khách đã chốt bỏ chức năng tracking/modal 17TRACK khỏi Phase 1, nên đã gỡ `UC-TRK-01` và `SCR-17` khỏi use case/màn hình hệ thống.
+- `UC-SEL-09`, `UC-OPS-05`, `UC-SUP-01`, `UC-SUP-02`, `UC-ADM-07` chỉ còn phạm vi xem trạng thái đơn, hãng vận chuyển và mã vận đơn cơ bản.
 - Mỗi file Seller có:
   - mô tả mục đích;
   - wireframe cơ bản;

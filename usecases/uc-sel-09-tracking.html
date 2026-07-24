@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UC-SEL-09 — Theo dõi mã vận đơn</title>
+<title>UC-SEL-09 — Theo dõi đơn và mã vận đơn</title>
 <link rel="stylesheet" href="../shared.css">
 <link rel="stylesheet" href="usecase-detail.css">
 </head>
@@ -12,13 +12,13 @@
   <a class="case-back" href="../seller.html">← Quay lại Seller use case</a>
   <div class="case-kicker">UC-SEL-09 · Seller</div>
   <h1 class="case-title">Theo dõi đơn và mã vận đơn</h1>
-  <p class="case-sub">Seller theo dõi trạng thái đơn bằng ngôn ngữ dễ hiểu, bao gồm trạng thái xử lý của xưởng và mã vận đơn sau khi xưởng ship hàng.</p>
+  <p class="case-sub">Seller xem tiến trình xử lý đơn trên Zootop Bear bằng ngôn ngữ dễ hiểu. Màn này bao gồm trạng thái nội bộ, trạng thái xưởng, hãng vận chuyển và mã vận đơn. Khách đã chốt không làm chức năng tracking/modal 17TRACK.</p>
 
   <div class="case-grid">
     <section class="case-card">
       <h2>Wireframe dự kiến</h2>
       <div class="wire">
-        <div class="wire-top">Chi tiết đơn · Trạng thái · Mã vận đơn</div>
+        <div class="wire-top">Chi tiết đơn · Trạng thái · Hãng vận chuyển · Mã vận đơn</div>
         <div class="wire-cards"><div class="wire-card"></div><div class="wire-card"></div><div class="wire-card"></div></div>
         <div class="wire-table"><span></span><span></span><span></span><span></span></div>
       </div>
@@ -26,10 +26,10 @@
     <section class="case-card">
       <h2>Luồng trực quan</h2>
       <div class="flow-strip">
-        <div class="flow-node" data-step="1"><b>Đơn được gửi xưởng</b><span>Sau khi nội bộ xác nhận.</span></div>
-        <div class="flow-node" data-step="2"><b>Xưởng xử lý</b><span>Xưởng có trạng thái đơn riêng.</span></div>
-        <div class="flow-node" data-step="3"><b>Có mã vận đơn</b><span>Khi xưởng giao hàng cho hãng vận chuyển.</span></div>
-        <div class="flow-node" data-step="4"><b>Seller theo dõi</b><span>Hiển thị trạng thái dễ hiểu, có thể qua 17TRACK.</span></div>
+        <div class="flow-node" data-step="1"><b>Đơn được gửi xưởng</b><span>Sau khi nội bộ xác nhận, Zootop gửi đơn sang xưởng phù hợp.</span></div>
+        <div class="flow-node" data-step="2"><b>Xưởng xử lý</b><span>Xưởng sản xuất, cập nhật trạng thái xử lý và có thể trả lỗi nếu thiếu dữ liệu.</span></div>
+        <div class="flow-node" data-step="3"><b>Có mã vận đơn</b><span>Khi xưởng tạo nhãn hoặc bàn giao cho hãng vận chuyển, Zootop nhận trackingID/carrier.</span></div>
+        <div class="flow-node" data-step="4"><b>Seller xem mã vận đơn</b><span>Seller thấy trạng thái dễ hiểu, hãng vận chuyển và mã vận đơn trong chi tiết đơn.</span></div>
       </div>
     </section>
   </div>
@@ -38,22 +38,46 @@
     <section class="case-card">
       <h2>Ý hiểu hiện tại</h2>
       <ul>
-        <li>Các xưởng có trạng thái đơn riêng, không chỉ có mã vận đơn.</li>
-        <li>Tracking carrier cũng có trạng thái riêng.</li>
-        <li>Cần map trạng thái về câu chữ dễ hiểu cho seller.</li>
+        <li>Seller không thao tác trực tiếp với xưởng; seller chỉ xem trạng thái trên Zootop Bear.</li>
+        <li>Một đơn cần có ít nhất 3 nhóm trạng thái: trạng thái xử lý trong Zootop, trạng thái xưởng, và trạng thái giao hàng theo tracking.</li>
+        <li>Khi chưa có mã vận đơn, seller cần thấy thông tin dễ hiểu như “Đang sản xuất” hoặc “Đang chờ xưởng cấp mã vận đơn”.</li>
+        <li>Khi đã có mã vận đơn, seller thấy hãng vận chuyển và trackingID/mã vận đơn trong chi tiết đơn.</li>
+        <li>Không làm modal tracking 17TRACK trong Phase 1; nếu cần xem sâu hơn thì xử lý thủ công bằng mã vận đơn/link bên ngoài.</li>
       </ul>
     </section>
     <section class="case-card">
-      <h2>Cần hỏi khách</h2>
+      <h2>Luồng chi tiết</h2>
+      <ol>
+        <li>Seller mở danh sách đơn hoặc chi tiết đơn.</li>
+        <li>Hệ thống hiển thị trạng thái hiện tại của đơn: chờ xác nhận, đã gửi xưởng, đang sản xuất, đã có mã vận đơn, đang vận chuyển, đã giao, hoặc cần hỗ trợ.</li>
+        <li>Nếu xưởng chưa trả trackingID, hệ thống hiển thị trạng thái chờ mã vận đơn và không mở modal tracking.</li>
+        <li>Nếu xưởng đã trả trackingID, hệ thống hiển thị tracking number và carrier ở chi tiết đơn.</li>
+        <li>Seller có thể copy trackingID hoặc mở link carrier bên ngoài nếu hệ thống có lưu link.</li>
+        <li>Hệ thống không cần đăng ký trackingID lên 17TRACK và không cần lưu timeline vận chuyển từ 17TRACK.</li>
+      </ol>
+    </section>
+  </div>
+
+  <div class="case-grid">
+    <section class="case-card">
+      <h2>Business rules</h2>
+      <ul>
+        <li>Seller chỉ xem được tracking của đơn thuộc tài khoản seller đó.</li>
+        <li>Seller nhìn trạng thái tiếng Việt dễ hiểu, không hiển thị raw status khó hiểu từ xưởng.</li>
+        <li>Admin có full quyền xem toàn bộ mã vận đơn/trạng thái đơn; CSKH/Vận hành xem theo quyền được phân công.</li>
+        <li>Không phát sinh quota/chi phí 17TRACK vì khách đã chốt không làm chức năng này.</li>
+      </ul>
+    </section>
+    <section class="case-card">
+      <h2>Đã chốt</h2>
       <ul class="confirm-list">
-        <li>Seller cần xem những trạng thái nào: chờ xác nhận, đã gửi xưởng, đang sản xuất, đã có mã vận đơn, đã giao?</li>
-        <li>Có cần gửi email khi có mã vận đơn không?</li>
-        <li>Seller có cần link mở trang hãng vận chuyển/17TRACK không?</li>
+        <li>Bỏ chức năng tracking/modal 17TRACK khỏi Phase 1.</li>
       </ul>
     </section>
   </div>
+
   <div class="links-row">
-    <a href="../screens.html#scr-order-detail">Xem màn hình liên quan</a>
+    <a href="../screens.html#scr-order-detail">Xem màn SCR-06</a>
     <a href="uc-sel-10-cancel.html">Use case tiếp theo</a>
   </div>
 </main>
